@@ -1,0 +1,33 @@
+{
+    "name": "rtc-tman",
+    "version": "0.0.1",
+    "author": "Chat-Wane <grumpy.chat.wane@gmail.com>",
+    "description": "TODO" 
+    "main": "./lib/tman.js",
+    "repository": {
+	"type": "git",
+	"url": "https://github.com/chat-wane/rtc-TMan.git"
+    },
+    "keywords": [
+	"gossip",
+	"broadcast",
+	"scamp",
+	"webrtc"
+    ],
+    "scripts": {
+	"debug": "browserify -r ./lib/tman.js:rtc-scamp --debug > build/rtc-tman.bundle.debug.js",
+	"build": "browserify -r ./lib/tman.js:rtc-scamp | uglifyjs > build/rtc-tman.bundle.js"
+    },
+    "dependencies": {
+	"rtc-scamp-mbr": "0.0.x",
+	"p2pnetwork": "0.0.x"
+    },
+    "bundledDependencies": [
+	"rtc-scamp-mbr",
+	"p2pnetwork"
+    ],
+    "license": "MIT",
+    "engines": {
+	"node": ">=0.10.35"
+    }
+}
