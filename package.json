@@ -1,33 +1,49 @@
 {
-    "name": "rtc-tman",
+    "name": "tman-wrtc",
     "version": "0.0.1",
     "author": "Chat-Wane <grumpy.chat.wane@gmail.com>",
-    "description": "TODO" 
+    "description": "Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions",
     "main": "./lib/tman.js",
     "repository": {
-	"type": "git",
-	"url": "https://github.com/chat-wane/rtc-TMan.git"
+        "type": "git",
+        "url": "https://github.com/ran3d/tman-wrtc.git"
     },
     "keywords": [
-	"gossip",
-	"broadcast",
-	"scamp",
-	"webrtc"
+        "Peer-sampling protocol",
+        "Topology",
+        "browser-to-browser communication",
+        "WebRTC"
     ],
-    "scripts": {
-	"debug": "browserify -r ./lib/tman.js:rtc-scamp --debug > build/rtc-tman.bundle.debug.js",
-	"build": "browserify -r ./lib/tman.js:rtc-scamp | uglifyjs > build/rtc-tman.bundle.js"
-    },
     "dependencies": {
-	"rtc-scamp-mbr": "0.0.x",
-	"p2pnetwork": "0.0.x"
+        "lodash": "^4.17.4",
+        "debug": "^2.6.1",
+        "spray-wrtc": "git://github.com/ran3d/spray-wrtc.git#merging",
+        "n2n-overlay-wrtc": "git://github.com/ran3d/n2n-overlay-wrtc.git#merging"
     },
     "bundledDependencies": [
-	"rtc-scamp-mbr",
-	"p2pnetwork"
+        "lodash",
+        "debug",
+        "spray-wrtc",
+        "n2n-overlay-wrtc"
     ],
-    "license": "MIT",
-    "engines": {
-	"node": ">=0.10.35"
-    }
+    "devDependencies": {
+        "ava": "0.18.x",
+        "browserify": "6.2.x",
+        "esdoc": "^0.5.2",
+        "esdoc-node": "^1.0.1",
+        "nyc": "10.1.x",
+        "p2p-graph": "^1.0.0"
+    },
+    "scripts": {
+        "debug": "browserify -r ./lib/tman.js:tman-wrtc --debug > build/tman-wrtc.bundle.debug.js",
+        "build": "browserify -r ./lib/tman.js:tman-wrtc > build/tman-wrtc.bundle.js",
+        "esdoc": "esdoc && npm run esdoc:example",
+        "esdoc:example": "cp -R ./build ./examples ./docs",
+        "test": "npm run all",
+        "ava": "ava -v",
+        "watch": "ava -v --watch",
+        "coverage": "nyc ava",
+        "all": "npm run debug && npm run build && npm run ava && npm run esdoc"
+    },
+    "license": "MIT"
 }
