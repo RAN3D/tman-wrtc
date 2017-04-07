@@ -82,7 +82,7 @@ class EPV {
      * @returns {number} The oldest age.
      */
     get oldest () {
-        return this.ages[this.ages.length +1];
+        return this.ages[this.ages.length - 1];
     };
 
     /**
@@ -222,7 +222,7 @@ class IRPS extends EventEmitter {
 
 module.exports = IRPS;
 
-},{"../messages/mevent.js":7,"debug":18,"events":20}],7:[function(require,module,exports){
+},{"../messages/mevent.js":7,"debug":20,"events":22}],7:[function(require,module,exports){
 'use strict';
 
 /**
@@ -250,17 +250,64 @@ module.exports = MEvent;
 'use strict';
 
 /**
+ * Message that gives your descriptor to another peer.
+ */
+class MGiveDescriptor {
+    /**
+     * @param {string} tid The identifier of the request message.
+     * @param {string} inview The identifier of the inview of the sender.
+     * @param {object} descriptor The descriptor of the sender.
+     */
+    constructor (tid, inview, descriptor) {
+        this.tid = tid;
+        this.peer = inview;
+        this.descriptor = descriptor;
+        this.type = 'MGiveDescriptor';
+    };
+};
+
+module.exports = MGiveDescriptor;
+
+},{}],9:[function(require,module,exports){
+'use strict';
+
+/**
  * Message sent by a newcommer to its contact when it joins the network.
  */
 class MJoin {
-    constructor () {
+    /** 
+     * @param {string} inview The identifier of the inview of the newcomer.
+     * @param {object} descriptor The descriptor of the newcomer.
+     */ 
+    constructor (inview, descriptor) {
+        this.peer = inview;
+        this.descriptor = descriptor;
         this.type = 'MJoin';
     };
 };
 
 module.exports = MJoin;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+'use strict';
+
+/**
+ * Message sent by a peer asking for the receiver to send its descriptor.
+ */   
+class MRequestDescriptor {
+    /**
+     * @param {string} tid The identifier of the request.
+     */
+    constructor (tid) {
+        this.tid = tid;
+        this.type = 'MRequestDescriptor';
+    };
+};
+
+module.exports = MRequestDescriptor;
+
+
+},{}],11:[function(require,module,exports){
 'use strict';
 
 /**
@@ -280,7 +327,7 @@ class MRequire {
 
 module.exports = MRequire;
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 /**
@@ -303,7 +350,7 @@ class MSuggest {
 
 module.exports = MSuggest;
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 /**
@@ -323,7 +370,7 @@ class MSuggestBack {
 
 module.exports = MSuggestBack;
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 const EPV = require('./entries/epv.js');
@@ -470,7 +517,7 @@ class PartialView extends Map {
 
 module.exports = PartialView;
 
-},{"./entries/epv.js":2,"./exceptions/expeernotfound.js":4}],13:[function(require,module,exports){
+},{"./entries/epv.js":2,"./exceptions/expeernotfound.js":4}],15:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -592,9 +639,9 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],14:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -706,7 +753,7 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"buffer":16}],16:[function(require,module,exports){
+},{"buffer":18}],18:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -1760,7 +1807,7 @@ function decodeUtf8Char (str) {
   }
 }
 
-},{"base64-js":13,"ieee754":22,"is-array":24}],17:[function(require,module,exports){
+},{"base64-js":15,"ieee754":24,"is-array":26}],19:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1871,7 +1918,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":25}],18:[function(require,module,exports){
+},{"../../is-buffer/index.js":27}],20:[function(require,module,exports){
 (function (process){
 /**
  * This is the web browser implementation of `debug()`.
@@ -2060,7 +2107,7 @@ function localstorage() {
 }
 
 }).call(this,require('_process'))
-},{"./debug":19,"_process":48}],19:[function(require,module,exports){
+},{"./debug":21,"_process":50}],21:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -2264,7 +2311,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":28}],20:[function(require,module,exports){
+},{"ms":30}],22:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2567,7 +2614,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 // originally pulled out of simple-peer
 
 module.exports = function getBrowserRTC () {
@@ -2584,7 +2631,7 @@ module.exports = function getBrowserRTC () {
   return wrtc
 }
 
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -2670,7 +2717,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],23:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -2695,7 +2742,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],24:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 
 /**
  * isArray
@@ -2730,7 +2777,7 @@ module.exports = isArray || function (val) {
   return !! val && '[object Array]' == str.call(val);
 };
 
-},{}],25:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -2753,14 +2800,14 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],26:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],27:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -19848,7 +19895,7 @@ module.exports = Array.isArray || function (arr) {
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],28:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -19999,7 +20046,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's'
 }
 
-},{}],29:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20022,7 +20069,7 @@ class MConnectTo {
 
 module.exports = MConnectTo;
 
-},{}],30:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20037,7 +20084,7 @@ class MDirect {
 
 module.exports = MDirect;
 
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20060,7 +20107,7 @@ class MForwarded {
 
 module.exports = MForwarded;
 
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20082,7 +20129,7 @@ class MForwardTo {
 
 module.exports = MForwardTo;
 
-},{}],33:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
 const debug = require('debug')('n2n-overlay-wrtc');
@@ -20420,7 +20467,7 @@ class Neighbor extends EventEmitter {
 
 module.exports = Neighbor;
 
-},{"./messages/mconnectto.js":29,"./messages/mdirect.js":30,"./messages/mforwarded.js":31,"./messages/mforwardto.js":32,"debug":18,"events":20,"lodash":27,"neighborhood-wrtc":46,"uuid/v4":62}],34:[function(require,module,exports){
+},{"./messages/mconnectto.js":31,"./messages/mdirect.js":32,"./messages/mforwarded.js":33,"./messages/mforwardto.js":34,"debug":20,"events":22,"lodash":29,"neighborhood-wrtc":48,"uuid/v4":64}],36:[function(require,module,exports){
 'use strict';
 
 const ELiving = require('./entries/eliving.js');
@@ -20572,7 +20619,7 @@ class ArcStore {
 
 module.exports = ArcStore;
 
-},{"./entries/eliving.js":36,"./exceptions/exsocketnotfound.js":41}],35:[function(require,module,exports){
+},{"./entries/eliving.js":38,"./exceptions/exsocketnotfound.js":43}],37:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20595,7 +20642,7 @@ class EDying {
 
 module.exports = EDying;
 
-},{}],36:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20663,7 +20710,7 @@ class ELiving {
 
 module.exports = ELiving;
 
-},{}],37:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20692,7 +20739,7 @@ class EPending {
 
 module.exports = EPending;
 
-},{}],38:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20715,7 +20762,7 @@ class ExIncompleteMessage {
 
 module.exports = ExIncompleteMessage;
 
-},{}],39:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20736,7 +20783,7 @@ class ExLateMessage {
 
 module.exports = ExLateMessage;
 
-},{}],40:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20756,7 +20803,7 @@ class ExProtocolExists {
 
 module.exports = ExProtocolExists;
 
-},{}],41:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20780,7 +20827,7 @@ class ExSocketNotFound {
 
 module.exports = ExSocketNotFound;
 
-},{}],42:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20842,7 +20889,7 @@ class INeighborhood {
 
 module.exports = INeighborhood;
 
-},{}],43:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20871,7 +20918,7 @@ class MRequest {
 
 module.exports = MRequest;
 
-},{}],44:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20899,7 +20946,7 @@ class MResponse {
 
 module.exports = MResponse;
 
-},{}],45:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20923,7 +20970,7 @@ class MSend {
 
 module.exports = MSend;
 
-},{}],46:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 const debug = require('debug')('neighborhood-wrtc');
@@ -21397,7 +21444,7 @@ class Neighborhood {
 
 module.exports = Neighborhood;
 
-},{"./arcstore.js":34,"./entries/edying.js":35,"./entries/epending.js":37,"./exceptions/exincompletemessage.js":38,"./exceptions/exlatemessage.js":39,"./exceptions/exprotocolexists.js":40,"./interfaces/ineighborhood.js":42,"./messages/mrequest.js":43,"./messages/mresponse.js":44,"./messages/msend.js":45,"debug":18,"lodash":27,"simple-peer":57,"uuid/v4":62}],47:[function(require,module,exports){
+},{"./arcstore.js":36,"./entries/edying.js":37,"./entries/epending.js":39,"./exceptions/exincompletemessage.js":40,"./exceptions/exlatemessage.js":41,"./exceptions/exprotocolexists.js":42,"./interfaces/ineighborhood.js":44,"./messages/mrequest.js":45,"./messages/mresponse.js":46,"./messages/msend.js":47,"debug":20,"lodash":29,"simple-peer":59,"uuid/v4":64}],49:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -21444,7 +21491,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":48}],48:[function(require,module,exports){
+},{"_process":50}],50:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -21532,7 +21579,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],49:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 (function (process,global,Buffer){
 'use strict'
 
@@ -21572,7 +21619,7 @@ function randomBytes (size, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"_process":48,"buffer":16}],50:[function(require,module,exports){
+},{"_process":50,"buffer":18}],52:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -21648,7 +21695,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":52,"./_stream_writable":54,"core-util-is":17,"inherits":23,"process-nextick-args":47}],51:[function(require,module,exports){
+},{"./_stream_readable":54,"./_stream_writable":56,"core-util-is":19,"inherits":25,"process-nextick-args":49}],53:[function(require,module,exports){
 // a passthrough stream.
 // basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
@@ -21675,7 +21722,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":53,"core-util-is":17,"inherits":23}],52:[function(require,module,exports){
+},{"./_stream_transform":55,"core-util-is":19,"inherits":25}],54:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -22619,7 +22666,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":50,"./internal/streams/BufferList":55,"_process":48,"buffer":16,"buffer-shims":15,"core-util-is":17,"events":20,"inherits":23,"isarray":26,"process-nextick-args":47,"string_decoder/":58,"util":14}],53:[function(require,module,exports){
+},{"./_stream_duplex":52,"./internal/streams/BufferList":57,"_process":50,"buffer":18,"buffer-shims":17,"core-util-is":19,"events":22,"inherits":25,"isarray":28,"process-nextick-args":49,"string_decoder/":60,"util":16}],55:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -22802,7 +22849,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":50,"core-util-is":17,"inherits":23}],54:[function(require,module,exports){
+},{"./_stream_duplex":52,"core-util-is":19,"inherits":25}],56:[function(require,module,exports){
 (function (process){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
@@ -23356,7 +23403,7 @@ function CorkedRequest(state) {
   };
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":50,"_process":48,"buffer":16,"buffer-shims":15,"core-util-is":17,"events":20,"inherits":23,"process-nextick-args":47,"util-deprecate":59}],55:[function(require,module,exports){
+},{"./_stream_duplex":52,"_process":50,"buffer":18,"buffer-shims":17,"core-util-is":19,"events":22,"inherits":25,"process-nextick-args":49,"util-deprecate":61}],57:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -23421,7 +23468,7 @@ BufferList.prototype.concat = function (n) {
   }
   return ret;
 };
-},{"buffer":16,"buffer-shims":15}],56:[function(require,module,exports){
+},{"buffer":18,"buffer-shims":17}],58:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -23430,7 +23477,7 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":50,"./lib/_stream_passthrough.js":51,"./lib/_stream_readable.js":52,"./lib/_stream_transform.js":53,"./lib/_stream_writable.js":54}],57:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":52,"./lib/_stream_passthrough.js":53,"./lib/_stream_readable.js":54,"./lib/_stream_transform.js":55,"./lib/_stream_writable.js":56}],59:[function(require,module,exports){
 (function (Buffer){
 module.exports = Peer
 
@@ -24187,7 +24234,7 @@ Peer.prototype._transformConstraints = function (constraints) {
 function noop () {}
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":16,"debug":18,"get-browser-rtc":21,"inherits":23,"randombytes":49,"readable-stream":56}],58:[function(require,module,exports){
+},{"buffer":18,"debug":20,"get-browser-rtc":23,"inherits":25,"randombytes":51,"readable-stream":58}],60:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -24461,7 +24508,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"buffer":16,"buffer-shims":15}],59:[function(require,module,exports){
+},{"buffer":18,"buffer-shims":17}],61:[function(require,module,exports){
 (function (global){
 
 /**
@@ -24532,7 +24579,7 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],60:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
@@ -24557,7 +24604,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],61:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 (function (global){
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
@@ -24594,7 +24641,7 @@ if (!rng) {
 module.exports = rng;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],62:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -24625,12 +24672,13 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":60,"./lib/rng":61}],"tman-wrtc":[function(require,module,exports){
+},{"./lib/bytesToUuid":62,"./lib/rng":63}],"tman-wrtc":[function(require,module,exports){
 'use strict';
 
 const debug = require('debug')('tman-wrtc');
 const N2N = require('n2n-overlay-wrtc');
 const _ = require('lodash');
+const uuid = require('uuid/v4');
 
 const PartialView = require('./partialview.js');
 const Cache = require('./cache.js');
@@ -24640,6 +24688,8 @@ const MJoin = require('./messages/mjoin.js');
 const MSuggest = require('./messages/msuggest.js');
 const MSuggestBack = require('./messages/msuggestback.js');
 const MRequire = require('./messages/mrequire.js');
+const MGiveDescriptor = require('./messages/mgivedescriptor.js');
+const MRequestDescriptor = require('./messages/mrequestdescriptor.js');
 
 const ExProtocol = require('./exceptions/exprotocol.js');
 const ExMessage = require('./exceptions/exmessage.js');
@@ -24679,7 +24729,7 @@ class TMan extends N2N {
                          ranking: (neighbor) => (a, b) => {
                              const db = b.descriptor.x - neighbor.descriptor.x;
                              const da = a.descriptor.x - neighbor.descriptor.x;
-                             return Math.abs(db) - Math.abs(da);
+                             return Math.abs(da) - Math.abs(db);
                          }}, options) );
         // #1 constants (from N2N): this.PID, this.PEER
         debug('[%s] Initalized with ==> %s ==>', this.PID, this.PEER);
@@ -24756,7 +24806,9 @@ class TMan extends N2N {
             }, this.options.timeout);
             // #2 very first call, only done once
             this.once('open', (peerId) => {
-                this.send(peerId, new MJoin(), this.options.retry);
+                this.send(peerId, new MJoin(this.getInviewId(),
+                                            this.options.descriptor),
+                          this.options.retry);
                 this._start(); // start shuffling process
                 clearTimeout(to);
                 resolve();
@@ -24770,19 +24822,28 @@ class TMan extends N2N {
      * @private Behavior when a peer just joined the network through this peer.
      * @param {string} peerId The identifier of the newcomer.
      */
-    _onJoin (peerId) {
+    _onJoin (peerId, message) {
         if (this.partialView.size > 0){
             // #1 all neigbors -> peerId
             debug('[%s] %s ===> join %s; %s neigbhors ===> %s',
                   this.PID, peerId, this.PEER, this.partialView.size, peerId);
+            let neighbors = [];
             this.partialView.forEach( (epv, neighbor) => {
-                this.connect(peerId, neighbor);
+                neighbors.push({peer: epv.peer, descriptor: epv.descriptor});
             });
+            neighbors.push({peer:this.getInviewId(),
+                            descriptor: this.options.descriptor});
+            this.send(peerId, new MSuggestBack(neighbors), this.options.retry);
         } else {
             // #2 this -> peerId
             debug('[%s] %s ===> join %s ===> %s',
                   this.PID, peerId, this.PEER, peerId);
+            this.cache.add(message.peer, message.descriptor);
             this.connect(null, peerId);
+            this.send(peerId,
+                      new MSuggestBack([{peer:this.getInviewId(),
+                                         descriptor: this.options.descriptor}]),
+                      this.options.retry);
             this._start();
         };
     };
@@ -24813,14 +24874,14 @@ class TMan extends N2N {
      * @return {number} The size of the sample to create.
      */
     _sampleSize (flatten) {
-        return Math.min(flatten.length, 3);
+        return Math.min(flatten.length, 2);
     };
 
     /**
      * @private Getter for the maximum partial view size.
      */
     _partialViewSize () {
-        return 6;
+        return 4;
     };
     
     /**
@@ -24867,10 +24928,10 @@ class TMan extends N2N {
         // #1 get the oldest peer in our partial view
         const oldest = this.partialView.oldest;                
         // #2 get a sample of our partial view to send
-        const sample = this._getSample(oldest);
-        this.send( oldest, new MSuggest(this.getInviewId(),
-                                        this.options.descriptor,
-                                        sample) )
+        const sample = this._getSample(this.partialView.get(oldest));
+        this.send(oldest, new MSuggest(this.getInviewId(),
+                                       this.options.descriptor,
+                                       sample) )
             .then( () => {
                 debug('[%s] %s ==> suggest %s ==> %s',
                       this.PID, this.PEER, sample.length, oldest);
@@ -24891,7 +24952,7 @@ class TMan extends N2N {
     _onExchange (peerId, message) {
         // #1 prepare the sample to send back
         const sample = this._getSample(message);
-        this.send( peerId, new MSuggestBack(sample) ).then( () => {
+        this.send(peerId, new MSuggestBack(sample) ).then( () => {
             debug('[%s] %s ==> suggest back %s ==> %s',
                   this.PID, this.PEER, sample.length, peerId);
         });
@@ -24909,20 +24970,24 @@ class TMan extends N2N {
         // #1 keep the best elements from the received sample
         let ranked = [];
         this.partialView.forEach( (epv, neighbor) => ranked.push(epv));
-        this.message.sample.forEach( (e) => ranked.push(e) );
+        message.sample.forEach( (e) => {
+            !this.partialView.has(e.peer) && ranked.push(e);
+        });
         ranked.sort( this.options.ranking(this.options) );
         // #3 require the elements
-        ranked.slice(0, this._partialViewSize());
+        let sliced = ranked.slice(0, this._partialViewSize());
         let request = [];
-        ranked.forEach( (e) => {
+        sliced.forEach( (e) => {
             if (!this.partialView.has(e.peer)) {
                 request.push(e.peer);
                 this.cache.add(e.peer, e.descriptor);
             };
         });
-        debug('[%s] %s wants to keep %s peers.',
-              this.PID, this.PEER, ranked.length);
-        this.send(peerId, new MRequire(request));
+        if (request.length > 0) {
+            debug('[%s] %s wants to keep %s peers.',
+                  this.PID, this.PEER, request.length);
+            this.send(peerId, new MRequire(request));
+        };
     };
 
     /**
@@ -24945,8 +25010,9 @@ class TMan extends N2N {
      * protocol.
      * @param {string} peerId The identifier of the peer that sent the message.
      * @param {object|MExchange} message The message received.
-     */ 
-    _receive (peerId, message) {        
+     */
+    _receive (peerId, message) {
+        //        console.log('from ' + peerId,  message);
         if (message.type && message.type === 'MSuggest') {
             this._onExchange(peerId, message);
         } else if (message.type && message.type === 'MSuggestBack') {
@@ -24954,7 +25020,11 @@ class TMan extends N2N {
         } else if (message.type && message.type === 'MRequire') {
             this._onRequire(peerId, message);
         } else if (message.type && message.type === 'MJoin') {
-            this._onJoin(peerId);
+            this._onJoin(peerId, message);
+        } else if (message.type && message.type === 'MGiveDescriptor') {
+            this.emit(message.tid, message);
+        } else if (message.type && message.type === 'MRequestDescriptor') {
+            this._onRequestDescriptor(peerId, message);
         } else if (message.type && message.type === 'MEvent') {
             if (this.protocols.has(message.pid)) {
                 this.protocols.get(message.pid)._receive(message);
@@ -24982,6 +25052,35 @@ class TMan extends N2N {
         this.periodic && clearInterval(this.periodic);
     };
 
+
+    _requestDescriptor (peerId) {
+        return new Promise( (resolve, reject) => {
+            const tid = uuid();
+            let timeout = null;
+            this.send(peerId, new MRequestDescriptor(tid), this.options.retry)
+                .then( () => {
+                    timeout = setTimeout( () => {
+                        this.removeAllListeners(tid);
+                        reject('timeout'); // (TODO) throw exception
+                    }, 10000); // (TODO) timeout config                    
+                }).catch( (e) => {
+                    reject(e);
+                });
+            
+            this.once(tid, (message) => {
+                this.cache.add(message.peer, message.descriptor);
+                resolve();
+            });
+        });
+    };
+
+    _onRequestDescriptor (peerId, message) {
+        this.send(peerId, new MGiveDescriptor(message.tid,
+                                              this.getInviewId(),
+                                              this.options.descriptor),
+                  this.options.retry);
+    };
+    
     /**
      * @private
      * Behavior when a connection is ready to be added in the partial view.
@@ -24992,21 +25091,37 @@ class TMan extends N2N {
         // #1 Check if it is already in the view. We do not want duplicate. Such
         // cases happen due to concurrency. Check if the descriptor is still in
         // the cache.
-        if (this.partialView.has(peerId) || !this.cache.has(peerId)) {
+        if (this.partialView.has(peerId)) {
             this.disconnect(peerId);
+        } else if (!this.cache.has(peerId)) {
+            this._requestDescriptor(peerId).then( () => {
+                if (this.partialView.has(peerId)){
+                    this.disconnect(peerId);
+                } else {
+                    this._keep(peerId);
+                };
+            }).catch( (e) => {
+                this.disconnect(peerId);
+            });
         } else {
             // #2 rank peers to check which is to throw, if there is.
-            let ranked = [];
-            this.partialView.forEach( (epv, neighbor) => ranked.push(epv));
-            ranked.push({peer: peerId, descriptor: this.cache.get(peerId) });
-            ranked.sort( this.options.ranking(this.options) );
-            let sliced = ranked.slice(0, this._partialViewSize());
-            if (sliced.length > 0 && sliced[0].peer === peerId) {
-                this.disconnect(peerId);
-            } else {
-                this.partialView.addNeighbor(peerId, this.cache.get(peerId));
-                sliced.length > 0 && this.disconnect(sliced[0].peer);
-            };
+            this._keep(peerId);
+        };
+    };
+
+    _keep (peerId) {
+        let ranked = [];
+        this.partialView.forEach( (epv, neighbor) => ranked.push(epv));
+        ranked.push({peer: peerId, descriptor: this.cache.get(peerId) });
+        ranked.sort( this.options.ranking(this.options) );
+        let sliced = ranked.slice(0, this._partialViewSize());
+        ranked.splice(0, this._partialViewSize());
+        // ranked becomes the rest: the lowest graded
+        if (ranked.length > 0 && ranked[0].peer === peerId) {
+            this.disconnect(peerId);
+        } else {
+            this.partialView.addNeighbor(peerId, this.cache.get(peerId));
+            ranked.length > 0 && this.disconnect(ranked[0].peer);
         };
     };
     
@@ -25078,4 +25193,4 @@ class TMan extends N2N {
 
 module.exports = TMan;
 
-},{"./cache.js":1,"./exceptions/exmessage.js":3,"./exceptions/exprotocol.js":5,"./interfaces/irps.js":6,"./messages/mjoin.js":8,"./messages/mrequire.js":9,"./messages/msuggest.js":10,"./messages/msuggestback.js":11,"./partialview.js":12,"debug":18,"lodash":27,"n2n-overlay-wrtc":33}]},{},[]);
+},{"./cache.js":1,"./exceptions/exmessage.js":3,"./exceptions/exprotocol.js":5,"./interfaces/irps.js":6,"./messages/mgivedescriptor.js":8,"./messages/mjoin.js":9,"./messages/mrequestdescriptor.js":10,"./messages/mrequire.js":11,"./messages/msuggest.js":12,"./messages/msuggestback.js":13,"./partialview.js":14,"debug":20,"lodash":29,"n2n-overlay-wrtc":35,"uuid/v4":64}]},{},[]);

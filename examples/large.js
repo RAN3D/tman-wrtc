@@ -2,7 +2,7 @@ const T = require('tman-wrtc');
 
 let graph = new window.P2PGraph('.graph');
 
-let N = 2;
+let N = 25;
 
 // #1 create N peers 
 let peers = [];
@@ -65,8 +65,8 @@ var cloud = () => {
     let result = [];
     for (let i = 0; i < N; ++i) {
         peers[i].getPeers().forEach( (neighbor) => {
-            let d = (peers[i].options.x -
-                     revertedIndex.get(neighbor).options.x)/N;
+            let d = Math.abs(peers[i].options.descriptor.x -
+                     revertedIndex.get(neighbor).options.descriptor.x)/N;
             result.push(d);
         });       
     };
