@@ -17,13 +17,11 @@
     "dependencies": {
         "lodash": "^4.17.4",
         "debug": "^2.6.1",
-        "spray-wrtc": "git://github.com/ran3d/spray-wrtc.git#merging",
         "n2n-overlay-wrtc": "git://github.com/ran3d/n2n-overlay-wrtc.git#merging"
     },
     "bundledDependencies": [
         "lodash",
         "debug",
-        "spray-wrtc",
         "n2n-overlay-wrtc"
     ],
     "devDependencies": {
