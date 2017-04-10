@@ -32,7 +32,8 @@
         "esdoc": "^0.5.2",
         "esdoc-node": "^1.0.1",
         "nyc": "10.1.x",
-        "p2p-graph": "^1.0.0"
+        "p2p-graph": "^1.0.0",
+        "spray-wrtc": "git://github.com/ran3d/spray-wrtc.git#merging"
     },
     "scripts": {
         "debug": "browserify -r ./lib/tman.js:tman-wrtc --debug > build/tman-wrtc.bundle.debug.js",
