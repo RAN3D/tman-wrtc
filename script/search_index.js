@@ -12,12 +12,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "tman-wrtc/lib/interfaces/irps.js~eventemitter",
-    "variable/index.html#static-variable-EventEmitter",
-    "<span>EventEmitter</span> <span class=\"search-result-import-path\">tman-wrtc/lib/interfaces/irps.js</span>",
-    "variable"
-  ],
-  [
     "tman-wrtc/lib/exceptions/exmessage.js~exmessage",
     "class/lib/exceptions/exmessage.js~ExMessage.html",
     "<span>ExMessage</span> <span class=\"search-result-import-path\">tman-wrtc/lib/exceptions/exmessage.js</span>",
@@ -27,24 +21,6 @@ window.esdocSearchIndex = [
     "tman-wrtc/lib/exceptions/expeernotfound.js~expeernotfound",
     "class/lib/exceptions/expeernotfound.js~ExPeerNotFound.html",
     "<span>ExPeerNotFound</span> <span class=\"search-result-import-path\">tman-wrtc/lib/exceptions/expeernotfound.js</span>",
-    "class"
-  ],
-  [
-    "tman-wrtc/lib/exceptions/exprotocol.js~exprotocol",
-    "class/lib/exceptions/exprotocol.js~ExProtocol.html",
-    "<span>ExProtocol</span> <span class=\"search-result-import-path\">tman-wrtc/lib/exceptions/exprotocol.js</span>",
-    "class"
-  ],
-  [
-    "tman-wrtc/lib/interfaces/irps.js~irps",
-    "class/lib/interfaces/irps.js~IRPS.html",
-    "<span>IRPS</span> <span class=\"search-result-import-path\">tman-wrtc/lib/interfaces/irps.js</span>",
-    "class"
-  ],
-  [
-    "tman-wrtc/lib/messages/mevent.js~mevent",
-    "class/lib/messages/mevent.js~MEvent.html",
-    "<span>MEvent</span> <span class=\"search-result-import-path\">tman-wrtc/lib/messages/mevent.js</span>",
     "class"
   ],
   [
@@ -588,114 +564,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/exceptions/exprotocol.js",
-    "file/lib/exceptions/exprotocol.js.html",
-    "lib/exceptions/exprotocol.js",
-    "file"
-  ],
-  [
-    "lib/exceptions/exprotocol.js~exprotocol#constructor",
-    "class/lib/exceptions/exprotocol.js~ExProtocol.html#instance-constructor-constructor",
-    "lib/exceptions/exprotocol.js~ExProtocol#constructor",
-    "method"
-  ],
-  [
-    "lib/exceptions/exprotocol.js~exprotocol#message",
-    "class/lib/exceptions/exprotocol.js~ExProtocol.html#instance-member-message",
-    "lib/exceptions/exprotocol.js~ExProtocol#message",
-    "member"
-  ],
-  [
-    "lib/exceptions/exprotocol.js~exprotocol#pid",
-    "class/lib/exceptions/exprotocol.js~ExProtocol.html#instance-member-pid",
-    "lib/exceptions/exprotocol.js~ExProtocol#pid",
-    "member"
-  ],
-  [
-    "lib/interfaces/irps.js",
-    "file/lib/interfaces/irps.js.html",
-    "lib/interfaces/irps.js",
-    "file"
-  ],
-  [
-    "lib/interfaces/irps.js~irps#pid",
-    "class/lib/interfaces/irps.js~IRPS.html#instance-member-PID",
-    "lib/interfaces/irps.js~IRPS#PID",
-    "member"
-  ],
-  [
-    "lib/interfaces/irps.js~irps#_destroy",
-    "class/lib/interfaces/irps.js~IRPS.html#instance-method-_destroy",
-    "lib/interfaces/irps.js~IRPS#_destroy",
-    "method"
-  ],
-  [
-    "lib/interfaces/irps.js~irps#_emit",
-    "class/lib/interfaces/irps.js~IRPS.html#instance-member-_emit",
-    "lib/interfaces/irps.js~IRPS#_emit",
-    "member"
-  ],
-  [
-    "lib/interfaces/irps.js~irps#_receive",
-    "class/lib/interfaces/irps.js~IRPS.html#instance-method-_receive",
-    "lib/interfaces/irps.js~IRPS#_receive",
-    "method"
-  ],
-  [
-    "lib/interfaces/irps.js~irps#constructor",
-    "class/lib/interfaces/irps.js~IRPS.html#instance-constructor-constructor",
-    "lib/interfaces/irps.js~IRPS#constructor",
-    "method"
-  ],
-  [
-    "lib/interfaces/irps.js~irps#emit",
-    "class/lib/interfaces/irps.js~IRPS.html#instance-member-emit",
-    "lib/interfaces/irps.js~IRPS#emit",
-    "member"
-  ],
-  [
-    "lib/interfaces/irps.js~irps#parent",
-    "class/lib/interfaces/irps.js~IRPS.html#instance-member-parent",
-    "lib/interfaces/irps.js~IRPS#parent",
-    "member"
-  ],
-  [
-    "lib/messages/mevent.js",
-    "file/lib/messages/mevent.js.html",
-    "lib/messages/mevent.js",
-    "file"
-  ],
-  [
-    "lib/messages/mevent.js~mevent#args",
-    "class/lib/messages/mevent.js~MEvent.html#instance-member-args",
-    "lib/messages/mevent.js~MEvent#args",
-    "member"
-  ],
-  [
-    "lib/messages/mevent.js~mevent#constructor",
-    "class/lib/messages/mevent.js~MEvent.html#instance-constructor-constructor",
-    "lib/messages/mevent.js~MEvent#constructor",
-    "method"
-  ],
-  [
-    "lib/messages/mevent.js~mevent#event",
-    "class/lib/messages/mevent.js~MEvent.html#instance-member-event",
-    "lib/messages/mevent.js~MEvent#event",
-    "member"
-  ],
-  [
-    "lib/messages/mevent.js~mevent#pid",
-    "class/lib/messages/mevent.js~MEvent.html#instance-member-pid",
-    "lib/messages/mevent.js~MEvent#pid",
-    "member"
-  ],
-  [
-    "lib/messages/mevent.js~mevent#type",
-    "class/lib/messages/mevent.js~MEvent.html#instance-member-type",
-    "lib/messages/mevent.js~MEvent#type",
-    "member"
-  ],
-  [
     "lib/messages/mgivedescriptor.js",
     "file/lib/messages/mgivedescriptor.js.html",
     "lib/messages/mgivedescriptor.js",
@@ -1080,12 +948,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/tman.js~tman#parentinterface",
-    "class/lib/tman.js~TMan.html#instance-member-parentInterface",
-    "lib/tman.js~TMan#parentInterface",
-    "member"
-  ],
-  [
     "lib/tman.js~tman#partialview",
     "class/lib/tman.js~TMan.html#instance-member-partialView",
     "lib/tman.js~TMan#partialView",
@@ -1098,27 +960,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/tman.js~tman#protocols",
-    "class/lib/tman.js~TMan.html#instance-member-protocols",
-    "lib/tman.js~TMan#protocols",
-    "member"
-  ],
-  [
-    "lib/tman.js~tman#register",
-    "class/lib/tman.js~TMan.html#instance-method-register",
-    "lib/tman.js~TMan#register",
-    "method"
-  ],
-  [
     "lib/tman.js~tman#state",
     "class/lib/tman.js~TMan.html#instance-member-state",
     "lib/tman.js~TMan#state",
     "member"
   ],
   [
-    "lib/tman.js~tman#unregister",
-    "class/lib/tman.js~TMan.html#instance-method-unregister",
-    "lib/tman.js~TMan#unregister",
-    "method"
+    "lib/tman.js~tman#unicast",
+    "class/lib/tman.js~TMan.html#instance-member-unicast",
+    "lib/tman.js~TMan#unicast",
+    "member"
   ]
 ]

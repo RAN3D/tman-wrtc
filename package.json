@@ -18,13 +18,15 @@
         "lodash": "^4.17.4",
         "debug": "^2.6.1",
         "uuid": "^3.0.1",
-        "n2n-overlay-wrtc": "git://github.com/ran3d/n2n-overlay-wrtc.git#merging"
+        "n2n-overlay-wrtc": "git://github.com/ran3d/n2n-overlay-wrtc.git#merging",
+        "unicast-definition": "^1.0.1"
     },
     "bundledDependencies": [
         "lodash",
         "debug",
         "uuid",
-        "n2n-overlay-wrtc"
+        "n2n-overlay-wrtc",
+        "unicast-definition"
     ],
     "devDependencies": {
         "ava": "0.18.x",

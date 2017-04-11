@@ -806,582 +806,6 @@
   {
     "__docId__": 36,
     "kind": "file",
-    "name": "lib/exceptions/exprotocol.js",
-    "content": "'use strict';\n\n/**\n * Exception that rise when protocols do not behave!\n */\nclass ExProtocol {\n    /**\n     * @param {string} source The name of the function that threw this\n     * exception.\n     * @param {string} protocolId The identifier of the protocol that already\n     * exists.\n     * @param {string} reason The reason of this exception.\n     */\n    constructor (source, protocolId, reason) {\n        this.pid = protocolId;\n        this.message = 'The idenfifier of the registering protocol already exists.';\n    };\n};\n\nmodule.exports = ExProtocol;\n",
-    "static": true,
-    "longname": "lib/exceptions/exprotocol.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 37,
-    "kind": "class",
-    "name": "ExProtocol",
-    "memberof": "lib/exceptions/exprotocol.js",
-    "static": true,
-    "longname": "lib/exceptions/exprotocol.js~ExProtocol",
-    "access": null,
-    "export": true,
-    "importPath": "tman-wrtc/lib/exceptions/exprotocol.js",
-    "importStyle": "ExProtocol",
-    "description": "Exception that rise when protocols do not behave!",
-    "lineNumber": 6,
-    "interface": false
-  },
-  {
-    "__docId__": 38,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "lib/exceptions/exprotocol.js~ExProtocol",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/exceptions/exprotocol.js~ExProtocol#constructor",
-    "access": null,
-    "description": "",
-    "lineNumber": 14,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "source",
-        "description": "The name of the function that threw this\nexception."
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "protocolId",
-        "description": "The identifier of the protocol that already\nexists."
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "reason",
-        "description": "The reason of this exception."
-      }
-    ]
-  },
-  {
-    "__docId__": 39,
-    "kind": "member",
-    "name": "pid",
-    "memberof": "lib/exceptions/exprotocol.js~ExProtocol",
-    "static": false,
-    "longname": "lib/exceptions/exprotocol.js~ExProtocol#pid",
-    "access": null,
-    "description": null,
-    "lineNumber": 15,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 40,
-    "kind": "member",
-    "name": "message",
-    "memberof": "lib/exceptions/exprotocol.js~ExProtocol",
-    "static": false,
-    "longname": "lib/exceptions/exprotocol.js~ExProtocol#message",
-    "access": null,
-    "description": null,
-    "lineNumber": 16,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 41,
-    "kind": "file",
-    "name": "lib/interfaces/irps.js",
-    "content": "'use strict';\n\nconst debug = require('debug')('irps');\nconst EventEmitter = require('events');\n\nconst MEvent = require('../messages/mevent.js');\n\n/**\n * An interface providing easy-to-use functions on top of Spray. Once the\n * protocol registered to Spray, it gets this interface. It can send messages\n * using irps.emit('eventName', neighborId, args) and the neighbor can catch\n * them using irps.on('eventName', args).\n */\nclass IRPS extends EventEmitter {\n    /**\n     * @param {string} protocolId The identifier of the protocol that request\n     * the interface.\n     * @param {object} parent The instanciator. It must implement \n     * 'send(to, message [,retry])'.\n     */\n    constructor (protocolId, parent) {\n        super();\n        this.PID = protocolId;\n        this.parent = parent;\n        \n        debug('[%s] just registered to %s.', this.PID, this.parent.PID);\n        \n        // #1 replace the basic behavior of eventemitter.emit\n        this._emit = this.emit;\n        this.emit = (event, peerId, ...args) => {\n            parent.send(peerId, new MEvent(this.PID, event, args))\n                .then( () => debug('[%s] %s --> %s', this.PID, event, peerId))\n                .catch( (e) =>debug('[%s] %s -X> %s', this.PID, event, peerId));\n        };\n    };\n\n    /**\n     * @private\n     * Destroy all listeners and remove the send capabilities\n     */\n    _destroy () {\n        debug('[%s] just unregistered from %s.', this.PID, this.parent.PID);\n        this.removeAllListener();\n        this.emit = this._emit; // retrieve basic behavior\n    };\n    \n    /**\n     * @private\n     * Receiving a MEvent message triggers an event\n     * @param {MEvent} message The message received.\n     */\n    _receive (message) {\n        debug('[%s] ??? --> triggers %s', this.PID, message.event);\n        this._emit(message.event, ...(message.args));\n    };\n\n};\n\nmodule.exports = IRPS;\n",
-    "static": true,
-    "longname": "lib/interfaces/irps.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 42,
-    "kind": "variable",
-    "name": "debug",
-    "memberof": "lib/interfaces/irps.js",
-    "static": true,
-    "longname": "lib/interfaces/irps.js~debug",
-    "access": null,
-    "export": false,
-    "importPath": "tman-wrtc/lib/interfaces/irps.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 3,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 43,
-    "kind": "variable",
-    "name": "EventEmitter",
-    "memberof": "lib/interfaces/irps.js",
-    "static": true,
-    "longname": "lib/interfaces/irps.js~EventEmitter",
-    "access": null,
-    "export": false,
-    "importPath": "tman-wrtc/lib/interfaces/irps.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 44,
-    "kind": "variable",
-    "name": "MEvent",
-    "memberof": "lib/interfaces/irps.js",
-    "static": true,
-    "longname": "lib/interfaces/irps.js~MEvent",
-    "access": null,
-    "export": false,
-    "importPath": "tman-wrtc/lib/interfaces/irps.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 45,
-    "kind": "class",
-    "name": "IRPS",
-    "memberof": "lib/interfaces/irps.js",
-    "static": true,
-    "longname": "lib/interfaces/irps.js~IRPS",
-    "access": null,
-    "export": true,
-    "importPath": "tman-wrtc/lib/interfaces/irps.js",
-    "importStyle": "IRPS",
-    "description": "An interface providing easy-to-use functions on top of Spray. Once the\nprotocol registered to Spray, it gets this interface. It can send messages\nusing irps.emit('eventName', neighborId, args) and the neighbor can catch\nthem using irps.on('eventName', args).",
-    "lineNumber": 14,
-    "interface": false,
-    "extends": [
-      "EventEmitter"
-    ]
-  },
-  {
-    "__docId__": 46,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "lib/interfaces/irps.js~IRPS",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/interfaces/irps.js~IRPS#constructor",
-    "access": null,
-    "description": "",
-    "lineNumber": 21,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "protocolId",
-        "description": "The identifier of the protocol that request\nthe interface."
-      },
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "parent",
-        "description": "The instanciator. It must implement \n'send(to, message [,retry])'."
-      }
-    ]
-  },
-  {
-    "__docId__": 47,
-    "kind": "member",
-    "name": "PID",
-    "memberof": "lib/interfaces/irps.js~IRPS",
-    "static": false,
-    "longname": "lib/interfaces/irps.js~IRPS#PID",
-    "access": null,
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 48,
-    "kind": "member",
-    "name": "parent",
-    "memberof": "lib/interfaces/irps.js~IRPS",
-    "static": false,
-    "longname": "lib/interfaces/irps.js~IRPS#parent",
-    "access": null,
-    "description": null,
-    "lineNumber": 24,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 49,
-    "kind": "member",
-    "name": "_emit",
-    "memberof": "lib/interfaces/irps.js~IRPS",
-    "static": false,
-    "longname": "lib/interfaces/irps.js~IRPS#_emit",
-    "access": null,
-    "description": null,
-    "lineNumber": 29,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 50,
-    "kind": "member",
-    "name": "emit",
-    "memberof": "lib/interfaces/irps.js~IRPS",
-    "static": false,
-    "longname": "lib/interfaces/irps.js~IRPS#emit",
-    "access": null,
-    "description": null,
-    "lineNumber": 30,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 51,
-    "kind": "method",
-    "name": "_destroy",
-    "memberof": "lib/interfaces/irps.js~IRPS",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/interfaces/irps.js~IRPS#_destroy",
-    "access": "private",
-    "description": "",
-    "lineNumber": 41,
-    "params": []
-  },
-  {
-    "__docId__": 52,
-    "kind": "member",
-    "name": "emit",
-    "memberof": "lib/interfaces/irps.js~IRPS",
-    "static": false,
-    "longname": "lib/interfaces/irps.js~IRPS#emit",
-    "access": null,
-    "description": null,
-    "lineNumber": 44,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 53,
-    "kind": "method",
-    "name": "_receive",
-    "memberof": "lib/interfaces/irps.js~IRPS",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/interfaces/irps.js~IRPS#_receive",
-    "access": "private",
-    "description": "",
-    "lineNumber": 52,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "MEvent"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "message",
-        "description": "The message received."
-      }
-    ]
-  },
-  {
-    "__docId__": 54,
-    "kind": "file",
-    "name": "lib/messages/mevent.js",
-    "content": "'use strict';\n\n/**\n * A message that will trigger an event at protocolId.\n */ \nclass MEvent {\n    /**\n     * @param {string} protocolId The identifier of the protocol that send and\n     * receive the event.\n     * @param {string} event The event name to trigger. \n     * @param {object[]} args The arguments of the event.\n     */\n    constructor (protocolId, event, args) {\n        this.pid = protocolId;\n        this.event = event;\n        this.args = args;\n        this.type = 'MEvent';\n    };    \n};\n\n\nmodule.exports = MEvent;\n",
-    "static": true,
-    "longname": "lib/messages/mevent.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 55,
-    "kind": "class",
-    "name": "MEvent",
-    "memberof": "lib/messages/mevent.js",
-    "static": true,
-    "longname": "lib/messages/mevent.js~MEvent",
-    "access": null,
-    "export": true,
-    "importPath": "tman-wrtc/lib/messages/mevent.js",
-    "importStyle": "MEvent",
-    "description": "A message that will trigger an event at protocolId.",
-    "lineNumber": 6,
-    "interface": false
-  },
-  {
-    "__docId__": 56,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "lib/messages/mevent.js~MEvent",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/messages/mevent.js~MEvent#constructor",
-    "access": null,
-    "description": "",
-    "lineNumber": 13,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "protocolId",
-        "description": "The identifier of the protocol that send and\nreceive the event."
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "event",
-        "description": "The event name to trigger."
-      },
-      {
-        "nullable": null,
-        "types": [
-          "object[]"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "args",
-        "description": "The arguments of the event."
-      }
-    ]
-  },
-  {
-    "__docId__": 57,
-    "kind": "member",
-    "name": "pid",
-    "memberof": "lib/messages/mevent.js~MEvent",
-    "static": false,
-    "longname": "lib/messages/mevent.js~MEvent#pid",
-    "access": null,
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 58,
-    "kind": "member",
-    "name": "event",
-    "memberof": "lib/messages/mevent.js~MEvent",
-    "static": false,
-    "longname": "lib/messages/mevent.js~MEvent#event",
-    "access": null,
-    "description": null,
-    "lineNumber": 15,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 59,
-    "kind": "member",
-    "name": "args",
-    "memberof": "lib/messages/mevent.js~MEvent",
-    "static": false,
-    "longname": "lib/messages/mevent.js~MEvent#args",
-    "access": null,
-    "description": null,
-    "lineNumber": 16,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 60,
-    "kind": "member",
-    "name": "type",
-    "memberof": "lib/messages/mevent.js~MEvent",
-    "static": false,
-    "longname": "lib/messages/mevent.js~MEvent#type",
-    "access": null,
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 61,
-    "kind": "file",
     "name": "lib/messages/mgivedescriptor.js",
     "content": "'use strict';\n\n/**\n * Message that gives your descriptor to another peer.\n */\nclass MGiveDescriptor {\n    /**\n     * @param {string} tid The identifier of the request message.\n     * @param {string} inview The identifier of the inview of the sender.\n     * @param {object} descriptor The descriptor of the sender.\n     */\n    constructor (tid, inview, descriptor) {\n        this.tid = tid;\n        this.peer = inview;\n        this.descriptor = descriptor;\n        this.type = 'MGiveDescriptor';\n    };\n};\n\nmodule.exports = MGiveDescriptor;\n",
     "static": true,
@@ -1391,7 +815,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 62,
+    "__docId__": 37,
     "kind": "class",
     "name": "MGiveDescriptor",
     "memberof": "lib/messages/mgivedescriptor.js",
@@ -1406,7 +830,7 @@
     "interface": false
   },
   {
-    "__docId__": 63,
+    "__docId__": 38,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/messages/mgivedescriptor.js~MGiveDescriptor",
@@ -1451,7 +875,7 @@
     ]
   },
   {
-    "__docId__": 64,
+    "__docId__": 39,
     "kind": "member",
     "name": "tid",
     "memberof": "lib/messages/mgivedescriptor.js~MGiveDescriptor",
@@ -1474,7 +898,7 @@
     }
   },
   {
-    "__docId__": 65,
+    "__docId__": 40,
     "kind": "member",
     "name": "peer",
     "memberof": "lib/messages/mgivedescriptor.js~MGiveDescriptor",
@@ -1497,7 +921,7 @@
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 41,
     "kind": "member",
     "name": "descriptor",
     "memberof": "lib/messages/mgivedescriptor.js~MGiveDescriptor",
@@ -1520,7 +944,7 @@
     }
   },
   {
-    "__docId__": 67,
+    "__docId__": 42,
     "kind": "member",
     "name": "type",
     "memberof": "lib/messages/mgivedescriptor.js~MGiveDescriptor",
@@ -1543,7 +967,7 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 43,
     "kind": "file",
     "name": "lib/messages/mjoin.js",
     "content": "'use strict';\n\n/**\n * Message sent by a newcommer to its contact when it joins the network.\n */\nclass MJoin {\n    /** \n     * @param {string} inview The identifier of the inview of the newcomer.\n     * @param {object} descriptor The descriptor of the newcomer.\n     */ \n    constructor (inview, descriptor) {\n        this.peer = inview;\n        this.descriptor = descriptor;\n        this.type = 'MJoin';\n    };\n};\n\nmodule.exports = MJoin;\n",
@@ -1554,7 +978,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 69,
+    "__docId__": 44,
     "kind": "class",
     "name": "MJoin",
     "memberof": "lib/messages/mjoin.js",
@@ -1569,7 +993,7 @@
     "interface": false
   },
   {
-    "__docId__": 70,
+    "__docId__": 45,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/messages/mjoin.js~MJoin",
@@ -1604,7 +1028,7 @@
     ]
   },
   {
-    "__docId__": 71,
+    "__docId__": 46,
     "kind": "member",
     "name": "peer",
     "memberof": "lib/messages/mjoin.js~MJoin",
@@ -1627,7 +1051,7 @@
     }
   },
   {
-    "__docId__": 72,
+    "__docId__": 47,
     "kind": "member",
     "name": "descriptor",
     "memberof": "lib/messages/mjoin.js~MJoin",
@@ -1650,7 +1074,7 @@
     }
   },
   {
-    "__docId__": 73,
+    "__docId__": 48,
     "kind": "member",
     "name": "type",
     "memberof": "lib/messages/mjoin.js~MJoin",
@@ -1673,7 +1097,7 @@
     }
   },
   {
-    "__docId__": 74,
+    "__docId__": 49,
     "kind": "file",
     "name": "lib/messages/mrequestdescriptor.js",
     "content": "'use strict';\n\n/**\n * Message sent by a peer asking for the receiver to send its descriptor.\n */   \nclass MRequestDescriptor {\n    /**\n     * @param {string} tid The identifier of the request.\n     */\n    constructor (tid) {\n        this.tid = tid;\n        this.type = 'MRequestDescriptor';\n    };\n};\n\nmodule.exports = MRequestDescriptor;\n\n",
@@ -1684,7 +1108,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 75,
+    "__docId__": 50,
     "kind": "class",
     "name": "MRequestDescriptor",
     "memberof": "lib/messages/mrequestdescriptor.js",
@@ -1699,7 +1123,7 @@
     "interface": false
   },
   {
-    "__docId__": 76,
+    "__docId__": 51,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/messages/mrequestdescriptor.js~MRequestDescriptor",
@@ -1724,7 +1148,7 @@
     ]
   },
   {
-    "__docId__": 77,
+    "__docId__": 52,
     "kind": "member",
     "name": "tid",
     "memberof": "lib/messages/mrequestdescriptor.js~MRequestDescriptor",
@@ -1747,7 +1171,7 @@
     }
   },
   {
-    "__docId__": 78,
+    "__docId__": 53,
     "kind": "member",
     "name": "type",
     "memberof": "lib/messages/mrequestdescriptor.js~MRequestDescriptor",
@@ -1770,7 +1194,7 @@
     }
   },
   {
-    "__docId__": 79,
+    "__docId__": 54,
     "kind": "file",
     "name": "lib/messages/mrequire.js",
     "content": "'use strict';\n\n/**\n * Message sent by a peer to another. The latter tries to connect the former to\n * peers contained in this message.\n */\nclass MRequire {\n    /**\n     * @param {string[]} peers The identifiers of peers that the sender\n     * requests.\n     */ \n    constructor (peers){\n        this.peers = peers;\n        this.type = 'MRequire';\n    };\n};\n\nmodule.exports = MRequire;\n",
@@ -1781,7 +1205,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 80,
+    "__docId__": 55,
     "kind": "class",
     "name": "MRequire",
     "memberof": "lib/messages/mrequire.js",
@@ -1796,7 +1220,7 @@
     "interface": false
   },
   {
-    "__docId__": 81,
+    "__docId__": 56,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/messages/mrequire.js~MRequire",
@@ -1821,7 +1245,7 @@
     ]
   },
   {
-    "__docId__": 82,
+    "__docId__": 57,
     "kind": "member",
     "name": "peers",
     "memberof": "lib/messages/mrequire.js~MRequire",
@@ -1844,7 +1268,7 @@
     }
   },
   {
-    "__docId__": 83,
+    "__docId__": 58,
     "kind": "member",
     "name": "type",
     "memberof": "lib/messages/mrequire.js~MRequire",
@@ -1867,7 +1291,7 @@
     }
   },
   {
-    "__docId__": 84,
+    "__docId__": 59,
     "kind": "file",
     "name": "lib/messages/msuggest.js",
     "content": "'use strict';\n\n/**\n * Message sent by a peer to another one in order to suggest new connection.\n */\nclass MSuggest {\n    /**\n     * @param {string} inview The identifier of the inview of the sender.\n     * @param {object} descriptor The descriptor of the sender.\n     * @param {object[]} sample The sample containing the identifier of peers\n     * and their descriptor.\n     */\n    constructor (inview, descriptor, sample) {\n        this.peer = inview;\n        this.descriptor = descriptor;\n        this.sample = sample;\n        this.type = 'MSuggest';\n    };\n};\n\nmodule.exports = MSuggest;\n",
@@ -1878,7 +1302,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 85,
+    "__docId__": 60,
     "kind": "class",
     "name": "MSuggest",
     "memberof": "lib/messages/msuggest.js",
@@ -1893,7 +1317,7 @@
     "interface": false
   },
   {
-    "__docId__": 86,
+    "__docId__": 61,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/messages/msuggest.js~MSuggest",
@@ -1938,7 +1362,7 @@
     ]
   },
   {
-    "__docId__": 87,
+    "__docId__": 62,
     "kind": "member",
     "name": "peer",
     "memberof": "lib/messages/msuggest.js~MSuggest",
@@ -1961,7 +1385,7 @@
     }
   },
   {
-    "__docId__": 88,
+    "__docId__": 63,
     "kind": "member",
     "name": "descriptor",
     "memberof": "lib/messages/msuggest.js~MSuggest",
@@ -1984,7 +1408,7 @@
     }
   },
   {
-    "__docId__": 89,
+    "__docId__": 64,
     "kind": "member",
     "name": "sample",
     "memberof": "lib/messages/msuggest.js~MSuggest",
@@ -2007,7 +1431,7 @@
     }
   },
   {
-    "__docId__": 90,
+    "__docId__": 65,
     "kind": "member",
     "name": "type",
     "memberof": "lib/messages/msuggest.js~MSuggest",
@@ -2030,7 +1454,7 @@
     }
   },
   {
-    "__docId__": 91,
+    "__docId__": 66,
     "kind": "file",
     "name": "lib/messages/msuggestback.js",
     "content": "'use strict';\n\n/**\n * Message sent by a peer to another one in order to suggest new\n * connection. This message is an answer to a MSuggest.\n */\nclass MSuggestBack {\n    /**\n     * @param {object[]} sample The sample containing the identifier of peers\n     * and their descriptor.\n     */\n    constructor (sample) {\n        this.sample = sample;\n        this.type = 'MSuggestBack';\n    };\n};\n\nmodule.exports = MSuggestBack;\n",
@@ -2041,7 +1465,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 92,
+    "__docId__": 67,
     "kind": "class",
     "name": "MSuggestBack",
     "memberof": "lib/messages/msuggestback.js",
@@ -2056,7 +1480,7 @@
     "interface": false
   },
   {
-    "__docId__": 93,
+    "__docId__": 68,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/messages/msuggestback.js~MSuggestBack",
@@ -2081,7 +1505,7 @@
     ]
   },
   {
-    "__docId__": 94,
+    "__docId__": 69,
     "kind": "member",
     "name": "sample",
     "memberof": "lib/messages/msuggestback.js~MSuggestBack",
@@ -2104,7 +1528,7 @@
     }
   },
   {
-    "__docId__": 95,
+    "__docId__": 70,
     "kind": "member",
     "name": "type",
     "memberof": "lib/messages/msuggestback.js~MSuggestBack",
@@ -2127,7 +1551,7 @@
     }
   },
   {
-    "__docId__": 96,
+    "__docId__": 71,
     "kind": "file",
     "name": "lib/partialview.js",
     "content": "'use strict';\n\nconst EPV = require('./entries/epv.js');\n\nconst ExPeerNotFound = require('./exceptions/expeernotfound.js');\n\n/**\n * Structure containing the neighborhood of a peer. Each neigbhor entry\n * comprises a list of ages and a descriptor.  Map of {idPeer => {ages:[age_1,\n * age_2.. age_k], descriptor: {x: exampleX} }} where age_1 <= age_2 <= .. <=\n * age_k.\n */\nclass PartialView extends Map {\n    constructor () {\n        super();\n    };\n    \n    /**\n     * Get the oldest peer in the partial view.\n     * @returns {string} The oldest peer in the structure.\n     */\n    get oldest () {\n        if (this.size <= 0) { throw new ExPeerNotFound('getOldest'); };\n        let oldestPeer = null;\n        let oldestAge = 0;\n        this.forEach( (epv, peerId) => {\n            if (oldestAge <= epv.oldest) {\n                oldestPeer = epv.peer;\n                oldestAge = epv.oldest;\n            };\n        });\n        return oldestPeer;\n    };\n\n\n    /**\n     * Increment the age of the whole partial view\n     */\n    increment () {\n        this.forEach( (epv, peerId) => {\n            epv.increment();\n        });\n    };\n\n    /**\n     * Add the peer to the partial view with an age of 0.\n     * @param {string} peerId The identifier of the peer added to the partial\n     * view.\n     * @param {object} [descriptor = {}] The descriptor of the peer.\n     */\n    addNeighbor (peerId, descriptor = {}) {\n        if (this.has(peerId)) {\n            this.get(peerId).add();\n        } else {\n            this.set(peerId, new EPV(peerId, descriptor));\n        };\n    };\n\n    /**\n     * Update the peer's descriptor.\n     * @param {string} peerId The identifier of the peer to update.\n     * @param {object} [descriptor = {}] The new descriptor of peerId.\n     */\n    updateNeighbor (peerId, descriptor = {}) {\n        if (!this.has(peerId)){\n            throw new ExPeerNotFound('updateNeighbor', peerId);\n        } else {\n            this.get(peerId).update(descriptor);\n        };\n    };\n    \n    /**\n     * Remove the newest entry of the peer from the partial view.\n     * @param {string} peerId The identifier of the peer to remove from the \n     * partial view. \n     */\n    removeOldest (peerId) {\n        if (!this.has(peerId)) {\n            throw new ExPeerNotFound('removeNeighbor', peerId);\n        } else {\n            this.get(peerId).removeOldest() && this.delete(peerId);\n        };\n    };\n\n    /**\n     * Remove all entries of the peer from the partial view.\n     * @param {string} peerId The identifier of the peer to remove from the \n     * partial view.\n     * @returns {number} The number of occurrences of peerId removed.\n     */\n    removeAllNeighbor (peerId) {\n        if (!this.has(peerId)) {\n            throw new ExPeerNotFound('removeNeighbor', peerId);\n        } else {\n            const occ = this.get(peerId).count;\n            this.delete(peerId);\n            return occ;\n        };\n    };\n       \n\n    /**\n     * Get the least frequent peer. If multiple peers have the same number of\n     * occurrences, it chooses one among them at random.\n     * @returns {string} The identifier of a least frequent peer.\n     */\n    get leastFrequent () {\n        if (this.size <= 0) { throw new ExPeerNotFound('getLeastFrequent'); };\n        let leastFrequent = [];\n        let frequency = Infinity;\n        this.forEach( (epv, peerId) => {\n            if (epv.count < frequency){\n                leastFrequent = [];\n                frequency = epv.count;\n            };\n            (epv.count === frequency) && leastFrequent.push(peerId);\n        });\n        return leastFrequent[Math.floor(Math.random() * leastFrequent.length)];\n    };\n\n    /**\n     * Get the descriptor of the peer in argument.\n     * @param {string} peerId The identifier of the peer.\n     * @returns {object} The descriptor of the peer.\n     */\n    getDescriptor (peerId) {\n        if (!this.has(peerId)) {\n            throw new ExPeerNotFound('getDescriptor', peerId);\n        } else {\n            return this.get(peerId).descriptor;\n        };\n    };\n}\n\n\nmodule.exports = PartialView;\n",
@@ -2138,7 +1562,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 97,
+    "__docId__": 72,
     "kind": "variable",
     "name": "EPV",
     "memberof": "lib/partialview.js",
@@ -2164,7 +1588,7 @@
     }
   },
   {
-    "__docId__": 98,
+    "__docId__": 73,
     "kind": "variable",
     "name": "ExPeerNotFound",
     "memberof": "lib/partialview.js",
@@ -2190,7 +1614,7 @@
     }
   },
   {
-    "__docId__": 99,
+    "__docId__": 74,
     "kind": "class",
     "name": "PartialView",
     "memberof": "lib/partialview.js",
@@ -2208,7 +1632,7 @@
     ]
   },
   {
-    "__docId__": 100,
+    "__docId__": 75,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/partialview.js~PartialView",
@@ -2229,7 +1653,7 @@
     "params": []
   },
   {
-    "__docId__": 101,
+    "__docId__": 76,
     "kind": "get",
     "name": "oldest",
     "memberof": "lib/partialview.js~PartialView",
@@ -2261,7 +1685,7 @@
     }
   },
   {
-    "__docId__": 102,
+    "__docId__": 77,
     "kind": "method",
     "name": "increment",
     "memberof": "lib/partialview.js~PartialView",
@@ -2275,7 +1699,7 @@
     "params": []
   },
   {
-    "__docId__": 103,
+    "__docId__": 78,
     "kind": "method",
     "name": "addNeighbor",
     "memberof": "lib/partialview.js~PartialView",
@@ -2312,7 +1736,7 @@
     ]
   },
   {
-    "__docId__": 104,
+    "__docId__": 79,
     "kind": "method",
     "name": "updateNeighbor",
     "memberof": "lib/partialview.js~PartialView",
@@ -2349,7 +1773,7 @@
     ]
   },
   {
-    "__docId__": 105,
+    "__docId__": 80,
     "kind": "method",
     "name": "removeOldest",
     "memberof": "lib/partialview.js~PartialView",
@@ -2374,7 +1798,7 @@
     ]
   },
   {
-    "__docId__": 106,
+    "__docId__": 81,
     "kind": "method",
     "name": "removeAllNeighbor",
     "memberof": "lib/partialview.js~PartialView",
@@ -2413,7 +1837,7 @@
     }
   },
   {
-    "__docId__": 107,
+    "__docId__": 82,
     "kind": "get",
     "name": "leastFrequent",
     "memberof": "lib/partialview.js~PartialView",
@@ -2445,7 +1869,7 @@
     }
   },
   {
-    "__docId__": 108,
+    "__docId__": 83,
     "kind": "method",
     "name": "getDescriptor",
     "memberof": "lib/partialview.js~PartialView",
@@ -2484,10 +1908,10 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 84,
     "kind": "file",
     "name": "lib/tman.js",
-    "content": "'use strict';\n\nconst debug = require('debug')('tman-wrtc');\nconst N2N = require('n2n-overlay-wrtc');\nconst _ = require('lodash');\nconst uuid = require('uuid/v4');\n\nconst PartialView = require('./partialview.js');\nconst Cache = require('./cache.js');\nconst IRPS = require('./interfaces/irps.js');\n\nconst MJoin = require('./messages/mjoin.js');\nconst MSuggest = require('./messages/msuggest.js');\nconst MSuggestBack = require('./messages/msuggestback.js');\nconst MRequire = require('./messages/mrequire.js');\nconst MGiveDescriptor = require('./messages/mgivedescriptor.js');\nconst MRequestDescriptor = require('./messages/mrequestdescriptor.js');\n\nconst ExProtocol = require('./exceptions/exprotocol.js');\nconst ExMessage = require('./exceptions/exmessage.js');\n\n/**\n * Peer-sampling protocol running on top of WebRTC that builds network\n * topologies using ranking functions.\n */\nclass TMan extends N2N {\n    /**\n     * @param {object} [options] Options given to TMan to build the desired\n     * topology.\n     * @param {string} [options.pid = 'tman-wrtc'] The identifier of this\n     * protocol.\n     * @param {number} [options.delta = 60000] Every delta millisecond, exchange\n     * neighbors of the partial view.\n     * @param {number} [options.timeout = 120000] WebRTC connections are\n     * expensive to establish, may fail, etc. Instead of immediately removing\n     * them, the protocol keep them warm during options.timeout\n     * milliseconds. Consequently, messages transiting through them can still be\n     * transmitted, and if the protocol requires such an arc, it can be\n     * reestablished at no cost.\n     * @param {TMan} [parent] This module can depend of another t-man module. If\n     * set, it will share the neighbors populating its inview and outview. Thus,\n     * the above options will be of no use. See neigbhorhood-wrtc module for\n     * more informations on the sharing process.\n     */\n    constructor (options = {}, parent) {\n        // #0 initialize our N2N-parent\n        super( _.merge({ pid: 'tman-wrtc',\n                         delta: 1 * 60 * 1000,\n                         timeout: 2 * 60 * 1000,\n                         retry: 5,\n                         inview: parent && parent.NI,\n                         outview: parent && parent.NO,\n                         descriptor: {x: Math.random()},\n                         ranking: (neighbor) => (a, b) => {\n                             const db = b.descriptor.x - neighbor.descriptor.x;\n                             const da = a.descriptor.x - neighbor.descriptor.x;\n                             return Math.abs(da) - Math.abs(db);\n                         }}, options) );\n        // #1 constants (from N2N): this.PID, this.PEER\n        debug('[%s] Initalized with ==> %s ==>', this.PID, this.PEER);\n        // #2 initialize the partial view\n        this.partialView = new PartialView();\n        this.cache = new Cache(this.options.timeout);\n        // #3 connectedness state of this protocol\n        this.state = 'disconnected';\n        // #4 periodic shuffling\n        this.periodic = null;\n        // #5 events\n        this.on('receive', (peerId, message) => this._receive(peerId, message));\n        // this.on('stream', (peerId, message) =>  ); // (TODO) ?;\n        this.on('open', (peerId) => {\n            this._open(peerId);\n            this._updateState();\n        });\n        this.on('close', (peerId) => {\n            this._close(peerId);\n            this._updateState();\n        });\n        this.on('fail', (peerId) => {\n            this._onArcDown(peerId);\n            this._updateState();\n        });\n        // #6 table of protocols using Spray\n        this.protocols = new Map();\n        // #7 if has parent, register events to get descriptors\n        this.parent = parent || null;\n        if (this.parent) {\n            this.parentInterface = this.parent.register(this.PID);\n            this.parent.on('open', (peerId) => {\n                setTimeout( () => { // (TODO) cleaner retry.\n                    !this.cache.has(peerId) &&\n                        this.parentInterface.emit('requestDescriptor', peerId,\n                                                  this.getOutviewId());\n                }, 1000);\n            });\n            \n            this.parentInterface.on('requestDescriptor', (requester) => {\n                this.parentInterface.emit('giveDescriptor', requester,\n                                          this.getInviewId(),\n                                          this.options.descriptor);\n            });\n            this.parentInterface.on('giveDescriptor', (peerId, descriptor) => {\n                if (!this.cache.has(peerId)) {\n                    debug('[%s] get %s\\'s descriptor from %s.',\n                          this.PID, peerId, this.parent.PID);\n                    this.cache.add(peerId, descriptor);\n                };\n            });\n        };\n    };\n\n    /**\n     * Registers the protocol to Spray.\n     * @param {string} protocolId The identifier of the protocol that registers.\n     * @returns {IRPS} An interface providing easy-to-use functions on top of\n     * Spray\n     */\n    register(protocolId) {\n        if (!this.protocols.has(protocolId)) {\n            this.protocols.set(protocolId, new IRPS(protocolId, this));\n            return this.protocols.get(protocolId);\n        } else {\n            throw new ExProtocol('register', protocolId, 'already exists');\n        };\n    };\n\n    /**\n     * Unregisters the protocol.\n     * @param {string} protocolId The identifier of the protocol that\n     * unregisters.\n     */\n    unregister(protocolId) {\n        if (this.protocols.has(protocolId)){\n            this.protocols.get(protocolId).destroy();\n            this.protocols.delete(protocolId);\n        } else {\n            throw new ExProtocol('unregister', protocolId, 'does not exist');\n        };\n    };\n\n    /**\n     * Joining a network.\n     * @param {callback} sender Function that will be called each time an offer\n     * arrives to this peer. It is the responsability of the caller to send \n     * these offer (using sender) to the contact inside the network.\n     * @returns {Promise} A promise that is resolved when the peer joins the \n     * network; rejected after a timeout, or already connected state.\n     */\n    join (sender) {\n        this.parent && this.parent.join(sender);\n        const joinPromise = new Promise( (resolve, reject) => {\n            // #0 connectedness state check\n            (this.state !== 'disconnected') && reject('connected');\n            // #1 set timeout before reject\n            let to = setTimeout( () => {\n                reject('timeout'); // (TODO) Join exception\n            }, this.options.timeout);\n            // #2 very first call, only done once\n            this.once('open', (peerId) => {\n                this.send(peerId, new MJoin(this.getInviewId(),\n                                            this.options.descriptor),\n                          this.options.retry);\n                this._start(); // start shuffling process\n                clearTimeout(to);\n                resolve();\n            });\n        });\n        this.connect(sender);\n        return joinPromise;\n    };\n\n    /**\n     * @private Behavior when a peer just joined the network through this peer.\n     * @param {string} peerId The identifier of the newcomer.\n     * @param {MJoin} message The message sent by the newcomer.\n     */\n    _onJoin (peerId, message) {\n        if (this.partialView.size > 0){\n            // #1 all neigbors -> peerId\n            debug('[%s] %s ===> join %s; %s neigbhors ===> %s',\n                  this.PID, peerId, this.PEER, this.partialView.size, peerId);\n            let neighbors = [];\n            this.partialView.forEach( (epv, neighbor) => {\n                neighbors.push({peer: epv.peer, descriptor: epv.descriptor});\n            });\n            neighbors.push({peer:this.getInviewId(),\n                            descriptor: this.options.descriptor});\n            this.send(peerId, new MSuggestBack(neighbors), this.options.retry);\n        } else {\n            // #2 this -> peerId\n            debug('[%s] %s ===> join %s ===> %s',\n                  this.PID, peerId, this.PEER, peerId);\n            this.cache.add(message.peer, message.descriptor);\n            this.connect(null, peerId);\n            this.send(peerId,\n                      new MSuggestBack([{peer:this.getInviewId(),\n                                         descriptor: this.options.descriptor}]),\n                      this.options.retry);\n            this._start();\n        };\n    };\n\n    /**\n     * @private Behavior when a WebRTC connection failed to establish properly\n     * @param {string|null} peerId The identifier of the peer with which we\n     * failed to create a connection. Null if it was yet to be known.\n     */\n    _onArcDown (peerId) {\n        // Do nothing.\n    };\n\n    /**\n     * @private Behavior when a peer seems down. This is called when, during an\n     * exchange, this protocol chooses a down peer to exchange with.\n     * @param {string} peerId The identifier of the peer that seems\n     * left/crashed.\n     */\n    _onPeerDown (peerId) {\n        this.partialView.removeAllNeighbor(peerId);\n    };\n\n    /**\n     * @private Getter for the size of the sample to send to the remote chosen\n     * peer.\n     * @param {string[]} flatten Array of identifiers.\n     * @return {number} The size of the sample to create.\n     */\n    _sampleSize (flatten) {\n        return Math.min(flatten.length, 2);\n    };\n\n    /**\n     * @private Getter for the maximum partial view size.\n     */\n    _partialViewSize () {\n        return 4;\n    };\n    \n    /**\n     * @private Get a sample of the partial view.\n     * @param {object} neighbor Object containing .peer for identifier of the\n     * peer to exchange with and .descriptor for the peer's descriptor.\n     * @returns {object[]} Array of object containing .peer and .descriptor.\n     */\n    _getSample (neighbor) {\n        // #1 create a flatten version of the partial view\n        let flatten = [];\n        // #A extract the partial view of tman\n        this.partialView.forEach( (epv, peerId) => {\n            epv.ages.forEach( (age) => {\n                !_.isEmpty(epv.descriptor) && flatten.push(peerId);\n            });\n        });\n        // #B add random peers from parent\n        this.parent && this.parent.partialView.forEach( (ages, peerId) => {\n            if (this.cache.has(peerId) && flatten.indexOf(peerId) < 0) {\n                flatten.push(peerId);\n            };\n        });\n        // #2 replace all peerId occurrences by ours\n        flatten = flatten.map( (peerId) => {\n            let d = {descriptor: this.options.descriptor};\n            if (peerId === neighbor.peer){\n                d.peer = this.getInviewId();\n            } else {\n                d.descriptor = (this.cache.has(peerId)&&this.cache.get(peerId))\n                    || this.partialView.getDescriptor(peerId);\n                d.peer = peerId;\n            };\n            return d;\n        });\n        // #3 process the size of the sample\n        const sampleSize = this._sampleSize(flatten);\n        // #4 rank according to PeerId\n        flatten.sort( this.options.ranking(neighbor) );\n        return flatten.slice(0, sampleSize);  \n    };\n\n    /**\n     * @private Periodically called function that aims to distribute links among\n     * peers according to the desired property.\n     */\n    _exchange () {\n        // #0 if the partial view is empty --- could be due to disconnections,\n        // failure, or _onExchange started with other peers --- skip this round.\n        if (this.partialView.size <= 0 &&\n            this.parent && this.parent.partialView.size <= 0) {\n            return;\n        }\n        this.partialView.increment();\n        // #1 get the oldest peer in our partial view. If the partial view is\n        // empty, fall back to parent's partial view.\n        let chosen;\n        let sample;\n        let fromOurOwn = true;\n        if (this.partialView.size > 0) {\n            // #A use our own partial view\n            chosen = this.partialView.oldest;\n            sample = this._getSample(this.partialView.get(chosen));\n        } else if (this.parent && this.parent.partialView.size > 0) {\n            // #B use the partial view of our parent\n            let rnNeighbors = this.parent.getPeers();\n            let found = false;\n            fromOurOwn = false;\n            while (!found && rnNeighbors.length > 0){\n                const rn = Math.floor(Math.random() * rnNeighbors.length);\n                if (this.cache.has(rnNeighbors[rn])){\n                    found = true;\n                    chosen = rnNeighbors[rn];\n                    sample = this._getSample({peer: chosen,\n                                              descriptor: this.cache.get(chosen)\n                                             });\n                } else {\n                    rnNeighbors.splice(rn, 1);\n                };\n            };          \n        };\n        // #2 propose the sample to the chosen one\n        chosen && this.send(chosen, new MSuggest(this.getInviewId(),\n                                                 this.options.descriptor,\n                                                 sample))\n            .then( () => {\n                // #A it seems the message has been sent correctly\n                debug('[%s] %s ==> suggest %s ==> %s',\n                      this.PID, this.PEER, sample.length, chosen); })\n            .catch( (e) => {\n                // #B the peer cannot be reached, he is supposedly dead\n                debug('[%s] %s =X> suggest =X> %s',\n                      this.PID, this.PEER, chosen);\n                fromOurOwn && this._onPeerDown(chosen); });\n    };\n    \n    /**\n     * @private Behavior when this peer receives suggestions from another peer\n     * running its periodic protocol.\n     * @param {string} peerId The identifier of the initiating peer.\n     * @param {ISuggest} message The message containing the suggestions.\n     */\n    _onExchange (peerId, message) {\n        // #1 prepare the sample to send back\n        const sample = this._getSample(message);\n        this.send(peerId, new MSuggestBack(sample) ).then( () => {\n            debug('[%s] %s ==> suggest back %s ==> %s',\n                  this.PID, this.PEER, sample.length, peerId);\n        });\n        // #2 analyze the received sample and keep the elements if they are\n        // better than the current ones\n        this._onExchangeBack(peerId, message);\n    };\n\n    /**\n     * @private Determines which peers are tokeep and which are toreject.\n     * @param {string} peerId The identifier of the peer that sent the message.\n     * @param {MSuggest|MSuggestBack} message The message received.\n     */\n    _onExchangeBack (peerId, message) {\n        // #1 keep the best elements from the received sample\n        let ranked = [];\n        this.partialView.forEach( (epv, neighbor) => ranked.push(epv));\n        message.sample.forEach( (e) => {\n            !this.partialView.has(e.peer) && ranked.push(e);\n        });\n        ranked.sort( this.options.ranking(this.options) );\n        // #2 require the elements\n        let sliced = ranked.slice(0, this._partialViewSize());\n        let request = [];\n        sliced.forEach( (e) => {\n            if (!this.partialView.has(e.peer)) {\n                request.push(e.peer);\n                this.cache.add(e.peer, e.descriptor);\n            };\n        });\n        if (request.length > 0) {\n            debug('[%s] %s wants to keep %s peers.',\n                  this.PID, this.PEER, request.length);\n            this.send(peerId, new MRequire(request));\n        };\n    };\n\n    /**\n     * @private A peer requested to be connected with a set of neighbors.\n     * @param {string} peerId The identifier of the peer that requests\n     * connections.\n     * @param {MRequire} message The request message.\n     */\n    _onRequire (peerId, message) {\n        // #1 bridge the requester and the requested peers\n        debug('[%s] %s requested to be bridged with %s peers',\n              this.PID, peerId, message.peers.length);\n        message.peers.forEach( (neighbor) => {\n            this.connect(peerId, neighbor);\n        });\n    };\n\n    /**\n     * @private Called each time this protocol receives a message. It processes\n     * its own and the rest is redirected to the appropriate registered\n     * protocol.\n     * @param {string} peerId The identifier of the peer that sent the message.\n     * @param {object|MExchange} message The message received.\n     */\n    _receive (peerId, message) {\n        //        console.log('from ' + peerId,  message);\n        if (message.type && message.type === 'MSuggest') {\n            this._onExchange(peerId, message);\n        } else if (message.type && message.type === 'MSuggestBack') {\n            this._onExchangeBack(peerId, message);\n        } else if (message.type && message.type === 'MRequire') {\n            this._onRequire(peerId, message);\n        } else if (message.type && message.type === 'MJoin') {\n            this._onJoin(peerId, message);\n        } else if (message.type && message.type === 'MGiveDescriptor') {\n            this.emit(message.tid, message);\n        } else if (message.type && message.type === 'MRequestDescriptor') {\n            this._onRequestDescriptor(peerId, message);\n        } else if (message.type && message.type === 'MEvent') {\n            if (this.protocols.has(message.pid)) {\n                this.protocols.get(message.pid)._receive(message);\n            } else {\n                throw new ExProtocol('_receive', message.pid, 'does not exist');\n            };            \n        } else {\n            throw new ExMessage('_receive', message, 'unhandled');\n        };\n    };\n    \n    /**\n     * @private Start periodic shuffling.\n     */\n    _start (delay = this.options.delta) {\n        this.periodic = setInterval( () => this._exchange(), delay);\n    };\n\n    /**\n     * @private Stop periodic shuffling.\n     */\n    _stop () {\n        this.periodic && clearInterval(this.periodic);\n    };\n\n    /**\n     * @private Get the descriptor from a remote Peer\n     * @param {string} peerId The identifier of the peer.\n     * @returns {Promise} Resolved when the descriptor has been added to our\n     * cache; Rejected after a timeout or an error when sending the message.\n     */\n    _requestDescriptor (peerId) {\n        return new Promise( (resolve, reject) => {\n            const tid = uuid();\n            let timeout = null;\n            this.send(peerId, new MRequestDescriptor(tid), this.options.retry)\n                .then( () => {\n                    timeout = setTimeout( () => {\n                        this.removeAllListeners(tid);\n                        reject('timeout'); // (TODO) throw exception\n                    }, 10000); // (TODO) timeout config                    \n                }).catch( (e) => {\n                    reject(e);\n                });\n            \n            this.once(tid, (message) => {\n                this.cache.add(message.peer, message.descriptor);\n                resolve();\n            });\n        });\n    };\n\n    /**\n     * @private Behavior when this peer receives a request of descriptor.\n     * @param {string} peerId The identifier of the requester.\n     * @param {MRequestDescriptor} message The message received.\n     */\n    _onRequestDescriptor (peerId, message) {\n        this.send(peerId, new MGiveDescriptor(message.tid,\n                                              this.getInviewId(),\n                                              this.options.descriptor),\n                  this.options.retry);\n    };\n    \n    /**\n     * @private Behavior when a connection is ready to be added in the partial\n     * view.\n     * @param {string} peerId The identifier of the new neighbor.\n     */\n    _open (peerId) {\n        debug('[%s] %s ===> %s', this.PID, this.PEER, peerId);\n        // #1 Check if it is already in the view. We do not want duplicate. Such\n        // cases happen due to concurrency. Check if the descriptor is still in\n        // the cache.\n        if (this.partialView.has(peerId)) {\n            this.disconnect(peerId);\n        } else if (!this.cache.has(peerId)) {\n            this._requestDescriptor(peerId)\n                .then( () => {\n                    // #2 re-check for it may have been added in the meantime\n                    if (this.partialView.has(peerId)){\n                        this.disconnect(peerId);\n                    } else {\n                        // #3 rank peers to check which is to throw, if there is\n                        this._keep(peerId);\n                    }; })\n                .catch( (e) => {\n                    this.disconnect(peerId);\n                });\n        } else {\n            // #3 rank peers to check which is to throw, if there is\n            this._keep(peerId);\n        };\n    };\n\n    /**\n     * @private Check if the new peer should be added to our partial view or\n     * rejected\n     * @param {string} peerId The identifier of the peer to check.\n     */\n    _keep (peerId) {\n        let ranked = [];\n        this.partialView.forEach( (epv, neighbor) => ranked.push(epv));\n        ranked.push({peer: peerId, descriptor: this.cache.get(peerId) });\n        ranked.sort( this.options.ranking(this.options) );\n        let sliced = ranked.slice(0, this._partialViewSize());\n        ranked.splice(0, this._partialViewSize());\n        // ranked becomes the rest: the lowest graded\n        if (ranked.length > 0 && ranked[0].peer === peerId) {\n            this.disconnect(peerId);\n        } else {\n            this.partialView.addNeighbor(peerId, this.cache.get(peerId));\n            ranked.length > 0 && this.disconnect(ranked[0].peer);\n        };\n    };\n    \n    /**\n     * @private Behavior when a connection is closed.\n     * @param {string} peerId The identifier of the removed arc.\n     */\n    _close (peerId) {\n        debug('[%s] %s =†=> %s', this.PID, this.PEER, peerId);\n        this.partialView.removeOldest(peerId);\n    };\n    \n    /**\n     * @private Update the connectedness state of the peer.\n     */\n    _updateState () {\n        const remember = this.state;\n        if (this.i.size > 0 && this.o.size > 0 && remember !== 'connected'){\n            this.state = 'connected';\n        } else if ((this.i.size > 0 && this.o.size <= 0 ||\n                    this.o.size > 0 && this.i.size <= 0) &&\n                   remember !== 'partially connected'){\n            this.state = 'partially connected';\n        } else if (this.i.size <= 0 && this.o.size <= 0 &&\n                   remember !== 'disconnected') {\n            this.state = 'disconnected';\n            // this._stop();\n        };\n        (remember !== this.state) && this.emit('statechange', this.state);\n    };\n\n    /**\n     * Get k neighbors from the partial view. If k is not reached, it tries to\n     * fill the gap with neighbors from the inview.  It is worth noting that\n     * each peer controls its outview but not its inview. The more the neigbhors\n     * from the outview the better.\n     * @param {number} k The number of neighbors requested. If k is not defined,\n     * it returns every known identifiers of the partial view.\n     * @return {string[]} Array of identifiers.\n     */\n    getPeers (k) {\n        let peers = []; \n        if (typeof k === 'undefined') {\n            // #1 get all the partial view\n            this.partialView.forEach( (epv, peerId) => peers.push(peerId) );\n        } else {\n            // #2 get random identifier from outview\n            let out = [];\n            this.partialView.forEach( (epv, peerId) => out.push(peerId) );\n            while (peers.length < k && out.length > 0) {\n                let rn = Math.floor( Math.random() * out.length );\n                peers.push( out[rn] );\n                out.splice( rn, 1 );\n            };\n            // #3 get random identifier from the inview to fill k-entries\n            let inView = [];\n            this.i.forEach( (occ, peerId) => inView.push(peerId) );\n            while (peers.length < k && inView.length > 0){\n                let rn = Math.floor( Math.random() * inView.length );\n                peers.push( inView[rn] );\n                inView.splice( rn, 1 );\n            };\n        };\n        debug('[%s] %s provides %s peers', this.PID, this.PEER, peers.length);\n        return peers;\n    };\n};\n\nmodule.exports = TMan;\n",
+    "content": "'use strict';\n\nconst debug = require('debug')('tman-wrtc');\nconst N2N = require('n2n-overlay-wrtc');\nconst U = require('unicast-definition');\nconst _ = require('lodash');\nconst uuid = require('uuid/v4');\n\nconst PartialView = require('./partialview.js');\nconst Cache = require('./cache.js');\n\nconst MJoin = require('./messages/mjoin.js');\nconst MSuggest = require('./messages/msuggest.js');\nconst MSuggestBack = require('./messages/msuggestback.js');\nconst MRequire = require('./messages/mrequire.js');\nconst MGiveDescriptor = require('./messages/mgivedescriptor.js');\nconst MRequestDescriptor = require('./messages/mrequestdescriptor.js');\n\nconst ExMessage = require('./exceptions/exmessage.js');\n\n/**\n * Peer-sampling protocol running on top of WebRTC that builds network\n * topologies using ranking functions.\n */\nclass TMan extends N2N {\n    /**\n     * @param {object} [options] Options given to TMan to build the desired\n     * topology.\n     * @param {string} [options.pid = 'tman-wrtc'] The identifier of this\n     * protocol.\n     * @param {number} [options.delta = 60000] Every delta millisecond, exchange\n     * neighbors of the partial view.\n     * @param {number} [options.timeout = 120000] WebRTC connections are\n     * expensive to establish, may fail, etc. Instead of immediately removing\n     * them, the protocol keep them warm during options.timeout\n     * milliseconds. Consequently, messages transiting through them can still be\n     * transmitted, and if the protocol requires such an arc, it can be\n     * reestablished at no cost.\n     * @param {IPSP} [parent] This module can depend of another peer-sampling\n     * protocol. If set, it will share the neighbors populating its inview and\n     * outview. Thus, the above options will be of no use. See neigbhorhood-wrtc\n     * module for more informations on the sharing process.\n     */\n    constructor (options = {}, parent) {\n        // #0 initialize our N2N-parent\n        super( _.merge({ pid: 'tman-wrtc',\n                         delta: 1 * 60 * 1000,\n                         timeout: 2 * 60 * 1000,\n                         retry: 5,\n                         inview: parent && parent.NI,\n                         outview: parent && parent.NO,\n                         descriptor: {x: Math.random()},\n                         ranking: (neighbor) => (a, b) => {\n                             const db = b.descriptor.x - neighbor.descriptor.x;\n                             const da = a.descriptor.x - neighbor.descriptor.x;\n                             return Math.abs(da) - Math.abs(db);\n                         }}, options) );\n        // #1 constants (from N2N): this.PID, this.PEER\n        debug('[%s] Initalized with ==> %s ==>', this.PID, this.PEER);\n        // #2 initialize the partial view\n        this.partialView = new PartialView();\n        this.cache = new Cache(this.options.timeout);\n        // #3 connectedness state of this protocol\n        this.state = 'disconnected';\n        // #4 periodic shuffling\n        this.periodic = null;\n        // #5 events\n        this.on('receive', (peerId, message) => this._receive(peerId, message));\n        // this.on('stream', (peerId, message) =>  ); // (TODO) ?;\n        this.on('open', (peerId) => {\n            this._open(peerId);\n            this._updateState();\n        });\n        this.on('close', (peerId) => {\n            this._close(peerId);\n            this._updateState();\n        });\n        this.on('fail', (peerId) => {\n            this._onArcDown(peerId);\n            this._updateState();\n        });\n        // #6 if has parent, register events to get descriptors\n        this.parent = parent || null;\n        if (this.parent) {\n            this.unicast = new U(this.parent, {retry: 1} ).register(this.PID);\n            this.parent.on('open', (peerId) =>\n                           !this.cache.has(peerId) &&\n                           this.unicast.emit('requestDescriptor',\n                                             peerId, this.getOutviewId()) );\n            \n            this.unicast.on('requestDescriptor', (requester) =>\n                            this.unicast.emit('giveDescriptor', requester,\n                                              this.getInviewId(),\n                                              this.options.descriptor) );\n            this.unicast.on('giveDescriptor', (peerId, descriptor) => {\n                if (!this.cache.has(peerId)) {\n                    debug('[%s] get %s\\'s descriptor from %s.',\n                          this.PID, peerId, this.parent.PID);\n                    this.cache.add(peerId, descriptor);\n                };\n            });\n        };\n    };\n\n    /**\n     * Joining a network.\n     * @param {callback} sender Function that will be called each time an offer\n     * arrives to this peer. It is the responsability of the caller to send \n     * these offer (using sender) to the contact inside the network.\n     * @returns {Promise} A promise that is resolved when the peer joins the \n     * network; rejected after a timeout, or already connected state.\n     */\n    join (sender) {\n        this.parent && this.parent.join(sender);\n        const joinPromise = new Promise( (resolve, reject) => {\n            // #0 connectedness state check\n            (this.state !== 'disconnected') && reject('connected');\n            // #1 set timeout before reject\n            let to = setTimeout( () => {\n                reject('timeout'); // (TODO) Join exception\n            }, this.options.timeout);\n            // #2 very first call, only done once\n            this.once('open', (peerId) => {\n                this.send(peerId, new MJoin(this.getInviewId(),\n                                            this.options.descriptor),\n                          this.options.retry);\n                this._start(); // start shuffling process\n                clearTimeout(to);\n                resolve();\n            });\n        });\n        this.connect(sender);\n        return joinPromise;\n    };\n\n    /**\n     * @private Behavior when a peer just joined the network through this peer.\n     * @param {string} peerId The identifier of the newcomer.\n     * @param {MJoin} message The message sent by the newcomer.\n     */\n    _onJoin (peerId, message) {\n        if (this.partialView.size > 0){\n            // #1 all neigbors -> peerId\n            debug('[%s] %s ===> join %s; %s neigbhors ===> %s',\n                  this.PID, peerId, this.PEER, this.partialView.size, peerId);\n            let neighbors = [];\n            this.partialView.forEach( (epv, neighbor) => {\n                neighbors.push({peer: epv.peer, descriptor: epv.descriptor});\n            });\n            neighbors.push({peer:this.getInviewId(),\n                            descriptor: this.options.descriptor});\n            this.send(peerId, new MSuggestBack(neighbors), this.options.retry);\n        } else {\n            // #2 this -> peerId\n            debug('[%s] %s ===> join %s ===> %s',\n                  this.PID, peerId, this.PEER, peerId);\n            this.cache.add(message.peer, message.descriptor);\n            this.connect(null, peerId);\n            this.send(peerId,\n                      new MSuggestBack([{peer:this.getInviewId(),\n                                         descriptor: this.options.descriptor}]),\n                      this.options.retry);\n            this._start();\n        };\n    };\n\n    /**\n     * @private Behavior when a WebRTC connection failed to establish properly\n     * @param {string|null} peerId The identifier of the peer with which we\n     * failed to create a connection. Null if it was yet to be known.\n     */\n    _onArcDown (peerId) {\n        // Do nothing.\n    };\n\n    /**\n     * @private Behavior when a peer seems down. This is called when, during an\n     * exchange, this protocol chooses a down peer to exchange with.\n     * @param {string} peerId The identifier of the peer that seems\n     * left/crashed.\n     */\n    _onPeerDown (peerId) {\n        this.partialView.removeAllNeighbor(peerId);\n    };\n\n    /**\n     * @private Getter for the size of the sample to send to the remote chosen\n     * peer.\n     * @param {string[]} flatten Array of identifiers.\n     * @return {number} The size of the sample to create.\n     */\n    _sampleSize (flatten) {\n        return Math.min(flatten.length, 2);\n    };\n\n    /**\n     * @private Getter for the maximum partial view size.\n     */\n    _partialViewSize () {\n        return 4;\n    };\n    \n    /**\n     * @private Get a sample of the partial view.\n     * @param {object} neighbor Object containing .peer for identifier of the\n     * peer to exchange with and .descriptor for the peer's descriptor.\n     * @returns {object[]} Array of object containing .peer and .descriptor.\n     */\n    _getSample (neighbor) {\n        // #1 create a flatten version of the partial view\n        let flatten = [];\n        // #A extract the partial view of tman\n        this.partialView.forEach( (epv, peerId) => {\n            epv.ages.forEach( (age) => {\n                !_.isEmpty(epv.descriptor) && flatten.push(peerId);\n            });\n        });\n        // #B add random peers from parent\n        this.parent && this.parent.partialView.forEach( (ages, peerId) => {\n            if (this.cache.has(peerId) && flatten.indexOf(peerId) < 0) {\n                flatten.push(peerId);\n            };\n        });\n        // #2 replace all peerId occurrences by ours\n        flatten = flatten.map( (peerId) => {\n            let d = {descriptor: this.options.descriptor};\n            if (peerId === neighbor.peer){\n                d.peer = this.getInviewId();\n            } else {\n                d.descriptor = (this.cache.has(peerId)&&this.cache.get(peerId))\n                    || this.partialView.getDescriptor(peerId);\n                d.peer = peerId;\n            };\n            return d;\n        });\n        // #3 process the size of the sample\n        const sampleSize = this._sampleSize(flatten);\n        // #4 rank according to PeerId\n        flatten.sort( this.options.ranking(neighbor) );\n        return flatten.slice(0, sampleSize);  \n    };\n\n    /**\n     * @private Periodically called function that aims to distribute links among\n     * peers according to the desired property.\n     */\n    _exchange () {\n        // #0 if the partial view is empty --- could be due to disconnections,\n        // failure, or _onExchange started with other peers --- skip this round.\n        if (this.partialView.size <= 0 &&\n            this.parent && this.parent.partialView.size <= 0) {\n            return;\n        }\n        this.partialView.increment();\n        // #1 get the oldest peer in our partial view. If the partial view is\n        // empty, fall back to parent's partial view.\n        let chosen;\n        let sample;\n        let fromOurOwn = true;\n        if (this.partialView.size > 0) {\n            // #A use our own partial view\n            chosen = this.partialView.oldest;\n            sample = this._getSample(this.partialView.get(chosen));\n        } else if (this.parent && this.parent.partialView.size > 0) {\n            // #B use the partial view of our parent\n            let rnNeighbors = this.parent.getPeers();\n            let found = false;\n            fromOurOwn = false;\n            while (!found && rnNeighbors.length > 0){\n                const rn = Math.floor(Math.random() * rnNeighbors.length);\n                if (this.cache.has(rnNeighbors[rn])){\n                    found = true;\n                    chosen = rnNeighbors[rn];\n                    sample = this._getSample({peer: chosen,\n                                              descriptor: this.cache.get(chosen)\n                                             });\n                } else {\n                    rnNeighbors.splice(rn, 1);\n                };\n            };          \n        };\n        // #2 propose the sample to the chosen one\n        chosen && this.send(chosen, new MSuggest(this.getInviewId(),\n                                                 this.options.descriptor,\n                                                 sample))\n            .then( () => {\n                // #A it seems the message has been sent correctly\n                debug('[%s] %s ==> suggest %s ==> %s',\n                      this.PID, this.PEER, sample.length, chosen); })\n            .catch( (e) => {\n                // #B the peer cannot be reached, he is supposedly dead\n                debug('[%s] %s =X> suggest =X> %s',\n                      this.PID, this.PEER, chosen);\n                fromOurOwn && this._onPeerDown(chosen); });\n    };\n    \n    /**\n     * @private Behavior when this peer receives suggestions from another peer\n     * running its periodic protocol.\n     * @param {string} peerId The identifier of the initiating peer.\n     * @param {ISuggest} message The message containing the suggestions.\n     */\n    _onExchange (peerId, message) {\n        // #1 prepare the sample to send back\n        const sample = this._getSample(message);\n        this.send(peerId, new MSuggestBack(sample) ).then( () => {\n            debug('[%s] %s ==> suggest back %s ==> %s',\n                  this.PID, this.PEER, sample.length, peerId);\n        });\n        // #2 analyze the received sample and keep the elements if they are\n        // better than the current ones\n        this._onExchangeBack(peerId, message);\n    };\n\n    /**\n     * @private Determines which peers are tokeep and which are toreject.\n     * @param {string} peerId The identifier of the peer that sent the message.\n     * @param {MSuggest|MSuggestBack} message The message received.\n     */\n    _onExchangeBack (peerId, message) {\n        // #1 keep the best elements from the received sample\n        let ranked = [];\n        this.partialView.forEach( (epv, neighbor) => ranked.push(epv));\n        message.sample.forEach( (e) => {\n            !this.partialView.has(e.peer) && ranked.push(e);\n        });\n        ranked.sort( this.options.ranking(this.options) );\n        // #2 require the elements\n        let sliced = ranked.slice(0, this._partialViewSize());\n        let request = [];\n        sliced.forEach( (e) => {\n            if (!this.partialView.has(e.peer)) {\n                request.push(e.peer);\n                this.cache.add(e.peer, e.descriptor);\n            };\n        });\n        if (request.length > 0) {\n            debug('[%s] %s wants to keep %s peers.',\n                  this.PID, this.PEER, request.length);\n            this.send(peerId, new MRequire(request));\n        };\n    };\n\n    /**\n     * @private A peer requested to be connected with a set of neighbors.\n     * @param {string} peerId The identifier of the peer that requests\n     * connections.\n     * @param {MRequire} message The request message.\n     */\n    _onRequire (peerId, message) {\n        // #1 bridge the requester and the requested peers\n        debug('[%s] %s requested to be bridged with %s peers',\n              this.PID, peerId, message.peers.length);\n        message.peers.forEach( (neighbor) => {\n            this.connect(peerId, neighbor);\n        });\n    };\n\n    /**\n     * @private Called each time this protocol receives a message. It processes\n     * its own and the rest is redirected to the appropriate registered\n     * protocol.\n     * @param {string} peerId The identifier of the peer that sent the message.\n     * @param {object|MExchange} message The message received.\n     */\n    _receive (peerId, message) {\n        //        console.log('from ' + peerId,  message);\n        if (message.type && message.type === 'MSuggest') {\n            this._onExchange(peerId, message);\n        } else if (message.type && message.type === 'MSuggestBack') {\n            this._onExchangeBack(peerId, message);\n        } else if (message.type && message.type === 'MRequire') {\n            this._onRequire(peerId, message);\n        } else if (message.type && message.type === 'MJoin') {\n            this._onJoin(peerId, message);\n        } else if (message.type && message.type === 'MGiveDescriptor') {\n            this.emit(message.tid, message);\n        } else if (message.type && message.type === 'MRequestDescriptor') {\n            this._onRequestDescriptor(peerId, message);\n        } else {\n            throw new ExMessage('_receive', message, 'unhandled');\n        };\n    };\n    \n    /**\n     * @private Start periodic shuffling.\n     */\n    _start (delay = this.options.delta) {\n        this.periodic = setInterval( () => this._exchange(), delay);\n    };\n\n    /**\n     * @private Stop periodic shuffling.\n     */\n    _stop () {\n        this.periodic && clearInterval(this.periodic);\n    };\n\n    /**\n     * @private Get the descriptor from a remote Peer\n     * @param {string} peerId The identifier of the peer.\n     * @returns {Promise} Resolved when the descriptor has been added to our\n     * cache; Rejected after a timeout or an error when sending the message.\n     */\n    _requestDescriptor (peerId) {\n        return new Promise( (resolve, reject) => {\n            const tid = uuid();\n            let timeout = null;\n            this.send(peerId, new MRequestDescriptor(tid), this.options.retry)\n                .then( () => {\n                    timeout = setTimeout( () => {\n                        this.removeAllListeners(tid);\n                        reject('timeout'); // (TODO) throw exception\n                    }, 10000); // (TODO) timeout config                    \n                }).catch( (e) => {\n                    reject(e);\n                });\n            \n            this.once(tid, (message) => {\n                this.cache.add(message.peer, message.descriptor);\n                resolve();\n            });\n        });\n    };\n\n    /**\n     * @private Behavior when this peer receives a request of descriptor.\n     * @param {string} peerId The identifier of the requester.\n     * @param {MRequestDescriptor} message The message received.\n     */\n    _onRequestDescriptor (peerId, message) {\n        this.send(peerId, new MGiveDescriptor(message.tid,\n                                              this.getInviewId(),\n                                              this.options.descriptor),\n                  this.options.retry);\n    };\n    \n    /**\n     * @private Behavior when a connection is ready to be added in the partial\n     * view.\n     * @param {string} peerId The identifier of the new neighbor.\n     */\n    _open (peerId) {\n        debug('[%s] %s ===> %s', this.PID, this.PEER, peerId);\n        // #1 Check if it is already in the view. We do not want duplicate. Such\n        // cases happen due to concurrency. Check if the descriptor is still in\n        // the cache.\n        if (this.partialView.has(peerId)) {\n            this.disconnect(peerId);\n        } else if (!this.cache.has(peerId)) {\n            this._requestDescriptor(peerId)\n                .then( () => {\n                    // #2 re-check for it may have been added in the meantime\n                    if (this.partialView.has(peerId)){\n                        this.disconnect(peerId);\n                    } else {\n                        // #3 rank peers to check which is to throw, if there is\n                        this._keep(peerId);\n                    }; })\n                .catch( (e) => {\n                    this.disconnect(peerId);\n                });\n        } else {\n            // #3 rank peers to check which is to throw, if there is\n            this._keep(peerId);\n        };\n    };\n\n    /**\n     * @private Check if the new peer should be added to our partial view or\n     * rejected\n     * @param {string} peerId The identifier of the peer to check.\n     */\n    _keep (peerId) {\n        let ranked = [];\n        this.partialView.forEach( (epv, neighbor) => ranked.push(epv));\n        ranked.push({peer: peerId, descriptor: this.cache.get(peerId) });\n        ranked.sort( this.options.ranking(this.options) );\n        let sliced = ranked.slice(0, this._partialViewSize());\n        ranked.splice(0, this._partialViewSize());\n        // ranked becomes the rest: the lowest graded\n        if (ranked.length > 0 && ranked[0].peer === peerId) {\n            this.disconnect(peerId);\n        } else {\n            this.partialView.addNeighbor(peerId, this.cache.get(peerId));\n            ranked.length > 0 && this.disconnect(ranked[0].peer);\n        };\n    };\n    \n    /**\n     * @private Behavior when a connection is closed.\n     * @param {string} peerId The identifier of the removed arc.\n     */\n    _close (peerId) {\n        debug('[%s] %s =†=> %s', this.PID, this.PEER, peerId);\n        this.partialView.removeOldest(peerId);\n    };\n    \n    /**\n     * @private Update the connectedness state of the peer.\n     */\n    _updateState () {\n        const remember = this.state;\n        if (this.i.size > 0 && this.o.size > 0 && remember !== 'connected'){\n            this.state = 'connected';\n        } else if ((this.i.size > 0 && this.o.size <= 0 ||\n                    this.o.size > 0 && this.i.size <= 0) &&\n                   remember !== 'partially connected'){\n            this.state = 'partially connected';\n        } else if (this.i.size <= 0 && this.o.size <= 0 &&\n                   remember !== 'disconnected') {\n            this.state = 'disconnected';\n            // this._stop();\n        };\n        (remember !== this.state) && this.emit('statechange', this.state);\n    };\n\n    /**\n     * Get k neighbors from the partial view. If k is not reached, it tries to\n     * fill the gap with neighbors from the inview.  It is worth noting that\n     * each peer controls its outview but not its inview. The more the neigbhors\n     * from the outview the better.\n     * @param {number} k The number of neighbors requested. If k is not defined,\n     * it returns every known identifiers of the partial view.\n     * @return {string[]} Array of identifiers.\n     */\n    getPeers (k) {\n        let peers = []; \n        if (typeof k === 'undefined') {\n            // #1 get all the partial view\n            this.partialView.forEach( (epv, peerId) => peers.push(peerId) );\n        } else {\n            // #2 get random identifier from outview\n            let out = [];\n            this.partialView.forEach( (epv, peerId) => out.push(peerId) );\n            while (peers.length < k && out.length > 0) {\n                let rn = Math.floor( Math.random() * out.length );\n                peers.push( out[rn] );\n                out.splice( rn, 1 );\n            };\n            // #3 get random identifier from the inview to fill k-entries\n            let inView = [];\n            this.i.forEach( (occ, peerId) => inView.push(peerId) );\n            while (peers.length < k && inView.length > 0){\n                let rn = Math.floor( Math.random() * inView.length );\n                peers.push( inView[rn] );\n                inView.splice( rn, 1 );\n            };\n        };\n        debug('[%s] %s provides %s peers', this.PID, this.PEER, peers.length);\n        return peers;\n    };\n};\n\nmodule.exports = TMan;\n",
     "static": true,
     "longname": "lib/tman.js",
     "access": null,
@@ -2495,7 +1919,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 110,
+    "__docId__": 85,
     "kind": "variable",
     "name": "debug",
     "memberof": "lib/tman.js",
@@ -2521,7 +1945,7 @@
     }
   },
   {
-    "__docId__": 111,
+    "__docId__": 86,
     "kind": "variable",
     "name": "N2N",
     "memberof": "lib/tman.js",
@@ -2547,12 +1971,12 @@
     }
   },
   {
-    "__docId__": 112,
+    "__docId__": 87,
     "kind": "variable",
-    "name": "_",
+    "name": "U",
     "memberof": "lib/tman.js",
     "static": true,
-    "longname": "lib/tman.js~_",
+    "longname": "lib/tman.js~U",
     "access": null,
     "export": false,
     "importPath": "tman-wrtc",
@@ -2573,12 +1997,12 @@
     }
   },
   {
-    "__docId__": 113,
+    "__docId__": 88,
     "kind": "variable",
-    "name": "uuid",
+    "name": "_",
     "memberof": "lib/tman.js",
     "static": true,
-    "longname": "lib/tman.js~uuid",
+    "longname": "lib/tman.js~_",
     "access": null,
     "export": false,
     "importPath": "tman-wrtc",
@@ -2599,18 +2023,18 @@
     }
   },
   {
-    "__docId__": 114,
+    "__docId__": 89,
     "kind": "variable",
-    "name": "PartialView",
+    "name": "uuid",
     "memberof": "lib/tman.js",
     "static": true,
-    "longname": "lib/tman.js~PartialView",
+    "longname": "lib/tman.js~uuid",
     "access": null,
     "export": false,
     "importPath": "tman-wrtc",
     "importStyle": null,
     "description": null,
-    "lineNumber": 8,
+    "lineNumber": 7,
     "undocument": true,
     "unknown": [
       {
@@ -2625,12 +2049,12 @@
     }
   },
   {
-    "__docId__": 115,
+    "__docId__": 90,
     "kind": "variable",
-    "name": "Cache",
+    "name": "PartialView",
     "memberof": "lib/tman.js",
     "static": true,
-    "longname": "lib/tman.js~Cache",
+    "longname": "lib/tman.js~PartialView",
     "access": null,
     "export": false,
     "importPath": "tman-wrtc",
@@ -2651,12 +2075,12 @@
     }
   },
   {
-    "__docId__": 116,
+    "__docId__": 91,
     "kind": "variable",
-    "name": "IRPS",
+    "name": "Cache",
     "memberof": "lib/tman.js",
     "static": true,
-    "longname": "lib/tman.js~IRPS",
+    "longname": "lib/tman.js~Cache",
     "access": null,
     "export": false,
     "importPath": "tman-wrtc",
@@ -2677,7 +2101,7 @@
     }
   },
   {
-    "__docId__": 117,
+    "__docId__": 92,
     "kind": "variable",
     "name": "MJoin",
     "memberof": "lib/tman.js",
@@ -2703,7 +2127,7 @@
     }
   },
   {
-    "__docId__": 118,
+    "__docId__": 93,
     "kind": "variable",
     "name": "MSuggest",
     "memberof": "lib/tman.js",
@@ -2729,7 +2153,7 @@
     }
   },
   {
-    "__docId__": 119,
+    "__docId__": 94,
     "kind": "variable",
     "name": "MSuggestBack",
     "memberof": "lib/tman.js",
@@ -2755,7 +2179,7 @@
     }
   },
   {
-    "__docId__": 120,
+    "__docId__": 95,
     "kind": "variable",
     "name": "MRequire",
     "memberof": "lib/tman.js",
@@ -2781,7 +2205,7 @@
     }
   },
   {
-    "__docId__": 121,
+    "__docId__": 96,
     "kind": "variable",
     "name": "MGiveDescriptor",
     "memberof": "lib/tman.js",
@@ -2807,7 +2231,7 @@
     }
   },
   {
-    "__docId__": 122,
+    "__docId__": 97,
     "kind": "variable",
     "name": "MRequestDescriptor",
     "memberof": "lib/tman.js",
@@ -2833,12 +2257,12 @@
     }
   },
   {
-    "__docId__": 123,
+    "__docId__": 98,
     "kind": "variable",
-    "name": "ExProtocol",
+    "name": "ExMessage",
     "memberof": "lib/tman.js",
     "static": true,
-    "longname": "lib/tman.js~ExProtocol",
+    "longname": "lib/tman.js~ExMessage",
     "access": null,
     "export": false,
     "importPath": "tman-wrtc",
@@ -2859,33 +2283,7 @@
     }
   },
   {
-    "__docId__": 124,
-    "kind": "variable",
-    "name": "ExMessage",
-    "memberof": "lib/tman.js",
-    "static": true,
-    "longname": "lib/tman.js~ExMessage",
-    "access": null,
-    "export": false,
-    "importPath": "tman-wrtc",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 125,
+    "__docId__": 99,
     "kind": "class",
     "name": "TMan",
     "memberof": "lib/tman.js",
@@ -2896,14 +2294,14 @@
     "importPath": "tman-wrtc",
     "importStyle": "TMan",
     "description": "Peer-sampling protocol running on top of WebRTC that builds network\ntopologies using ranking functions.",
-    "lineNumber": 26,
+    "lineNumber": 25,
     "interface": false,
     "extends": [
       "N2N"
     ]
   },
   {
-    "__docId__": 126,
+    "__docId__": 100,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/tman.js~TMan",
@@ -2913,7 +2311,7 @@
     "longname": "lib/tman.js~TMan#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 45,
+    "lineNumber": 44,
     "params": [
       {
         "nullable": null,
@@ -2964,22 +2362,45 @@
       {
         "nullable": null,
         "types": [
-          "TMan"
+          "IPSP"
         ],
         "spread": false,
         "optional": true,
         "name": "parent",
-        "description": "This module can depend of another t-man module. If\nset, it will share the neighbors populating its inview and outview. Thus,\nthe above options will be of no use. See neigbhorhood-wrtc module for\nmore informations on the sharing process."
+        "description": "This module can depend of another peer-sampling\nprotocol. If set, it will share the neighbors populating its inview and\noutview. Thus, the above options will be of no use. See neigbhorhood-wrtc\nmodule for more informations on the sharing process."
       }
     ]
   },
   {
-    "__docId__": 127,
+    "__docId__": 101,
     "kind": "member",
     "name": "partialView",
     "memberof": "lib/tman.js~TMan",
     "static": false,
     "longname": "lib/tman.js~TMan#partialView",
+    "access": null,
+    "description": null,
+    "lineNumber": 61,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "member",
+    "name": "cache",
+    "memberof": "lib/tman.js~TMan",
+    "static": false,
+    "longname": "lib/tman.js~TMan#cache",
     "access": null,
     "description": null,
     "lineNumber": 62,
@@ -2997,30 +2418,7 @@
     }
   },
   {
-    "__docId__": 128,
-    "kind": "member",
-    "name": "cache",
-    "memberof": "lib/tman.js~TMan",
-    "static": false,
-    "longname": "lib/tman.js~TMan#cache",
-    "access": null,
-    "description": null,
-    "lineNumber": 63,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 129,
+    "__docId__": 103,
     "kind": "member",
     "name": "state",
     "memberof": "lib/tman.js~TMan",
@@ -3028,7 +2426,7 @@
     "longname": "lib/tman.js~TMan#state",
     "access": null,
     "description": null,
-    "lineNumber": 65,
+    "lineNumber": 64,
     "undocument": true,
     "unknown": [
       {
@@ -3043,7 +2441,7 @@
     }
   },
   {
-    "__docId__": 130,
+    "__docId__": 104,
     "kind": "member",
     "name": "periodic",
     "memberof": "lib/tman.js~TMan",
@@ -3051,7 +2449,7 @@
     "longname": "lib/tman.js~TMan#periodic",
     "access": null,
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 66,
     "undocument": true,
     "unknown": [
       {
@@ -3066,30 +2464,7 @@
     }
   },
   {
-    "__docId__": 131,
-    "kind": "member",
-    "name": "protocols",
-    "memberof": "lib/tman.js~TMan",
-    "static": false,
-    "longname": "lib/tman.js~TMan#protocols",
-    "access": null,
-    "description": null,
-    "lineNumber": 84,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 132,
+    "__docId__": 105,
     "kind": "member",
     "name": "parent",
     "memberof": "lib/tman.js~TMan",
@@ -3097,7 +2472,7 @@
     "longname": "lib/tman.js~TMan#parent",
     "access": null,
     "description": null,
-    "lineNumber": 86,
+    "lineNumber": 83,
     "undocument": true,
     "unknown": [
       {
@@ -3112,15 +2487,15 @@
     }
   },
   {
-    "__docId__": 133,
+    "__docId__": 106,
     "kind": "member",
-    "name": "parentInterface",
+    "name": "unicast",
     "memberof": "lib/tman.js~TMan",
     "static": false,
-    "longname": "lib/tman.js~TMan#parentInterface",
+    "longname": "lib/tman.js~TMan#unicast",
     "access": null,
     "description": null,
-    "lineNumber": 88,
+    "lineNumber": 85,
     "undocument": true,
     "unknown": [
       {
@@ -3135,71 +2510,7 @@
     }
   },
   {
-    "__docId__": 134,
-    "kind": "method",
-    "name": "register",
-    "memberof": "lib/tman.js~TMan",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/tman.js~TMan#register",
-    "access": null,
-    "description": "Registers the protocol to Spray.",
-    "lineNumber": 118,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{IRPS} An interface providing easy-to-use functions on top of\nSpray"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "protocolId",
-        "description": "The identifier of the protocol that registers."
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "IRPS"
-      ],
-      "spread": false,
-      "description": "An interface providing easy-to-use functions on top of\nSpray"
-    }
-  },
-  {
-    "__docId__": 135,
-    "kind": "method",
-    "name": "unregister",
-    "memberof": "lib/tman.js~TMan",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/tman.js~TMan#unregister",
-    "access": null,
-    "description": "Unregisters the protocol.",
-    "lineNumber": 132,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "protocolId",
-        "description": "The identifier of the protocol that\nunregisters."
-      }
-    ]
-  },
-  {
-    "__docId__": 136,
+    "__docId__": 107,
     "kind": "method",
     "name": "join",
     "memberof": "lib/tman.js~TMan",
@@ -3209,7 +2520,7 @@
     "longname": "lib/tman.js~TMan#join",
     "access": null,
     "description": "Joining a network.",
-    "lineNumber": 149,
+    "lineNumber": 113,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3238,7 +2549,7 @@
     }
   },
   {
-    "__docId__": 137,
+    "__docId__": 108,
     "kind": "member",
     "name": "parent",
     "memberof": "lib/tman.js~TMan",
@@ -3246,7 +2557,7 @@
     "longname": "lib/tman.js~TMan#parent",
     "access": null,
     "description": null,
-    "lineNumber": 150,
+    "lineNumber": 114,
     "undocument": true,
     "unknown": [
       {
@@ -3261,7 +2572,7 @@
     }
   },
   {
-    "__docId__": 138,
+    "__docId__": 109,
     "kind": "method",
     "name": "_onJoin",
     "memberof": "lib/tman.js~TMan",
@@ -3271,7 +2582,7 @@
     "longname": "lib/tman.js~TMan#_onJoin",
     "access": "private",
     "description": "",
-    "lineNumber": 177,
+    "lineNumber": 141,
     "params": [
       {
         "nullable": null,
@@ -3296,7 +2607,7 @@
     ]
   },
   {
-    "__docId__": 139,
+    "__docId__": 110,
     "kind": "method",
     "name": "_onArcDown",
     "memberof": "lib/tman.js~TMan",
@@ -3306,7 +2617,7 @@
     "longname": "lib/tman.js~TMan#_onArcDown",
     "access": "private",
     "description": "",
-    "lineNumber": 208,
+    "lineNumber": 172,
     "params": [
       {
         "nullable": null,
@@ -3322,7 +2633,7 @@
     ]
   },
   {
-    "__docId__": 140,
+    "__docId__": 111,
     "kind": "method",
     "name": "_onPeerDown",
     "memberof": "lib/tman.js~TMan",
@@ -3332,7 +2643,7 @@
     "longname": "lib/tman.js~TMan#_onPeerDown",
     "access": "private",
     "description": "",
-    "lineNumber": 218,
+    "lineNumber": 182,
     "params": [
       {
         "nullable": null,
@@ -3347,7 +2658,7 @@
     ]
   },
   {
-    "__docId__": 141,
+    "__docId__": 112,
     "kind": "method",
     "name": "_sampleSize",
     "memberof": "lib/tman.js~TMan",
@@ -3357,7 +2668,7 @@
     "longname": "lib/tman.js~TMan#_sampleSize",
     "access": "private",
     "description": "",
-    "lineNumber": 228,
+    "lineNumber": 192,
     "params": [
       {
         "nullable": null,
@@ -3380,7 +2691,7 @@
     }
   },
   {
-    "__docId__": 142,
+    "__docId__": 113,
     "kind": "method",
     "name": "_partialViewSize",
     "memberof": "lib/tman.js~TMan",
@@ -3390,7 +2701,7 @@
     "longname": "lib/tman.js~TMan#_partialViewSize",
     "access": "private",
     "description": "",
-    "lineNumber": 235,
+    "lineNumber": 199,
     "params": [],
     "return": {
       "types": [
@@ -3399,7 +2710,7 @@
     }
   },
   {
-    "__docId__": 143,
+    "__docId__": 114,
     "kind": "method",
     "name": "_getSample",
     "memberof": "lib/tman.js~TMan",
@@ -3409,7 +2720,7 @@
     "longname": "lib/tman.js~TMan#_getSample",
     "access": "private",
     "description": "",
-    "lineNumber": 245,
+    "lineNumber": 209,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3438,7 +2749,7 @@
     }
   },
   {
-    "__docId__": 144,
+    "__docId__": 115,
     "kind": "member",
     "name": "parent",
     "memberof": "lib/tman.js~TMan",
@@ -3446,7 +2757,7 @@
     "longname": "lib/tman.js~TMan#parent",
     "access": null,
     "description": null,
-    "lineNumber": 255,
+    "lineNumber": 219,
     "undocument": true,
     "unknown": [
       {
@@ -3461,7 +2772,7 @@
     }
   },
   {
-    "__docId__": 145,
+    "__docId__": 116,
     "kind": "method",
     "name": "_exchange",
     "memberof": "lib/tman.js~TMan",
@@ -3471,11 +2782,11 @@
     "longname": "lib/tman.js~TMan#_exchange",
     "access": "private",
     "description": "",
-    "lineNumber": 283,
+    "lineNumber": 247,
     "params": []
   },
   {
-    "__docId__": 146,
+    "__docId__": 117,
     "kind": "method",
     "name": "_onExchange",
     "memberof": "lib/tman.js~TMan",
@@ -3485,7 +2796,7 @@
     "longname": "lib/tman.js~TMan#_onExchange",
     "access": "private",
     "description": "",
-    "lineNumber": 339,
+    "lineNumber": 303,
     "params": [
       {
         "nullable": null,
@@ -3510,7 +2821,7 @@
     ]
   },
   {
-    "__docId__": 147,
+    "__docId__": 118,
     "kind": "method",
     "name": "_onExchangeBack",
     "memberof": "lib/tman.js~TMan",
@@ -3520,7 +2831,7 @@
     "longname": "lib/tman.js~TMan#_onExchangeBack",
     "access": "private",
     "description": "",
-    "lineNumber": 356,
+    "lineNumber": 320,
     "params": [
       {
         "nullable": null,
@@ -3546,7 +2857,7 @@
     ]
   },
   {
-    "__docId__": 148,
+    "__docId__": 119,
     "kind": "method",
     "name": "_onRequire",
     "memberof": "lib/tman.js~TMan",
@@ -3556,7 +2867,7 @@
     "longname": "lib/tman.js~TMan#_onRequire",
     "access": "private",
     "description": "",
-    "lineNumber": 386,
+    "lineNumber": 350,
     "params": [
       {
         "nullable": null,
@@ -3581,7 +2892,7 @@
     ]
   },
   {
-    "__docId__": 149,
+    "__docId__": 120,
     "kind": "method",
     "name": "_receive",
     "memberof": "lib/tman.js~TMan",
@@ -3591,7 +2902,7 @@
     "longname": "lib/tman.js~TMan#_receive",
     "access": "private",
     "description": "",
-    "lineNumber": 402,
+    "lineNumber": 366,
     "params": [
       {
         "nullable": null,
@@ -3617,7 +2928,7 @@
     ]
   },
   {
-    "__docId__": 150,
+    "__docId__": 121,
     "kind": "method",
     "name": "_start",
     "memberof": "lib/tman.js~TMan",
@@ -3627,7 +2938,7 @@
     "longname": "lib/tman.js~TMan#_start",
     "access": "private",
     "description": "",
-    "lineNumber": 430,
+    "lineNumber": 388,
     "params": [
       {
         "name": "delay",
@@ -3639,7 +2950,7 @@
     ]
   },
   {
-    "__docId__": 151,
+    "__docId__": 122,
     "kind": "member",
     "name": "periodic",
     "memberof": "lib/tman.js~TMan",
@@ -3647,7 +2958,7 @@
     "longname": "lib/tman.js~TMan#periodic",
     "access": null,
     "description": null,
-    "lineNumber": 431,
+    "lineNumber": 389,
     "undocument": true,
     "unknown": [
       {
@@ -3662,7 +2973,7 @@
     }
   },
   {
-    "__docId__": 152,
+    "__docId__": 123,
     "kind": "method",
     "name": "_stop",
     "memberof": "lib/tman.js~TMan",
@@ -3672,11 +2983,11 @@
     "longname": "lib/tman.js~TMan#_stop",
     "access": "private",
     "description": "",
-    "lineNumber": 437,
+    "lineNumber": 395,
     "params": []
   },
   {
-    "__docId__": 153,
+    "__docId__": 124,
     "kind": "member",
     "name": "periodic",
     "memberof": "lib/tman.js~TMan",
@@ -3684,7 +2995,7 @@
     "longname": "lib/tman.js~TMan#periodic",
     "access": null,
     "description": null,
-    "lineNumber": 438,
+    "lineNumber": 396,
     "undocument": true,
     "unknown": [
       {
@@ -3699,7 +3010,7 @@
     }
   },
   {
-    "__docId__": 154,
+    "__docId__": 125,
     "kind": "method",
     "name": "_requestDescriptor",
     "memberof": "lib/tman.js~TMan",
@@ -3709,7 +3020,7 @@
     "longname": "lib/tman.js~TMan#_requestDescriptor",
     "access": "private",
     "description": "",
-    "lineNumber": 447,
+    "lineNumber": 405,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3738,7 +3049,7 @@
     }
   },
   {
-    "__docId__": 155,
+    "__docId__": 126,
     "kind": "method",
     "name": "_onRequestDescriptor",
     "memberof": "lib/tman.js~TMan",
@@ -3748,7 +3059,7 @@
     "longname": "lib/tman.js~TMan#_onRequestDescriptor",
     "access": "private",
     "description": "",
-    "lineNumber": 473,
+    "lineNumber": 431,
     "params": [
       {
         "nullable": null,
@@ -3773,7 +3084,7 @@
     ]
   },
   {
-    "__docId__": 156,
+    "__docId__": 127,
     "kind": "method",
     "name": "_open",
     "memberof": "lib/tman.js~TMan",
@@ -3783,7 +3094,7 @@
     "longname": "lib/tman.js~TMan#_open",
     "access": "private",
     "description": "",
-    "lineNumber": 485,
+    "lineNumber": 443,
     "params": [
       {
         "nullable": null,
@@ -3798,7 +3109,7 @@
     ]
   },
   {
-    "__docId__": 157,
+    "__docId__": 128,
     "kind": "method",
     "name": "_keep",
     "memberof": "lib/tman.js~TMan",
@@ -3808,7 +3119,7 @@
     "longname": "lib/tman.js~TMan#_keep",
     "access": "private",
     "description": "",
-    "lineNumber": 516,
+    "lineNumber": 474,
     "params": [
       {
         "nullable": null,
@@ -3823,7 +3134,7 @@
     ]
   },
   {
-    "__docId__": 158,
+    "__docId__": 129,
     "kind": "method",
     "name": "_close",
     "memberof": "lib/tman.js~TMan",
@@ -3833,7 +3144,7 @@
     "longname": "lib/tman.js~TMan#_close",
     "access": "private",
     "description": "",
-    "lineNumber": 536,
+    "lineNumber": 494,
     "params": [
       {
         "nullable": null,
@@ -3848,7 +3159,7 @@
     ]
   },
   {
-    "__docId__": 159,
+    "__docId__": 130,
     "kind": "method",
     "name": "_updateState",
     "memberof": "lib/tman.js~TMan",
@@ -3858,11 +3169,11 @@
     "longname": "lib/tman.js~TMan#_updateState",
     "access": "private",
     "description": "",
-    "lineNumber": 544,
+    "lineNumber": 502,
     "params": []
   },
   {
-    "__docId__": 160,
+    "__docId__": 131,
     "kind": "member",
     "name": "state",
     "memberof": "lib/tman.js~TMan",
@@ -3870,7 +3181,7 @@
     "longname": "lib/tman.js~TMan#state",
     "access": null,
     "description": null,
-    "lineNumber": 547,
+    "lineNumber": 505,
     "undocument": true,
     "unknown": [
       {
@@ -3885,7 +3196,7 @@
     }
   },
   {
-    "__docId__": 161,
+    "__docId__": 132,
     "kind": "member",
     "name": "state",
     "memberof": "lib/tman.js~TMan",
@@ -3893,7 +3204,7 @@
     "longname": "lib/tman.js~TMan#state",
     "access": null,
     "description": null,
-    "lineNumber": 551,
+    "lineNumber": 509,
     "undocument": true,
     "unknown": [
       {
@@ -3908,7 +3219,7 @@
     }
   },
   {
-    "__docId__": 162,
+    "__docId__": 133,
     "kind": "member",
     "name": "state",
     "memberof": "lib/tman.js~TMan",
@@ -3916,7 +3227,7 @@
     "longname": "lib/tman.js~TMan#state",
     "access": null,
     "description": null,
-    "lineNumber": 554,
+    "lineNumber": 512,
     "undocument": true,
     "unknown": [
       {
@@ -3931,7 +3242,7 @@
     }
   },
   {
-    "__docId__": 163,
+    "__docId__": 134,
     "kind": "method",
     "name": "getPeers",
     "memberof": "lib/tman.js~TMan",
@@ -3941,7 +3252,7 @@
     "longname": "lib/tman.js~TMan#getPeers",
     "access": null,
     "description": "Get k neighbors from the partial view. If k is not reached, it tries to\nfill the gap with neighbors from the inview.  It is worth noting that\neach peer controls its outview but not its inview. The more the neigbhors\nfrom the outview the better.",
-    "lineNumber": 569,
+    "lineNumber": 527,
     "params": [
       {
         "nullable": null,
@@ -3964,7 +3275,7 @@
     }
   },
   {
-    "__docId__": 165,
+    "__docId__": 136,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -3976,7 +3287,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 166,
+    "__docId__": 137,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -3988,7 +3299,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 167,
+    "__docId__": 138,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -4000,7 +3311,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 168,
+    "__docId__": 139,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -4012,7 +3323,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 169,
+    "__docId__": 140,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -4024,7 +3335,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 170,
+    "__docId__": 141,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -4036,7 +3347,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 171,
+    "__docId__": 142,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -4048,7 +3359,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 172,
+    "__docId__": 143,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -4060,7 +3371,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 173,
+    "__docId__": 144,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -4072,7 +3383,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 174,
+    "__docId__": 145,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -4084,7 +3395,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 175,
+    "__docId__": 146,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -4096,7 +3407,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 176,
+    "__docId__": 147,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -4108,7 +3419,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 177,
+    "__docId__": 148,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -4120,7 +3431,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 178,
+    "__docId__": 149,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -4132,7 +3443,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 179,
+    "__docId__": 150,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -4144,7 +3455,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 180,
+    "__docId__": 151,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -4156,7 +3467,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 181,
+    "__docId__": 152,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -4168,7 +3479,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 182,
+    "__docId__": 153,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -4180,7 +3491,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 183,
+    "__docId__": 154,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -4192,7 +3503,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 184,
+    "__docId__": 155,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -4204,7 +3515,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 185,
+    "__docId__": 156,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -4216,7 +3527,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 186,
+    "__docId__": 157,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -4228,7 +3539,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 187,
+    "__docId__": 158,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -4240,7 +3551,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 188,
+    "__docId__": 159,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -4252,7 +3563,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 189,
+    "__docId__": 160,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -4264,7 +3575,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 190,
+    "__docId__": 161,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -4276,7 +3587,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 191,
+    "__docId__": 162,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -4288,7 +3599,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 192,
+    "__docId__": 163,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -4300,7 +3611,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 193,
+    "__docId__": 164,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -4312,7 +3623,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 194,
+    "__docId__": 165,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -4324,7 +3635,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 195,
+    "__docId__": 166,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -4336,7 +3647,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 196,
+    "__docId__": 167,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -4348,7 +3659,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 197,
+    "__docId__": 168,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -4360,7 +3671,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 198,
+    "__docId__": 169,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -4372,7 +3683,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 199,
+    "__docId__": 170,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -4384,7 +3695,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 200,
+    "__docId__": 171,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -4396,7 +3707,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 201,
+    "__docId__": 172,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -4408,7 +3719,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 202,
+    "__docId__": 173,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -4420,7 +3731,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 203,
+    "__docId__": 174,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -4432,7 +3743,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 204,
+    "__docId__": 175,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -4444,7 +3755,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 205,
+    "__docId__": 176,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -4456,7 +3767,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 206,
+    "__docId__": 177,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -4468,7 +3779,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 207,
+    "__docId__": 178,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -4480,7 +3791,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 208,
+    "__docId__": 179,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -4492,7 +3803,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 209,
+    "__docId__": 180,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -4504,7 +3815,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 210,
+    "__docId__": 181,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -4516,7 +3827,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 211,
+    "__docId__": 182,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -4529,7 +3840,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 213,
+    "__docId__": 184,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -4541,7 +3852,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 214,
+    "__docId__": 185,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -4553,7 +3864,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 215,
+    "__docId__": 186,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -4565,7 +3876,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 216,
+    "__docId__": 187,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -4577,7 +3888,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 217,
+    "__docId__": 188,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -4589,7 +3900,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 218,
+    "__docId__": 189,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -4601,7 +3912,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 219,
+    "__docId__": 190,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -4613,7 +3924,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 220,
+    "__docId__": 191,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

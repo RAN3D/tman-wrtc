@@ -143,113 +143,6 @@ module.exports = ExPeerNotFound;
 'use strict';
 
 /**
- * Exception that rise when protocols do not behave!
- */
-class ExProtocol {
-    /**
-     * @param {string} source The name of the function that threw this
-     * exception.
-     * @param {string} protocolId The identifier of the protocol that already
-     * exists.
-     * @param {string} reason The reason of this exception.
-     */
-    constructor (source, protocolId, reason) {
-        this.pid = protocolId;
-        this.message = 'The idenfifier of the registering protocol already exists.';
-    };
-};
-
-module.exports = ExProtocol;
-
-},{}],6:[function(require,module,exports){
-'use strict';
-
-const debug = require('debug')('irps');
-const EventEmitter = require('events');
-
-const MEvent = require('../messages/mevent.js');
-
-/**
- * An interface providing easy-to-use functions on top of Spray. Once the
- * protocol registered to Spray, it gets this interface. It can send messages
- * using irps.emit('eventName', neighborId, args) and the neighbor can catch
- * them using irps.on('eventName', args).
- */
-class IRPS extends EventEmitter {
-    /**
-     * @param {string} protocolId The identifier of the protocol that request
-     * the interface.
-     * @param {object} parent The instanciator. It must implement 
-     * 'send(to, message [,retry])'.
-     */
-    constructor (protocolId, parent) {
-        super();
-        this.PID = protocolId;
-        this.parent = parent;
-        
-        debug('[%s] just registered to %s.', this.PID, this.parent.PID);
-        
-        // #1 replace the basic behavior of eventemitter.emit
-        this._emit = this.emit;
-        this.emit = (event, peerId, ...args) => {
-            parent.send(peerId, new MEvent(this.PID, event, args))
-                .then( () => debug('[%s] %s --> %s', this.PID, event, peerId))
-                .catch( (e) =>debug('[%s] %s -X> %s', this.PID, event, peerId));
-        };
-    };
-
-    /**
-     * @private
-     * Destroy all listeners and remove the send capabilities
-     */
-    _destroy () {
-        debug('[%s] just unregistered from %s.', this.PID, this.parent.PID);
-        this.removeAllListener();
-        this.emit = this._emit; // retrieve basic behavior
-    };
-    
-    /**
-     * @private
-     * Receiving a MEvent message triggers an event
-     * @param {MEvent} message The message received.
-     */
-    _receive (message) {
-        debug('[%s] ??? --> triggers %s', this.PID, message.event);
-        this._emit(message.event, ...(message.args));
-    };
-
-};
-
-module.exports = IRPS;
-
-},{"../messages/mevent.js":7,"debug":20,"events":22}],7:[function(require,module,exports){
-'use strict';
-
-/**
- * A message that will trigger an event at protocolId.
- */ 
-class MEvent {
-    /**
-     * @param {string} protocolId The identifier of the protocol that send and
-     * receive the event.
-     * @param {string} event The event name to trigger. 
-     * @param {object[]} args The arguments of the event.
-     */
-    constructor (protocolId, event, args) {
-        this.pid = protocolId;
-        this.event = event;
-        this.args = args;
-        this.type = 'MEvent';
-    };    
-};
-
-
-module.exports = MEvent;
-
-},{}],8:[function(require,module,exports){
-'use strict';
-
-/**
  * Message that gives your descriptor to another peer.
  */
 class MGiveDescriptor {
@@ -268,7 +161,7 @@ class MGiveDescriptor {
 
 module.exports = MGiveDescriptor;
 
-},{}],9:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 /**
@@ -288,7 +181,7 @@ class MJoin {
 
 module.exports = MJoin;
 
-},{}],10:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 /**
@@ -307,7 +200,7 @@ class MRequestDescriptor {
 module.exports = MRequestDescriptor;
 
 
-},{}],11:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 /**
@@ -327,7 +220,7 @@ class MRequire {
 
 module.exports = MRequire;
 
-},{}],12:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 /**
@@ -350,7 +243,7 @@ class MSuggest {
 
 module.exports = MSuggest;
 
-},{}],13:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 /**
@@ -370,7 +263,7 @@ class MSuggestBack {
 
 module.exports = MSuggestBack;
 
-},{}],14:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 const EPV = require('./entries/epv.js');
@@ -508,7 +401,7 @@ class PartialView extends Map {
 
 module.exports = PartialView;
 
-},{"./entries/epv.js":2,"./exceptions/expeernotfound.js":4}],15:[function(require,module,exports){
+},{"./entries/epv.js":2,"./exceptions/expeernotfound.js":4}],12:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -630,9 +523,9 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],16:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 
-},{}],17:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -744,7 +637,7 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"buffer":18}],18:[function(require,module,exports){
+},{"buffer":15}],15:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -1798,7 +1691,7 @@ function decodeUtf8Char (str) {
   }
 }
 
-},{"base64-js":15,"ieee754":24,"is-array":26}],19:[function(require,module,exports){
+},{"base64-js":12,"ieee754":21,"is-array":23}],16:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1909,7 +1802,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":27}],20:[function(require,module,exports){
+},{"../../is-buffer/index.js":24}],17:[function(require,module,exports){
 (function (process){
 /**
  * This is the web browser implementation of `debug()`.
@@ -2098,7 +1991,7 @@ function localstorage() {
 }
 
 }).call(this,require('_process'))
-},{"./debug":21,"_process":50}],21:[function(require,module,exports){
+},{"./debug":18,"_process":47}],18:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -2302,7 +2195,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":30}],22:[function(require,module,exports){
+},{"ms":27}],19:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2605,7 +2498,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],23:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 // originally pulled out of simple-peer
 
 module.exports = function getBrowserRTC () {
@@ -2622,7 +2515,7 @@ module.exports = function getBrowserRTC () {
   return wrtc
 }
 
-},{}],24:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -2708,7 +2601,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],25:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -2733,7 +2626,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],26:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 
 /**
  * isArray
@@ -2768,7 +2661,7 @@ module.exports = isArray || function (val) {
   return !! val && '[object Array]' == str.call(val);
 };
 
-},{}],27:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -2791,14 +2684,14 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],28:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],29:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -19886,7 +19779,7 @@ module.exports = Array.isArray || function (arr) {
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],30:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -20037,7 +19930,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's'
 }
 
-},{}],31:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20060,7 +19953,7 @@ class MConnectTo {
 
 module.exports = MConnectTo;
 
-},{}],32:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20075,7 +19968,7 @@ class MDirect {
 
 module.exports = MDirect;
 
-},{}],33:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20098,7 +19991,7 @@ class MForwarded {
 
 module.exports = MForwarded;
 
-},{}],34:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20120,7 +20013,7 @@ class MForwardTo {
 
 module.exports = MForwardTo;
 
-},{}],35:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 const debug = require('debug')('n2n-overlay-wrtc');
@@ -20458,7 +20351,7 @@ class Neighbor extends EventEmitter {
 
 module.exports = Neighbor;
 
-},{"./messages/mconnectto.js":31,"./messages/mdirect.js":32,"./messages/mforwarded.js":33,"./messages/mforwardto.js":34,"debug":20,"events":22,"lodash":29,"neighborhood-wrtc":48,"uuid/v4":65}],36:[function(require,module,exports){
+},{"./messages/mconnectto.js":28,"./messages/mdirect.js":29,"./messages/mforwarded.js":30,"./messages/mforwardto.js":31,"debug":17,"events":19,"lodash":26,"neighborhood-wrtc":45,"uuid/v4":74}],33:[function(require,module,exports){
 'use strict';
 
 const ELiving = require('./entries/eliving.js');
@@ -20610,7 +20503,7 @@ class ArcStore {
 
 module.exports = ArcStore;
 
-},{"./entries/eliving.js":38,"./exceptions/exsocketnotfound.js":43}],37:[function(require,module,exports){
+},{"./entries/eliving.js":35,"./exceptions/exsocketnotfound.js":40}],34:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20633,7 +20526,7 @@ class EDying {
 
 module.exports = EDying;
 
-},{}],38:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20701,7 +20594,7 @@ class ELiving {
 
 module.exports = ELiving;
 
-},{}],39:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20730,7 +20623,7 @@ class EPending {
 
 module.exports = EPending;
 
-},{}],40:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20753,7 +20646,7 @@ class ExIncompleteMessage {
 
 module.exports = ExIncompleteMessage;
 
-},{}],41:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20774,7 +20667,7 @@ class ExLateMessage {
 
 module.exports = ExLateMessage;
 
-},{}],42:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20794,7 +20687,7 @@ class ExProtocolExists {
 
 module.exports = ExProtocolExists;
 
-},{}],43:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20818,7 +20711,7 @@ class ExSocketNotFound {
 
 module.exports = ExSocketNotFound;
 
-},{}],44:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20880,7 +20773,7 @@ class INeighborhood {
 
 module.exports = INeighborhood;
 
-},{}],45:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20909,7 +20802,7 @@ class MRequest {
 
 module.exports = MRequest;
 
-},{}],46:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20937,7 +20830,7 @@ class MResponse {
 
 module.exports = MResponse;
 
-},{}],47:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 'use strict';
 
 /**
@@ -20961,7 +20854,7 @@ class MSend {
 
 module.exports = MSend;
 
-},{}],48:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 const debug = require('debug')('neighborhood-wrtc');
@@ -21435,7 +21328,7 @@ class Neighborhood {
 
 module.exports = Neighborhood;
 
-},{"./arcstore.js":36,"./entries/edying.js":37,"./entries/epending.js":39,"./exceptions/exincompletemessage.js":40,"./exceptions/exlatemessage.js":41,"./exceptions/exprotocolexists.js":42,"./interfaces/ineighborhood.js":44,"./messages/mrequest.js":45,"./messages/mresponse.js":46,"./messages/msend.js":47,"debug":20,"lodash":29,"simple-peer":60,"uuid/v4":65}],49:[function(require,module,exports){
+},{"./arcstore.js":33,"./entries/edying.js":34,"./entries/epending.js":36,"./exceptions/exincompletemessage.js":37,"./exceptions/exlatemessage.js":38,"./exceptions/exprotocolexists.js":39,"./interfaces/ineighborhood.js":41,"./messages/mrequest.js":42,"./messages/mresponse.js":43,"./messages/msend.js":44,"debug":17,"lodash":26,"simple-peer":57,"uuid/v4":74}],46:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -21482,7 +21375,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":50}],50:[function(require,module,exports){
+},{"_process":47}],47:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -21570,7 +21463,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],51:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 (function (process,global,Buffer){
 'use strict'
 
@@ -21610,7 +21503,7 @@ function randomBytes (size, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"_process":50,"buffer":18}],52:[function(require,module,exports){
+},{"_process":47,"buffer":15}],49:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -21686,7 +21579,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":54,"./_stream_writable":56,"core-util-is":19,"inherits":25,"process-nextick-args":49}],53:[function(require,module,exports){
+},{"./_stream_readable":51,"./_stream_writable":53,"core-util-is":16,"inherits":22,"process-nextick-args":46}],50:[function(require,module,exports){
 // a passthrough stream.
 // basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
@@ -21713,7 +21606,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":55,"core-util-is":19,"inherits":25}],54:[function(require,module,exports){
+},{"./_stream_transform":52,"core-util-is":16,"inherits":22}],51:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -22651,7 +22544,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":52,"./internal/streams/BufferList":57,"./internal/streams/stream":58,"_process":50,"buffer":18,"buffer-shims":17,"core-util-is":19,"events":22,"inherits":25,"isarray":28,"process-nextick-args":49,"string_decoder/":61,"util":16}],55:[function(require,module,exports){
+},{"./_stream_duplex":49,"./internal/streams/BufferList":54,"./internal/streams/stream":55,"_process":47,"buffer":15,"buffer-shims":14,"core-util-is":16,"events":19,"inherits":22,"isarray":25,"process-nextick-args":46,"string_decoder/":58,"util":13}],52:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -22834,7 +22727,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":52,"core-util-is":19,"inherits":25}],56:[function(require,module,exports){
+},{"./_stream_duplex":49,"core-util-is":16,"inherits":22}],53:[function(require,module,exports){
 (function (process){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
@@ -23381,7 +23274,7 @@ function CorkedRequest(state) {
   };
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":52,"./internal/streams/stream":58,"_process":50,"buffer":18,"buffer-shims":17,"core-util-is":19,"inherits":25,"process-nextick-args":49,"util-deprecate":62}],57:[function(require,module,exports){
+},{"./_stream_duplex":49,"./internal/streams/stream":55,"_process":47,"buffer":15,"buffer-shims":14,"core-util-is":16,"inherits":22,"process-nextick-args":46,"util-deprecate":71}],54:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -23446,10 +23339,10 @@ BufferList.prototype.concat = function (n) {
   }
   return ret;
 };
-},{"buffer":18,"buffer-shims":17}],58:[function(require,module,exports){
+},{"buffer":15,"buffer-shims":14}],55:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":22}],59:[function(require,module,exports){
+},{"events":19}],56:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -23458,7 +23351,7 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":52,"./lib/_stream_passthrough.js":53,"./lib/_stream_readable.js":54,"./lib/_stream_transform.js":55,"./lib/_stream_writable.js":56}],60:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":49,"./lib/_stream_passthrough.js":50,"./lib/_stream_readable.js":51,"./lib/_stream_transform.js":52,"./lib/_stream_writable.js":53}],57:[function(require,module,exports){
 (function (Buffer){
 module.exports = Peer
 
@@ -24222,7 +24115,7 @@ Peer.prototype._transformConstraints = function (constraints) {
 function noop () {}
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":18,"debug":20,"get-browser-rtc":23,"inherits":25,"randombytes":51,"readable-stream":59}],61:[function(require,module,exports){
+},{"buffer":15,"debug":17,"get-browser-rtc":20,"inherits":22,"randombytes":48,"readable-stream":56}],58:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -24496,7 +24389,324 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"buffer":18,"buffer-shims":17}],62:[function(require,module,exports){
+},{"buffer":15,"buffer-shims":14}],59:[function(require,module,exports){
+'use strict';
+
+/**
+ * This module encountered a problem with a message.
+ */
+class ExMessage {
+    /**
+     * @param {string} source The name of the function that threw.
+     * @param {object} message The incriminated message.
+     * @param {string} reason The reason of the throw.
+     */
+    constructor (source, message, reason){
+        this.source = source;
+        this.message = message;
+        this.reason = reason;
+    };
+};
+
+
+module.exports = ExMessage;
+
+},{}],60:[function(require,module,exports){
+'use strict';
+
+/**
+ * Exception that rises when protocols do not behave!
+ */
+class ExProtocol {
+    /**
+     * @param {string} source The name of the function that threw this
+     * exception.
+     * @param {string} protocolId The identifier of the protocol that already
+     * exists.
+     * @param {string} reason The reason of this exception.
+     */
+    constructor (source, protocolId, reason) {
+        this.source = source;
+        this.pid = protocolId;
+        this.reason = reason;
+    };
+};
+
+module.exports = ExProtocol;
+
+},{}],61:[function(require,module,exports){
+'use strict';
+
+const EventEmitter = require('events');
+
+const MUnicast = require('../messages/municast.js');
+
+/**
+ * An interface providing easy-to-use event-like functions on top of a
+ * peer-sampling protocol. As soon as protocols register, they get an
+ * interface. They can send messages using unicast.emit('eventName', neighborId,
+ * args) and the neighbor can catch them using unicast.on('eventName', args).
+ */
+class IUnicast extends EventEmitter {
+    /**
+     * @param {string} protocolId The identifier of the protocol that request
+     * the interface.
+     * @param {Unicast} parent The instanciator.
+     */
+    constructor (protocolId, parent) {
+        super();      
+        // #1 replace the basic behavior of eventemitter.emit
+        this._emit = this.emit;
+        /**
+         * Send a message using the emit function.
+         * @param {string} event The event name.
+         * @param {string} peerId The identifier of the peer to send the event
+         * to.
+         * @param {object[]} [args] The arguments of the event.
+         * @returns {Promise} Resolved if the message seems to have been sent,
+         * rejected otherwise (e.g. timeout, unkown peers).
+         */
+        this.emit = (event, peerId, ...args) => {
+            return parent.psp.send(peerId,
+                                   new MUnicast(parent.options.uid,
+                                                protocolId, event, args),
+                                   parent.options.retry);
+        };
+    };
+
+    /**
+     * @private Destroy all listeners and remove the send capabilities
+     */
+    _destroy () {
+        this.removeAllListener();
+        this.emit = this._emit; // retrieve basic behavior
+    };
+    
+    /**
+     * @private Receiving a MEvent message triggers an event
+     * @param {MEvent} message The message received.
+     */
+    _receive (message) {
+        this._emit(message.event, ...(message.args));
+    };
+
+};
+
+module.exports = IUnicast;
+
+},{"../messages/municast.js":62,"events":19}],62:[function(require,module,exports){
+'use strict';
+
+/**
+ * Message that triggers an event remotely for the protocol.
+ */
+class MUnicast {
+    /**
+     * @param {string} unicastId The identifier of the unicast protocol.
+     * @param {string} protocolId The identifier of the protocol that sent the
+     * message and that will receive the message.
+     * @param {string} eventName The name of the event to trigger.
+     * @param {object[]} [args] The arguments of the event.
+     */
+    constructor(unicastId, protocolId, eventName, args){
+        this.uid = unicastId;
+        this.pid = protocolId;
+        this.event = eventName;
+        this.args = args;
+        this.type = 'MUnicast';
+    };
+};
+
+module.exports = MUnicast;
+
+},{}],63:[function(require,module,exports){
+'use strict';
+
+const debug = require('debug')('unicast-definition');
+const _ = require('lodash');
+const uuid = require('uuid/v4');
+
+const IUnicast = require('./interfaces/iunicast.js');
+
+const ExProtocol = require('./exceptions/exprotocol.js');
+const ExMessage = require('./exceptions/exmessage.js');
+
+/**
+ * Unicast component that simply chooses a random peer from a peer-sampling
+ * protocol and send a message.
+ */
+class Unicast {
+    /**
+     * @param {IPSP} psp The peer-sampling protocol.
+     */
+    constructor(psp, options = {}) {        
+        this.options = ( {retry: 0, uid: uuid()}, options);
+        // #1 create the table of registered protocols
+        this.psp = psp;
+        this.protocols = new Map();
+        // #2 overload the receipt of messages from the peer-sampling protocol
+        // (TODO) maybe a cleaner way ? 
+        let __receive = psp._receive;
+        psp._receive = (peerId, message) => {
+            try {
+                __receive.call(psp, peerId, message);
+            } catch (e) {
+                if (message.type && message.type === 'MUnicast' &&
+                    message.uid === this.options.uid) {
+                    if (this.protocols.has(message.pid)){
+                        this.protocols.get(message.pid)._receive(message);
+                    } else {
+                        throw new ExProtocol('_receive',
+                                             message.pid,
+                                             'does not exist');
+                    };
+                } else {
+                    throw new ExMessage('_receive', message, 'unhandled');
+                };
+            };
+        };
+        
+        debug('just initialized on top of %s@%s.', this.psp.PID, this.psp.PEER);
+    };
+
+
+    /**
+     * Registers the protocol that wishes to use this module.
+     * @param {string} protocolId The identifier of the protocol that registers.
+     * @returns {IUnicast} An interface providing easy-to-use event-like
+     * functions to send and receive messages.
+     */
+    register(protocolId) {
+        if (!this.protocols.has(protocolId)) {
+            this.protocols.set(protocolId, new IUnicast(protocolId, this));
+            debug('Protocol %s just registered.', protocolId);
+            return this.protocols.get(protocolId);
+        } else {
+            throw new ExProtocol('register', protocolId, 'already exists');
+        };
+    };
+    
+    /**
+     * Unregisters the protocol.
+     * @param {string} protocolId The identifier of the protocol that
+     * unregisters.
+     */
+    unregister(protocolId) {
+        if (this.protocols.has(protocolId)){
+            this.protocols.get(protocolId).destroy();
+            this.protocols.delete(protocolId);
+            debug('Protocol %s just unregistered.', protocolId);
+        } else {
+            throw new ExProtocol('unregister', protocolId, 'does not exist');
+        };
+    };
+    
+};
+
+module.exports = Unicast;
+
+},{"./exceptions/exmessage.js":59,"./exceptions/exprotocol.js":60,"./interfaces/iunicast.js":61,"debug":64,"lodash":66,"uuid/v4":70}],64:[function(require,module,exports){
+module.exports=require(17)
+},{"./debug":65,"/home/travis/build/RAN3D/tman-wrtc/node_modules/debug/src/browser.js":17,"_process":47}],65:[function(require,module,exports){
+module.exports=require(18)
+},{"/home/travis/build/RAN3D/tman-wrtc/node_modules/debug/src/debug.js":18,"ms":67}],66:[function(require,module,exports){
+module.exports=require(26)
+},{"/home/travis/build/RAN3D/tman-wrtc/node_modules/lodash/lodash.js":26}],67:[function(require,module,exports){
+module.exports=require(27)
+},{"/home/travis/build/RAN3D/tman-wrtc/node_modules/ms/index.js":27}],68:[function(require,module,exports){
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  return  bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]];
+}
+
+module.exports = bytesToUuid;
+
+},{}],69:[function(require,module,exports){
+(function (global){
+// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+var rng;
+
+var crypto = global.crypto || global.msCrypto; // for IE 11
+if (crypto && crypto.getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16);
+  rng = function whatwgRNG() {
+    crypto.getRandomValues(rnds8);
+    return rnds8;
+  };
+}
+
+if (!rng) {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var  rnds = new Array(16);
+  rng = function() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+module.exports = rng;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],70:[function(require,module,exports){
+var rng = require('./lib/rng');
+var bytesToUuid = require('./lib/bytesToUuid');
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options == 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
+
+},{"./lib/bytesToUuid":68,"./lib/rng":69}],71:[function(require,module,exports){
 (function (global){
 
 /**
@@ -24567,110 +24777,23 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],63:[function(require,module,exports){
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-var byteToHex = [];
-for (var i = 0; i < 256; ++i) {
-  byteToHex[i] = (i + 0x100).toString(16).substr(1);
-}
-
-function bytesToUuid(buf, offset) {
-  var i = offset || 0;
-  var bth = byteToHex;
-  return  bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]];
-}
-
-module.exports = bytesToUuid;
-
-},{}],64:[function(require,module,exports){
-(function (global){
-// Unique ID creation requires a high quality random # generator.  In the
-// browser this is a little complicated due to unknown quality of Math.random()
-// and inconsistent support for the `crypto` API.  We do the best we can via
-// feature-detection
-var rng;
-
-var crypto = global.crypto || global.msCrypto; // for IE 11
-if (crypto && crypto.getRandomValues) {
-  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
-  var rnds8 = new Uint8Array(16);
-  rng = function whatwgRNG() {
-    crypto.getRandomValues(rnds8);
-    return rnds8;
-  };
-}
-
-if (!rng) {
-  // Math.random()-based (RNG)
-  //
-  // If all else fails, use Math.random().  It's fast, but is of unspecified
-  // quality.
-  var  rnds = new Array(16);
-  rng = function() {
-    for (var i = 0, r; i < 16; i++) {
-      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
-      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
-    }
-
-    return rnds;
-  };
-}
-
-module.exports = rng;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],65:[function(require,module,exports){
-var rng = require('./lib/rng');
-var bytesToUuid = require('./lib/bytesToUuid');
-
-function v4(options, buf, offset) {
-  var i = buf && offset || 0;
-
-  if (typeof(options) == 'string') {
-    buf = options == 'binary' ? new Array(16) : null;
-    options = null;
-  }
-  options = options || {};
-
-  var rnds = options.random || (options.rng || rng)();
-
-  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-  rnds[6] = (rnds[6] & 0x0f) | 0x40;
-  rnds[8] = (rnds[8] & 0x3f) | 0x80;
-
-  // Copy bytes to buffer, if provided
-  if (buf) {
-    for (var ii = 0; ii < 16; ++ii) {
-      buf[i + ii] = rnds[ii];
-    }
-  }
-
-  return buf || bytesToUuid(rnds);
-}
-
-module.exports = v4;
-
-},{"./lib/bytesToUuid":63,"./lib/rng":64}],"tman-wrtc":[function(require,module,exports){
+},{}],72:[function(require,module,exports){
+module.exports=require(68)
+},{"/home/travis/build/RAN3D/tman-wrtc/node_modules/unicast-definition/node_modules/uuid/lib/bytesToUuid.js":68}],73:[function(require,module,exports){
+module.exports=require(69)
+},{"/home/travis/build/RAN3D/tman-wrtc/node_modules/unicast-definition/node_modules/uuid/lib/rng-browser.js":69}],74:[function(require,module,exports){
+module.exports=require(70)
+},{"./lib/bytesToUuid":72,"./lib/rng":73,"/home/travis/build/RAN3D/tman-wrtc/node_modules/unicast-definition/node_modules/uuid/v4.js":70}],"tman-wrtc":[function(require,module,exports){
 'use strict';
 
 const debug = require('debug')('tman-wrtc');
 const N2N = require('n2n-overlay-wrtc');
+const U = require('unicast-definition');
 const _ = require('lodash');
 const uuid = require('uuid/v4');
 
 const PartialView = require('./partialview.js');
 const Cache = require('./cache.js');
-const IRPS = require('./interfaces/irps.js');
 
 const MJoin = require('./messages/mjoin.js');
 const MSuggest = require('./messages/msuggest.js');
@@ -24679,7 +24802,6 @@ const MRequire = require('./messages/mrequire.js');
 const MGiveDescriptor = require('./messages/mgivedescriptor.js');
 const MRequestDescriptor = require('./messages/mrequestdescriptor.js');
 
-const ExProtocol = require('./exceptions/exprotocol.js');
 const ExMessage = require('./exceptions/exmessage.js');
 
 /**
@@ -24700,10 +24822,10 @@ class TMan extends N2N {
      * milliseconds. Consequently, messages transiting through them can still be
      * transmitted, and if the protocol requires such an arc, it can be
      * reestablished at no cost.
-     * @param {TMan} [parent] This module can depend of another t-man module. If
-     * set, it will share the neighbors populating its inview and outview. Thus,
-     * the above options will be of no use. See neigbhorhood-wrtc module for
-     * more informations on the sharing process.
+     * @param {IPSP} [parent] This module can depend of another peer-sampling
+     * protocol. If set, it will share the neighbors populating its inview and
+     * outview. Thus, the above options will be of no use. See neigbhorhood-wrtc
+     * module for more informations on the sharing process.
      */
     constructor (options = {}, parent) {
         // #0 initialize our N2N-parent
@@ -24743,61 +24865,26 @@ class TMan extends N2N {
             this._onArcDown(peerId);
             this._updateState();
         });
-        // #6 table of protocols using Spray
-        this.protocols = new Map();
-        // #7 if has parent, register events to get descriptors
+        // #6 if has parent, register events to get descriptors
         this.parent = parent || null;
         if (this.parent) {
-            this.parentInterface = this.parent.register(this.PID);
-            this.parent.on('open', (peerId) => {
-                setTimeout( () => { // (TODO) cleaner retry.
-                    !this.cache.has(peerId) &&
-                        this.parentInterface.emit('requestDescriptor', peerId,
-                                                  this.getOutviewId());
-                }, 1000);
-            });
+            this.unicast = new U(this.parent, {retry: 1} ).register(this.PID);
+            this.parent.on('open', (peerId) =>
+                           !this.cache.has(peerId) &&
+                           this.unicast.emit('requestDescriptor',
+                                             peerId, this.getOutviewId()) );
             
-            this.parentInterface.on('requestDescriptor', (requester) => {
-                this.parentInterface.emit('giveDescriptor', requester,
-                                          this.getInviewId(),
-                                          this.options.descriptor);
-            });
-            this.parentInterface.on('giveDescriptor', (peerId, descriptor) => {
+            this.unicast.on('requestDescriptor', (requester) =>
+                            this.unicast.emit('giveDescriptor', requester,
+                                              this.getInviewId(),
+                                              this.options.descriptor) );
+            this.unicast.on('giveDescriptor', (peerId, descriptor) => {
                 if (!this.cache.has(peerId)) {
                     debug('[%s] get %s\'s descriptor from %s.',
                           this.PID, peerId, this.parent.PID);
                     this.cache.add(peerId, descriptor);
                 };
             });
-        };
-    };
-
-    /**
-     * Registers the protocol to Spray.
-     * @param {string} protocolId The identifier of the protocol that registers.
-     * @returns {IRPS} An interface providing easy-to-use functions on top of
-     * Spray
-     */
-    register(protocolId) {
-        if (!this.protocols.has(protocolId)) {
-            this.protocols.set(protocolId, new IRPS(protocolId, this));
-            return this.protocols.get(protocolId);
-        } else {
-            throw new ExProtocol('register', protocolId, 'already exists');
-        };
-    };
-
-    /**
-     * Unregisters the protocol.
-     * @param {string} protocolId The identifier of the protocol that
-     * unregisters.
-     */
-    unregister(protocolId) {
-        if (this.protocols.has(protocolId)){
-            this.protocols.get(protocolId).destroy();
-            this.protocols.delete(protocolId);
-        } else {
-            throw new ExProtocol('unregister', protocolId, 'does not exist');
         };
     };
 
@@ -25076,12 +25163,6 @@ class TMan extends N2N {
             this.emit(message.tid, message);
         } else if (message.type && message.type === 'MRequestDescriptor') {
             this._onRequestDescriptor(peerId, message);
-        } else if (message.type && message.type === 'MEvent') {
-            if (this.protocols.has(message.pid)) {
-                this.protocols.get(message.pid)._receive(message);
-            } else {
-                throw new ExProtocol('_receive', message.pid, 'does not exist');
-            };            
         } else {
             throw new ExMessage('_receive', message, 'unhandled');
         };
@@ -25259,4 +25340,4 @@ class TMan extends N2N {
 
 module.exports = TMan;
 
-},{"./cache.js":1,"./exceptions/exmessage.js":3,"./exceptions/exprotocol.js":5,"./interfaces/irps.js":6,"./messages/mgivedescriptor.js":8,"./messages/mjoin.js":9,"./messages/mrequestdescriptor.js":10,"./messages/mrequire.js":11,"./messages/msuggest.js":12,"./messages/msuggestback.js":13,"./partialview.js":14,"debug":20,"lodash":29,"n2n-overlay-wrtc":35,"uuid/v4":65}]},{},[]);
+},{"./cache.js":1,"./exceptions/exmessage.js":3,"./messages/mgivedescriptor.js":5,"./messages/mjoin.js":6,"./messages/mrequestdescriptor.js":7,"./messages/mrequire.js":8,"./messages/msuggest.js":9,"./messages/msuggestback.js":10,"./partialview.js":11,"debug":17,"lodash":26,"n2n-overlay-wrtc":32,"unicast-definition":63,"uuid/v4":74}]},{},[]);

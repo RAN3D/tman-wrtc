@@ -39,11 +39,7 @@
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">entries</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">exceptions</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exmessage.js~ExMessage.html">ExMessage</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/expeernotfound.js~ExPeerNotFound.html">ExPeerNotFound</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exprotocol.js~ExProtocol.html">ExProtocol</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">interfaces</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/interfaces/irps.js~IRPS.html">IRPS</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">messages</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mevent.js~MEvent.html">MEvent</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">messages</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span></span></li>
@@ -54,13 +50,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import TMan from &apos;<span><a href="file/lib/tman.js.html#lineNumber26">tman-wrtc</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import TMan from &apos;<span><a href="file/lib/tman.js.html#lineNumber25">tman-wrtc</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/tman.js.html#lineNumber26">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/tman.js.html#lineNumber25">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -113,7 +109,7 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, parent: <span><a href="class/lib/tman.js~TMan.html">TMan</a></span>)</span>
+          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, parent: <span>IPSP</span>)</span>
         </p>
       </div>
       <div>
@@ -201,33 +197,6 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-parentInterface">parentInterface</a></span></span><span data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
           <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-partialView">partialView</a></span></span><span data-ice="signature">: <span>*</span></span>
         </p>
       </div>
@@ -282,7 +251,7 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-protocols">protocols</a></span></span><span data-ice="signature">: <span>*</span></span>
+          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-state">state</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -309,7 +278,7 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-state">state</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-unicast">unicast</a></span></span><span data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -378,62 +347,6 @@ topologies using ranking functions.</p>
         
         
         <div data-ice="description"><p>Joining a network.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-register">register</a></span></span><span data-ice="signature">(protocolId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="class/lib/interfaces/irps.js~IRPS.html">IRPS</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Registers the protocol to Spray.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-unregister">unregister</a></span></span><span data-ice="signature">(protocolId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Unregisters the protocol.</p>
 </div>
       </div>
     </td>
@@ -979,11 +892,11 @@ topologies using ranking functions.</p>
     
     
     
-    <span data-ice="name">constructor</span><span data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, parent: <span><a href="class/lib/tman.js~TMan.html">TMan</a></span>)</span>
+    <span data-ice="name">constructor</span><span data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, parent: <span>IPSP</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber45">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 
@@ -1043,12 +956,12 @@ reestablished at no cost.</p>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">parent</td>
-      <td data-ice="type"><span><a href="class/lib/tman.js~TMan.html">TMan</a></span></td>
+      <td data-ice="type"><span>IPSP</span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>This module can depend of another t-man module. If
-set, it will share the neighbors populating its inview and outview. Thus,
-the above options will be of no use. See neigbhorhood-wrtc module for
-more informations on the sharing process.</p>
+      <td data-ice="description"><p>This module can depend of another peer-sampling
+protocol. If set, it will share the neighbors populating its inview and
+outview. Thus, the above options will be of no use. See neigbhorhood-wrtc
+module for more informations on the sharing process.</p>
 </td>
     </tr>
 </tbody>
@@ -1088,7 +1001,7 @@ more informations on the sharing process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -1131,50 +1044,7 @@ more informations on the sharing process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber86">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-parentInterface">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span data-ice="name">parentInterface</span><span data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber88">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber83">source</a></span></span>
     </span>
   </h3>
 
@@ -1217,7 +1087,7 @@ more informations on the sharing process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber62">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -1260,50 +1130,7 @@ more informations on the sharing process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber67">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-protocols">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span data-ice="name">protocols</span><span data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber84">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -1346,7 +1173,50 @@ more informations on the sharing process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber64">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-unicast">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">unicast</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
@@ -1392,7 +1262,7 @@ more informations on the sharing process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber569">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber527">source</a></span></span>
     </span>
   </h3>
 
@@ -1470,7 +1340,7 @@ it returns every known identifiers of the partial view.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber149">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber113">source</a></span></span>
     </span>
   </h3>
 
@@ -1535,143 +1405,6 @@ network; rejected after a timeout, or already connected state.</p>
   
   
 </div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-register">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span data-ice="name">register</span><span data-ice="signature">(protocolId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="class/lib/interfaces/irps.js~IRPS.html">IRPS</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber118">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Registers the protocol to Spray.</p>
-</div>
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">protocolId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>The identifier of the protocol that registers.</p>
-</td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="class/lib/interfaces/irps.js~IRPS.html">IRPS</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>An interface providing easy-to-use functions on top of
-Spray</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-unregister">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span data-ice="name">unregister</span><span data-ice="signature">(protocolId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber132">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Unregisters the protocol.</p>
-</div>
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">protocolId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>The identifier of the protocol that
-unregisters.</p>
-</td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
 <h2 data-ice="title">Private Methods</h2>
 
 <div class="detail" data-ice="detail">
@@ -1686,7 +1419,7 @@ unregisters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber536">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber494">source</a></span></span>
     </span>
   </h3>
 
@@ -1746,7 +1479,7 @@ unregisters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber283">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber247">source</a></span></span>
     </span>
   </h3>
 
@@ -1789,7 +1522,7 @@ unregisters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber245">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber209">source</a></span></span>
     </span>
   </h3>
 
@@ -1863,7 +1596,7 @@ peer to exchange with and .descriptor for the peer&apos;s descriptor.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber516">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber474">source</a></span></span>
     </span>
   </h3>
 
@@ -1923,7 +1656,7 @@ peer to exchange with and .descriptor for the peer&apos;s descriptor.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber208">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber172">source</a></span></span>
     </span>
   </h3>
 
@@ -1984,7 +1717,7 @@ failed to create a connection. Null if it was yet to be known.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber339">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber303">source</a></span></span>
     </span>
   </h3>
 
@@ -2051,7 +1784,7 @@ failed to create a connection. Null if it was yet to be known.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber356">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber320">source</a></span></span>
     </span>
   </h3>
 
@@ -2118,7 +1851,7 @@ failed to create a connection. Null if it was yet to be known.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber177">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber141">source</a></span></span>
     </span>
   </h3>
 
@@ -2185,7 +1918,7 @@ failed to create a connection. Null if it was yet to be known.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber218">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber182">source</a></span></span>
     </span>
   </h3>
 
@@ -2246,7 +1979,7 @@ left/crashed.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber473">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber431">source</a></span></span>
     </span>
   </h3>
 
@@ -2313,7 +2046,7 @@ left/crashed.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber386">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber350">source</a></span></span>
     </span>
   </h3>
 
@@ -2381,7 +2114,7 @@ connections.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber485">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber443">source</a></span></span>
     </span>
   </h3>
 
@@ -2441,7 +2174,7 @@ connections.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber235">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber199">source</a></span></span>
     </span>
   </h3>
 
@@ -2496,7 +2229,7 @@ connections.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber402">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber366">source</a></span></span>
     </span>
   </h3>
 
@@ -2563,7 +2296,7 @@ connections.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber447">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber405">source</a></span></span>
     </span>
   </h3>
 
@@ -2637,7 +2370,7 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber228">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber192">source</a></span></span>
     </span>
   </h3>
 
@@ -2710,7 +2443,7 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber430">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber388">source</a></span></span>
     </span>
   </h3>
 
@@ -2769,7 +2502,7 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber437">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber395">source</a></span></span>
     </span>
   </h3>
 
@@ -2812,7 +2545,7 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber544">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber502">source</a></span></span>
     </span>
   </h3>
 
