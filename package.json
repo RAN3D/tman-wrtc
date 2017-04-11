@@ -44,7 +44,7 @@
         "ava": "ava -v",
         "watch": "ava -v --watch",
         "coverage": "nyc ava",
-        "all": "npm run debug && npm run build && npm run ava && npm run esdoc"
+        "all": "npm run debug && npm run build && npm run esdoc"
     },
     "license": "MIT"
 }
