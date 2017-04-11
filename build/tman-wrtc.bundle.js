@@ -20458,7 +20458,7 @@ class Neighbor extends EventEmitter {
 
 module.exports = Neighbor;
 
-},{"./messages/mconnectto.js":31,"./messages/mdirect.js":32,"./messages/mforwarded.js":33,"./messages/mforwardto.js":34,"debug":20,"events":22,"lodash":29,"neighborhood-wrtc":48,"uuid/v4":64}],36:[function(require,module,exports){
+},{"./messages/mconnectto.js":31,"./messages/mdirect.js":32,"./messages/mforwarded.js":33,"./messages/mforwardto.js":34,"debug":20,"events":22,"lodash":29,"neighborhood-wrtc":48,"uuid/v4":65}],36:[function(require,module,exports){
 'use strict';
 
 const ELiving = require('./entries/eliving.js');
@@ -21435,7 +21435,7 @@ class Neighborhood {
 
 module.exports = Neighborhood;
 
-},{"./arcstore.js":36,"./entries/edying.js":37,"./entries/epending.js":39,"./exceptions/exincompletemessage.js":40,"./exceptions/exlatemessage.js":41,"./exceptions/exprotocolexists.js":42,"./interfaces/ineighborhood.js":44,"./messages/mrequest.js":45,"./messages/mresponse.js":46,"./messages/msend.js":47,"debug":20,"lodash":29,"simple-peer":59,"uuid/v4":64}],49:[function(require,module,exports){
+},{"./arcstore.js":36,"./entries/edying.js":37,"./entries/epending.js":39,"./exceptions/exincompletemessage.js":40,"./exceptions/exlatemessage.js":41,"./exceptions/exprotocolexists.js":42,"./interfaces/ineighborhood.js":44,"./messages/mrequest.js":45,"./messages/mresponse.js":46,"./messages/msend.js":47,"debug":20,"lodash":29,"simple-peer":60,"uuid/v4":65}],49:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -21742,14 +21742,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream;
-(function () {
-  try {
-    Stream = require('st' + 'ream');
-  } catch (_) {} finally {
-    if (!Stream) Stream = require('events').EventEmitter;
-  }
-})();
+var Stream = require('./internal/streams/stream');
 /*</replacement>*/
 
 var Buffer = require('buffer').Buffer;
@@ -21776,6 +21769,8 @@ var BufferList = require('./internal/streams/BufferList');
 var StringDecoder;
 
 util.inherits(Readable, Stream);
+
+var kProxyEvents = ['error', 'close', 'destroy', 'pause', 'resume'];
 
 function prependListener(emitter, event, fn) {
   // Sadly this is not cacheable as some libraries bundle their own
@@ -22501,10 +22496,9 @@ Readable.prototype.wrap = function (stream) {
   }
 
   // proxy certain important events.
-  var events = ['error', 'close', 'destroy', 'pause', 'resume'];
-  forEach(events, function (ev) {
-    stream.on(ev, self.emit.bind(self, ev));
-  });
+  for (var n = 0; n < kProxyEvents.length; n++) {
+    stream.on(kProxyEvents[n], self.emit.bind(self, kProxyEvents[n]));
+  }
 
   // when we try to consume some more bytes, simply unpause the
   // underlying stream.
@@ -22657,7 +22651,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":52,"./internal/streams/BufferList":57,"_process":50,"buffer":18,"buffer-shims":17,"core-util-is":19,"events":22,"inherits":25,"isarray":28,"process-nextick-args":49,"string_decoder/":60,"util":16}],55:[function(require,module,exports){
+},{"./_stream_duplex":52,"./internal/streams/BufferList":57,"./internal/streams/stream":58,"_process":50,"buffer":18,"buffer-shims":17,"core-util-is":19,"events":22,"inherits":25,"isarray":28,"process-nextick-args":49,"string_decoder/":61,"util":16}],55:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -22876,14 +22870,7 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream;
-(function () {
-  try {
-    Stream = require('st' + 'ream');
-  } catch (_) {} finally {
-    if (!Stream) Stream = require('events').EventEmitter;
-  }
-})();
+var Stream = require('./internal/streams/stream');
 /*</replacement>*/
 
 var Buffer = require('buffer').Buffer;
@@ -23394,7 +23381,7 @@ function CorkedRequest(state) {
   };
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":52,"_process":50,"buffer":18,"buffer-shims":17,"core-util-is":19,"events":22,"inherits":25,"process-nextick-args":49,"util-deprecate":61}],57:[function(require,module,exports){
+},{"./_stream_duplex":52,"./internal/streams/stream":58,"_process":50,"buffer":18,"buffer-shims":17,"core-util-is":19,"inherits":25,"process-nextick-args":49,"util-deprecate":62}],57:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -23460,6 +23447,9 @@ BufferList.prototype.concat = function (n) {
   return ret;
 };
 },{"buffer":18,"buffer-shims":17}],58:[function(require,module,exports){
+module.exports = require('events').EventEmitter;
+
+},{"events":22}],59:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -23468,7 +23458,7 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":52,"./lib/_stream_passthrough.js":53,"./lib/_stream_readable.js":54,"./lib/_stream_transform.js":55,"./lib/_stream_writable.js":56}],59:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":52,"./lib/_stream_passthrough.js":53,"./lib/_stream_readable.js":54,"./lib/_stream_transform.js":55,"./lib/_stream_writable.js":56}],60:[function(require,module,exports){
 (function (Buffer){
 module.exports = Peer
 
@@ -23775,6 +23765,13 @@ Peer.prototype._destroy = function (err, onclose) {
 
 Peer.prototype._setupData = function (event) {
   var self = this
+  if (!event.channel) {
+    // In some situations `pc.createDataChannel()` returns `undefined` (in wrtc),
+    // which is invalid behavior. Handle it gracefully.
+    // See: https://github.com/feross/simple-peer/issues/163
+    return self._onError(new Error('Data channel event is missing `channel` property'))
+  }
+
   self._channel = event.channel
   self._channel.binaryType = 'arraybuffer'
 
@@ -24114,7 +24111,7 @@ Peer.prototype._onChannelMessage = function (event) {
   var self = this
   if (self.destroyed) return
   var data = event.data
-  if (data instanceof ArrayBuffer) data = new Buffer(data)
+  if (data instanceof ArrayBuffer) data = Buffer.from(data)
   self.push(data)
 }
 
@@ -24225,7 +24222,7 @@ Peer.prototype._transformConstraints = function (constraints) {
 function noop () {}
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":18,"debug":20,"get-browser-rtc":23,"inherits":25,"randombytes":51,"readable-stream":58}],60:[function(require,module,exports){
+},{"buffer":18,"debug":20,"get-browser-rtc":23,"inherits":25,"randombytes":51,"readable-stream":59}],61:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -24499,7 +24496,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"buffer":18,"buffer-shims":17}],61:[function(require,module,exports){
+},{"buffer":18,"buffer-shims":17}],62:[function(require,module,exports){
 (function (global){
 
 /**
@@ -24570,7 +24567,7 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
@@ -24595,7 +24592,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 (function (global){
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
@@ -24632,7 +24629,7 @@ if (!rng) {
 module.exports = rng;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],64:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -24663,7 +24660,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":62,"./lib/rng":63}],"tman-wrtc":[function(require,module,exports){
+},{"./lib/bytesToUuid":63,"./lib/rng":64}],"tman-wrtc":[function(require,module,exports){
 'use strict';
 
 const debug = require('debug')('tman-wrtc');
@@ -25262,4 +25259,4 @@ class TMan extends N2N {
 
 module.exports = TMan;
 
-},{"./cache.js":1,"./exceptions/exmessage.js":3,"./exceptions/exprotocol.js":5,"./interfaces/irps.js":6,"./messages/mgivedescriptor.js":8,"./messages/mjoin.js":9,"./messages/mrequestdescriptor.js":10,"./messages/mrequire.js":11,"./messages/msuggest.js":12,"./messages/msuggestback.js":13,"./partialview.js":14,"debug":20,"lodash":29,"n2n-overlay-wrtc":35,"uuid/v4":64}]},{},[]);
+},{"./cache.js":1,"./exceptions/exmessage.js":3,"./exceptions/exprotocol.js":5,"./interfaces/irps.js":6,"./messages/mgivedescriptor.js":8,"./messages/mjoin.js":9,"./messages/mrequestdescriptor.js":10,"./messages/mrequire.js":11,"./messages/msuggest.js":12,"./messages/msuggestback.js":13,"./partialview.js":14,"debug":20,"lodash":29,"n2n-overlay-wrtc":35,"uuid/v4":65}]},{},[]);
