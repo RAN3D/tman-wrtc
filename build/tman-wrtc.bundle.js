@@ -503,15 +503,6 @@ class PartialView extends Map {
             return this.get(peerId).descriptor;
         };
     };
-
-    /**
-     * Getter for the number of arcs stored in this partial view.
-     * 
-     */ 
-    get count () {
-        
-    };
-
 }
 
 
@@ -25056,7 +25047,7 @@ class TMan extends N2N {
      * @private A peer requested to be connected with a set of neighbors.
      * @param {string} peerId The identifier of the peer that requests
      * connections.
-     * @param {IRequire} message The request message.
+     * @param {MRequire} message The request message.
      */
     _onRequire (peerId, message) {
         // #1 bridge the requester and the requested peers
