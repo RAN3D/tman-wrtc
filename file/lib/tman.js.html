@@ -134,7 +134,8 @@ class TMan extends N2N {
         // #6 if has parent, register events to get descriptors
         this.parent = parent || null;
         if (this.parent) {
-            this.unicast = new U(this.parent, {retry: 1} ).register(this.PID);
+            this.unicast = new U(this.parent, {uid: &apos;tman-wrtc-unicast&apos;,
+                                               retry: 1} ).register(this.PID);
             this.parent.on(&apos;open&apos;, (peerId) =&gt;
                            !this.cache.has(peerId) &amp;&amp;
                            this.unicast.emit(&apos;requestDescriptor&apos;,
