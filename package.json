@@ -1,6 +1,6 @@
 {
     "name": "tman-wrtc",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Chat-Wane <grumpy.chat.wane@gmail.com>",
     "description": "Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions",
     "main": "./lib/tman.js",
@@ -18,8 +18,8 @@
         "lodash": "^4.17.4",
         "debug": "^2.6.1",
         "uuid": "^3.0.1",
-        "n2n-overlay-wrtc": "git://github.com/ran3d/n2n-overlay-wrtc.git#merging",
-        "unicast-definition": "^1.0.1"
+        "n2n-overlay-wrtc": "^2.0.1",
+        "unicast-definition": "^2.0.0"
     },
     "bundledDependencies": [
         "lodash",
@@ -29,13 +29,11 @@
         "unicast-definition"
     ],
     "devDependencies": {
-        "ava": "0.18.x",
         "browserify": "6.2.x",
         "esdoc": "^0.5.2",
         "esdoc-node": "^1.0.1",
-        "nyc": "10.1.x",
         "p2p-graph": "^1.0.0",
-        "spray-wrtc": "git://github.com/ran3d/spray-wrtc.git#merging"
+        "spray-wrtc": "^2.0.1"
     },
     "scripts": {
         "debug": "browserify -r ./lib/tman.js:tman-wrtc --debug > build/tman-wrtc.bundle.debug.js",
@@ -43,9 +41,6 @@
         "esdoc": "esdoc && npm run esdoc:example",
         "esdoc:example": "cp -R ./build ./examples ./docs",
         "test": "npm run all",
-        "ava": "ava -v",
-        "watch": "ava -v --watch",
-        "coverage": "nyc ava",
         "all": "npm run debug && npm run build && npm run esdoc"
     },
     "license": "MIT"

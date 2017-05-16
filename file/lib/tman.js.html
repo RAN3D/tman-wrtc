@@ -37,7 +37,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/tman.js~TMan.html">TMan</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-N2N">N2N</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">entries</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">exceptions</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exmessage.js~ExMessage.html">ExMessage</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">exceptions</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exmessage.js~ExMessage.html">ExMessage</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/expeernotfound.js~ExPeerNotFound.html">ExPeerNotFound</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">messages</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span></span></li>
@@ -69,6 +70,7 @@ const MGiveDescriptor = require(&apos;./messages/mgivedescriptor.js&apos;);
 const MRequestDescriptor = require(&apos;./messages/mrequestdescriptor.js&apos;);
 
 const ExMessage = require(&apos;./exceptions/exmessage.js&apos;);
+const ExJoin = require(&apos;./exceptions/exjoin.js&apos;);
 
 /**
  * Peer-sampling protocol running on top of WebRTC that builds network
@@ -134,17 +136,21 @@ class TMan extends N2N {
         // #6 if has parent, register events to get descriptors
         this.parent = parent || null;
         if (this.parent) {
-            this.unicast = new U(this.parent, {uid: &apos;tman-wrtc-unicast&apos;,
-                                               retry: 1} ).register(this.PID);
+            this.unicast = new U(this.parent,
+                                 {pid: &apos;tman-wrtc-unicast&apos;,
+                                  retry: this.options.retry} );
+            
             this.parent.on(&apos;open&apos;, (peerId) =&gt;
                            !this.cache.has(peerId) &amp;&amp;
                            this.unicast.emit(&apos;requestDescriptor&apos;,
-                                             peerId, this.getOutviewId()) );
+                                             peerId, this.getOutviewId())
+                           .catch( (e) =&gt; { } ));
             
             this.unicast.on(&apos;requestDescriptor&apos;, (requester) =&gt;
                             this.unicast.emit(&apos;giveDescriptor&apos;, requester,
                                               this.getInviewId(),
-                                              this.options.descriptor) );
+                                              this.options.descriptor)
+                            .catch( (e) =&gt; { } ));
             this.unicast.on(&apos;giveDescriptor&apos;, (peerId, descriptor) =&gt; {
                 if (!this.cache.has(peerId)) {
                     debug(&apos;[%s] get %s\&apos;s descriptor from %s.&apos;,
@@ -165,27 +171,33 @@ class TMan extends N2N {
      */
     join (sender) {
         this.parent &amp;&amp; this.parent.join(sender);
-        const joinPromise = new Promise( (resolve, reject) =&gt; {
+        let result = new Promise( (resolve, reject) =&gt; {
             // #0 connectedness state check
-            (this.state !== &apos;disconnected&apos;) &amp;&amp; reject(&apos;connected&apos;);
+            (this.state !== &apos;disconnected&apos;) &amp;&amp;
+                reject(new ExJoin(&apos;join&apos;, &apos;Already connected.&apos;));
             // #1 set timeout before reject
             let to = setTimeout( () =&gt; {
-                reject(&apos;timeout&apos;); // (TODO) Join exception
+                reject(new ExJoin(&apos;join&apos;, &apos;Timeout exceeded.&apos;));
             }, this.options.timeout);
             // #2 very first call, only done once
             this.once(&apos;open&apos;, (peerId) =&gt; {
-                this.send(peerId, new MJoin(this.getInviewId(),
-                                            this.options.descriptor),
-                          this.options.retry);
-                this._start(); // start shuffling process
-                clearTimeout(to);
-                resolve();
+                this.send(peerId,
+                          new MJoin(this.getInviewId(),this.options.descriptor),
+                          this.options.retry).then( () =&gt; {
+                              clearTimeout(to);
+                              this._start(); 
+                              resolve(peerId);
+                          }).catch( () =&gt; {
+                              reject( new ExJoin(&apos;join&apos;,
+                                                 &apos;Could not notify contact.&apos;));
+                          });
             });
         });
+        // #3 start the very first connection of this peer
         this.connect(sender);
-        return joinPromise;
+        return result;
     };
-
+    
     /**
      * @private Behavior when a peer just joined the network through this peer.
      * @param {string} peerId The identifier of the newcomer.
@@ -202,7 +214,9 @@ class TMan extends N2N {
             });
             neighbors.push({peer:this.getInviewId(),
                             descriptor: this.options.descriptor});
-            this.send(peerId, new MSuggestBack(neighbors), this.options.retry);
+            this.send(peerId,
+                      new MSuggestBack(neighbors),
+                      this.options.retry).catch( (e) =&gt; { } );
         } else {
             // #2 this -&gt; peerId
             debug(&apos;[%s] %s ===&gt; join %s ===&gt; %s&apos;,
@@ -212,7 +226,7 @@ class TMan extends N2N {
             this.send(peerId,
                       new MSuggestBack([{peer:this.getInviewId(),
                                          descriptor: this.options.descriptor}]),
-                      this.options.retry);
+                      this.options.retry).catch( (e) =&gt; { } );
             this._start();
         };
     };
@@ -356,10 +370,12 @@ class TMan extends N2N {
     _onExchange (peerId, message) {
         // #1 prepare the sample to send back
         const sample = this._getSample(message);
-        this.send(peerId, new MSuggestBack(sample) ).then( () =&gt; {
-            debug(&apos;[%s] %s ==&gt; suggest back %s ==&gt; %s&apos;,
-                  this.PID, this.PEER, sample.length, peerId);
-        });
+        this.send(peerId, new MSuggestBack(sample), this.options.retry)
+            .then( () =&gt; {
+                debug(&apos;[%s] %s ==&gt; suggest back %s ==&gt; %s&apos;,
+                      this.PID, this.PEER, sample.length, peerId);
+            })
+            .catch ( (e) =&gt; { } );
         // #2 analyze the received sample and keep the elements if they are
         // better than the current ones
         this._onExchangeBack(peerId, message);
@@ -390,7 +406,11 @@ class TMan extends N2N {
         if (request.length &gt; 0) {
             debug(&apos;[%s] %s wants to keep %s peers.&apos;,
                   this.PID, this.PEER, request.length);
-            this.send(peerId, new MRequire(request));
+            this.send(peerId, new MRequire(request), this.options.retry)
+                .catch( (e) =&gt; {
+                    debug(&apos;[%s] %s =X&gt; request descriptors %s =X&gt; %s&apos;,
+                          this.PID, this.PEER, request.length, peerId);
+                });
         };
     };
 
@@ -485,7 +505,11 @@ class TMan extends N2N {
         this.send(peerId, new MGiveDescriptor(message.tid,
                                               this.getInviewId(),
                                               this.options.descriptor),
-                  this.options.retry);
+                  this.options.retry)
+            .catch( (e) =&gt; {
+                debug(&apos;[%s] %s =X&gt; give descriptor =X&gt; %s&apos;,
+                      this.PID, this.PEER, peerId);
+            });
     };
     
     /**

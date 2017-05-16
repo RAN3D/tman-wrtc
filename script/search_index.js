@@ -12,6 +12,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "tman-wrtc/lib/exceptions/exjoin.js~exjoin",
+    "class/lib/exceptions/exjoin.js~ExJoin.html",
+    "<span>ExJoin</span> <span class=\"search-result-import-path\">tman-wrtc/lib/exceptions/exjoin.js</span>",
+    "class"
+  ],
+  [
     "tman-wrtc/lib/exceptions/exmessage.js~exmessage",
     "class/lib/exceptions/exmessage.js~ExMessage.html",
     "<span>ExMessage</span> <span class=\"search-result-import-path\">tman-wrtc/lib/exceptions/exmessage.js</span>",
@@ -508,6 +514,30 @@ window.esdocSearchIndex = [
     "file/lib/exceptions/exinterface.js.html",
     "lib/exceptions/exinterface.js",
     "file"
+  ],
+  [
+    "lib/exceptions/exjoin.js",
+    "file/lib/exceptions/exjoin.js.html",
+    "lib/exceptions/exjoin.js",
+    "file"
+  ],
+  [
+    "lib/exceptions/exjoin.js~exjoin#constructor",
+    "class/lib/exceptions/exjoin.js~ExJoin.html#instance-constructor-constructor",
+    "lib/exceptions/exjoin.js~ExJoin#constructor",
+    "method"
+  ],
+  [
+    "lib/exceptions/exjoin.js~exjoin#message",
+    "class/lib/exceptions/exjoin.js~ExJoin.html#instance-member-message",
+    "lib/exceptions/exjoin.js~ExJoin#message",
+    "member"
+  ],
+  [
+    "lib/exceptions/exjoin.js~exjoin#source",
+    "class/lib/exceptions/exjoin.js~ExJoin.html#instance-member-source",
+    "lib/exceptions/exjoin.js~ExJoin#source",
+    "member"
   ],
   [
     "lib/exceptions/exmessage.js",
