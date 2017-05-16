@@ -39,7 +39,7 @@
         "debug": "browserify -r ./lib/tman.js:tman-wrtc --debug > build/tman-wrtc.bundle.debug.js",
         "build": "browserify -r ./lib/tman.js:tman-wrtc > build/tman-wrtc.bundle.js",
         "esdoc": "esdoc && npm run esdoc:example",
-        "esdoc:example": "cp -R ./build ./examples ./docs",
+        "esdoc:example": "cp -R ./build ./examples ./img ./docs",
         "test": "npm run all",
         "all": "npm run debug && npm run build && npm run esdoc"
     },
