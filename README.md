@@ -1,4 +1,4 @@
-# tman-wrtc
+# tman-wrtc [![Build Status](https://travis-ci.org/RAN3D/tman-wrtc.svg?branch=master)](https://travis-ci.org/RAN3D/tman-wrtc)
 
 <i>Keywords: T-Man, configurable network topology, WebRTC</i>
 
