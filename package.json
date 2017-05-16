@@ -17,14 +17,12 @@
     "dependencies": {
         "lodash": "^4.17.4",
         "debug": "^2.6.1",
-        "uuid": "^3.0.1",
         "n2n-overlay-wrtc": "^2.0.1",
         "unicast-definition": "^2.0.0"
     },
     "bundledDependencies": [
         "lodash",
         "debug",
-        "uuid",
         "n2n-overlay-wrtc",
         "unicast-definition"
     ],

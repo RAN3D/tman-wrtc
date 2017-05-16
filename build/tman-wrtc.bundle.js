@@ -166,12 +166,10 @@ module.exports = ExPeerNotFound;
  */
 class MGiveDescriptor {
     /**
-     * @param {string} tid The identifier of the request message.
      * @param {string} inview The identifier of the inview of the sender.
      * @param {object} descriptor The descriptor of the sender.
      */
-    constructor (tid, inview, descriptor) {
-        this.tid = tid;
+    constructor (inview, descriptor) {
         this.peer = inview;
         this.descriptor = descriptor;
         this.type = 'MGiveDescriptor';
@@ -207,11 +205,7 @@ module.exports = MJoin;
  * Message sent by a peer asking for the receiver to send its descriptor.
  */   
 class MRequestDescriptor {
-    /**
-     * @param {string} tid The identifier of the request.
-     */
-    constructor (tid) {
-        this.tid = tid;
+    constructor () {
         this.type = 'MRequestDescriptor';
     };
 };
@@ -24713,20 +24707,13 @@ module.exports=require(17)
 module.exports=require(22)
 },{"/Users/chat-wane/Desktop/project/spray/tman-wrtc/node_modules/lodash/lodash.js":22}],80:[function(require,module,exports){
 module.exports=require(23)
-},{"/Users/chat-wane/Desktop/project/spray/tman-wrtc/node_modules/ms/index.js":23}],81:[function(require,module,exports){
-module.exports=require(68)
-},{"/Users/chat-wane/Desktop/project/spray/tman-wrtc/node_modules/n2n-overlay-wrtc/node_modules/neighborhood-wrtc/node_modules/uuid/lib/bytesToUuid.js":68}],82:[function(require,module,exports){
-module.exports=require(69)
-},{"/Users/chat-wane/Desktop/project/spray/tman-wrtc/node_modules/n2n-overlay-wrtc/node_modules/neighborhood-wrtc/node_modules/uuid/lib/rng-browser.js":69}],83:[function(require,module,exports){
-module.exports=require(70)
-},{"./lib/bytesToUuid":81,"./lib/rng":82,"/Users/chat-wane/Desktop/project/spray/tman-wrtc/node_modules/n2n-overlay-wrtc/node_modules/neighborhood-wrtc/node_modules/uuid/v4.js":70}],"tman-wrtc":[function(require,module,exports){
+},{"/Users/chat-wane/Desktop/project/spray/tman-wrtc/node_modules/ms/index.js":23}],"tman-wrtc":[function(require,module,exports){
 'use strict';
 
 const debug = require('debug')('tman-wrtc');
 const N2N = require('n2n-overlay-wrtc');
 const U = require('unicast-definition');
 const _ = require('lodash');
-const uuid = require('uuid/v4');
 
 const PartialView = require('./partialview.js');
 const Cache = require('./cache.js');
@@ -24759,6 +24746,9 @@ class TMan extends N2N {
      * milliseconds. Consequently, messages transiting through them can still be
      * transmitted, and if the protocol requires such an arc, it can be
      * reestablished at no cost.
+     * @param {number} [options.descriptorTimeout = 10000] Peers regularly ask
+     * for descriptor and await an answer. If this answer does not come up in
+     * time, it throws an exception.
      * @param {IPSP} [parent] This module can depend of another peer-sampling
      * protocol. If set, it will share the neighbors populating its inview and
      * outview. Thus, the above options will be of no use. See neigbhorhood-wrtc
@@ -24769,6 +24759,7 @@ class TMan extends N2N {
         super( _.merge({ pid: 'tman-wrtc',
                          delta: 1 * 60 * 1000,
                          timeout: 2 * 60 * 1000,
+                         descriptorTimeout: 10* 1000,
                          retry: 5,
                          inview: parent && parent.NI,
                          outview: parent && parent.NO,
@@ -25116,7 +25107,7 @@ class TMan extends N2N {
         } else if (message.type && message.type === 'MJoin') {
             this._onJoin(peerId, message);
         } else if (message.type && message.type === 'MGiveDescriptor') {
-            this.emit(message.tid, message);
+            this.emit(this.PID + '-' + peerId, message);
         } else if (message.type && message.type === 'MRequestDescriptor') {
             this._onRequestDescriptor(peerId, message);
         } else {
@@ -25146,19 +25137,19 @@ class TMan extends N2N {
      */
     _requestDescriptor (peerId) {
         return new Promise( (resolve, reject) => {
-            const tid = uuid();
-            let timeout = null;
-            this.send(peerId, new MRequestDescriptor(tid), this.options.retry)
+            let to = null;
+            this.send(peerId, new MRequestDescriptor(), this.options.retry)
                 .then( () => {
-                    timeout = setTimeout( () => {
-                        this.removeAllListeners(tid);
+                    to = setTimeout( () => {
+                        this.removeAllListeners(this.PID + '-' + peerId);
                         reject('timeout'); // (TODO) throw exception
-                    }, 10000); // (TODO) timeout config                    
+                    }, this.options.descriptorTimeout);
                 }).catch( (e) => {
                     reject(e);
                 });
             
-            this.once(tid, (message) => {
+            this.once(this.PID + '-' + peerId, (message) => {
+                clearTimeout(to);
                 this.cache.add(message.peer, message.descriptor);
                 resolve();
             });
@@ -25171,14 +25162,11 @@ class TMan extends N2N {
      * @param {MRequestDescriptor} message The message received.
      */
     _onRequestDescriptor (peerId, message) {
-        this.send(peerId, new MGiveDescriptor(message.tid,
-                                              this.getInviewId(),
+        this.send(peerId, new MGiveDescriptor(this.getInviewId(),
                                               this.options.descriptor),
                   this.options.retry)
-            .catch( (e) => {
-                debug('[%s] %s =X> give descriptor =X> %s',
-                      this.PID, this.PEER, peerId);
-            });
+            .catch( (e) => debug('[%s] %s =X> give descriptor =X> %s',
+                                 this.PID, this.PEER, peerId) );
     };
     
     /**
@@ -25300,4 +25288,4 @@ class TMan extends N2N {
 
 module.exports = TMan;
 
-},{"./cache.js":1,"./exceptions/exjoin.js":3,"./exceptions/exmessage.js":4,"./messages/mgivedescriptor.js":6,"./messages/mjoin.js":7,"./messages/mrequestdescriptor.js":8,"./messages/mrequire.js":9,"./messages/msuggest.js":10,"./messages/msuggestback.js":11,"./partialview.js":12,"debug":16,"lodash":22,"n2n-overlay-wrtc":28,"unicast-definition":76,"uuid/v4":83}]},{},[]);
+},{"./cache.js":1,"./exceptions/exjoin.js":3,"./exceptions/exmessage.js":4,"./messages/mgivedescriptor.js":6,"./messages/mjoin.js":7,"./messages/mrequestdescriptor.js":8,"./messages/mrequire.js":9,"./messages/msuggest.js":10,"./messages/msuggestback.js":11,"./partialview.js":12,"debug":16,"lodash":22,"n2n-overlay-wrtc":28,"unicast-definition":76}]},{},[]);
