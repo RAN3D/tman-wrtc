@@ -393,9 +393,9 @@ class TMan extends N2N {
         // #1 keep the best elements from the received sample
         let ranked = [];
         this.partialView.forEach( (epv, neighbor) =&gt; ranked.push(epv));
-        message.sample.forEach( (e) =&gt; {
-            !this.partialView.has(e.peer) &amp;&amp; ranked.push(e);
-        });
+        message.sample.forEach( (e) =&gt; ranked.indexOf(e) &lt; 0 &amp;&amp;
+                                ranked.push(e) );
+        
         ranked.sort( this.options.ranking(this.options) );
         // #2 require the elements
         let sliced = ranked.slice(0, this._partialViewSize());
@@ -414,9 +414,17 @@ class TMan extends N2N {
                     debug(&apos;[%s] %s =X&gt; request descriptors %s =X&gt; %s&apos;,
                           this.PID, this.PEER, request.length, peerId);
                 });
+        } else {
+            let rest = ranked.slice(this._partialViewSize(), ranked.length);
+            if (rest.length &gt; 0 &amp;&amp;
+                this.partialView.size &gt; this._partialViewSize()) {
+                rest.forEach( (peerId) =&gt; {
+                    this.partialView.has(peerId) &amp;&amp; this.disconnect(peerId);
+                });
+            };
         };
     };
-
+    
     /**
      * @private A peer requested to be connected with a set of neighbors.
      * @param {string} peerId The identifier of the peer that requests
@@ -570,7 +578,7 @@ class TMan extends N2N {
      */
     _close (peerId) {
         debug(&apos;[%s] %s =&#x2020;=&gt; %s&apos;, this.PID, this.PEER, peerId);
-        this.partialView.removeOldest(peerId);
+        this.partialView.has(peerId) &amp;&amp; this.partialView.removeOldest(peerId);
     };
     
     /**

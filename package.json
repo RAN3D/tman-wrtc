@@ -1,6 +1,6 @@
 {
     "name": "tman-wrtc",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "author": "Chat-Wane <grumpy.chat.wane@gmail.com>",
     "description": "Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions",
     "main": "./lib/tman.js",
