@@ -414,14 +414,13 @@ class TMan extends N2N {
                     debug(&apos;[%s] %s =X&gt; request descriptors %s =X&gt; %s&apos;,
                           this.PID, this.PEER, request.length, peerId);
                 });
-        } else {
-            let rest = ranked.slice(this._partialViewSize(), ranked.length);
-            if (rest.length &gt; 0 &amp;&amp;
-                this.partialView.size &gt; this._partialViewSize()) {
-                rest.forEach( (peerId) =&gt; {
-                    this.partialView.has(peerId) &amp;&amp; this.disconnect(peerId);
-                });
-            };
+        };
+        
+        let rest = ranked.slice(this._partialViewSize(), ranked.length);
+        if (rest.length &gt; 0 &amp;&amp; this.partialView.size &gt; this._partialViewSize()){
+            rest.forEach( (p) =&gt; {
+                this.partialView.has(p.peer) &amp;&amp; this.disconnect(p.peer);
+            });
         };
     };
     
@@ -448,7 +447,6 @@ class TMan extends N2N {
      * @param {object|MExchange} message The message received.
      */
     _receive (peerId, message) {
-        //        console.log(&apos;from &apos; + peerId,  message);
         if (message.type &amp;&amp; message.type === &apos;MSuggest&apos;) {
             this._onExchange(peerId, message);
         } else if (message.type &amp;&amp; message.type === &apos;MSuggestBack&apos;) {
@@ -564,12 +562,10 @@ class TMan extends N2N {
         let sliced = ranked.slice(0, this._partialViewSize());
         ranked.splice(0, this._partialViewSize());
         // ranked becomes the rest: the lowest graded
-        if (ranked.length &gt; 0 &amp;&amp; ranked[0].peer === peerId) {
-            this.disconnect(peerId);
-        } else {
+        if (ranked.length === 0 || ranked.indexOf(peerId) &lt; 0) {
             this.partialView.addNeighbor(peerId, this.cache.get(peerId));
-            ranked.length &gt; 0 &amp;&amp; this.disconnect(ranked[0].peer);
         };
+        ranked.forEach( (neighbor) =&gt; this.disconnect(neighbor.peer) );
     };
     
     /**

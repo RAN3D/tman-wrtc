@@ -25410,14 +25410,13 @@ class TMan extends N2N {
                     debug('[%s] %s =X> request descriptors %s =X> %s',
                           this.PID, this.PEER, request.length, peerId);
                 });
-        } else {
-            let rest = ranked.slice(this._partialViewSize(), ranked.length);
-            if (rest.length > 0 &&
-                this.partialView.size > this._partialViewSize()) {
-                rest.forEach( (peerId) => {
-                    this.partialView.has(peerId) && this.disconnect(peerId);
-                });
-            };
+        };
+        
+        let rest = ranked.slice(this._partialViewSize(), ranked.length);
+        if (rest.length > 0 && this.partialView.size > this._partialViewSize()){
+            rest.forEach( (p) => {
+                this.partialView.has(p.peer) && this.disconnect(p.peer);
+            });
         };
     };
     
@@ -25444,7 +25443,6 @@ class TMan extends N2N {
      * @param {object|MExchange} message The message received.
      */
     _receive (peerId, message) {
-        //        console.log('from ' + peerId,  message);
         if (message.type && message.type === 'MSuggest') {
             this._onExchange(peerId, message);
         } else if (message.type && message.type === 'MSuggestBack') {
@@ -25560,12 +25558,10 @@ class TMan extends N2N {
         let sliced = ranked.slice(0, this._partialViewSize());
         ranked.splice(0, this._partialViewSize());
         // ranked becomes the rest: the lowest graded
-        if (ranked.length > 0 && ranked[0].peer === peerId) {
-            this.disconnect(peerId);
-        } else {
+        if (ranked.length === 0 || ranked.indexOf(peerId) < 0) {
             this.partialView.addNeighbor(peerId, this.cache.get(peerId));
-            ranked.length > 0 && this.disconnect(ranked[0].peer);
         };
+        ranked.forEach( (neighbor) => this.disconnect(neighbor.peer) );
     };
     
     /**
