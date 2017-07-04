@@ -1,12 +1,12 @@
 {
     "name": "tman-wrtc",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "author": "Chat-Wane <grumpy.chat.wane@gmail.com>",
     "description": "Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions",
     "main": "./lib/tman.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/ran3d/tman-wrtc.git"
+        "url": "https://github.com/ran3d/tman-wrtc"
     },
     "keywords": [
         "Peer-sampling protocol",
@@ -15,23 +15,25 @@
         "WebRTC"
     ],
     "dependencies": {
-        "lodash": "^4.17.4",
         "debug": "^2.6.1",
-        "n2n-overlay-wrtc": "^2.0.1",
+        "lodash": "^4.17.4",
+        "lodash.isempty": "^4.4.0",
+        "n2n-overlay-wrtc": "^2.0.2",
         "unicast-definition": "^2.0.0"
     },
     "bundledDependencies": [
         "lodash",
+        "lodash.isempty",
         "debug",
         "n2n-overlay-wrtc",
         "unicast-definition"
     ],
     "devDependencies": {
-        "browserify": "6.2.x",
+        "browserify": "^14.4.0",
         "esdoc": "^0.5.2",
-        "esdoc-node": "^1.0.1",
+        "esdoc-node": "^1.0.2",
         "p2p-graph": "^1.0.0",
-        "spray-wrtc": "^2.0.1"
+        "spray-wrtc": "^2.0.2"
     },
     "scripts": {
         "debug": "browserify -r ./lib/tman.js:tman-wrtc --debug > build/tman-wrtc.bundle.debug.js",
