@@ -1,10 +1,34 @@
 {
-    "title": "tman-wrtc",
-    "source":"./lib",
-    "destination":"./docs",
-    "coverage": false,
-    "access": ["public", "protected", "private"],
-    "index": "./README.md",
-    "package": "./package.json",
-    "plugins": [{"name": "esdoc-node"}]
+  "source":"./lib",
+  "destination":"./docs",
+  "package": "./package.json",
+  "plugins": [
+    {"name": "esdoc-node"},
+    {"name": "esdoc-ecmascript-proposal-plugin", "option": {"all": true}},
+    {
+      "name": "esdoc-standard-plugin",
+      "options": {
+        "lint": {"enable": true},
+        "coverage": {"enable": false},
+        "accessor": {
+          "access": ["public", "protected"],
+          "autoPrivate": true
+        },
+        "undocumentIdentifier": {"enable": true},
+        "unexportedIdentifier": {"enable": false},
+        "typeInference": {"enable": true},
+        "brand": {
+          "title": "tman-wrtc",
+          "description": "Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions",
+          "repository": "https://github.com/ran3d/tman-wrtc",
+          "site": "https://github.com/ran3d/tman-wrtc",
+          "author": "https://github.com/ran3d/"
+        },
+        "manual": {
+          "index": "./README.md",
+          "globalIndex": true
+        }
+      }
+    }
+  ]
 }
