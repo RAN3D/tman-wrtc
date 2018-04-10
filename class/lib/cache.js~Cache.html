@@ -3,14 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">Cache | tman-wrtc API Document</title>
+  <title data-ice="title">Cache | tman-wrtc</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
-  
-  
   <script src="script/manual.js"></script>
-</head>
+<meta name="description" content="Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tman-wrtc"><meta property="twitter:description" content="Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -19,7 +17,6 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/ran3d/tman-wrtc" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -27,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/ran3d/tman-wrtc"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -35,12 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache.js~Cache.html">Cache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/partialview.js~PartialView.html">PartialView</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/tman.js~TMan.html">TMan</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-N2N">N2N</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">entries</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">exceptions</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#entries">entries</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#exceptions">exceptions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exinterface.js~ExInterface.html">ExInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exmessage.js~ExMessage.html">ExMessage</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/expeernotfound.js~ExPeerNotFound.html">ExPeerNotFound</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">messages</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#messages">messages</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span></span></li>
@@ -51,13 +48,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Cache from &apos;<span><a href="file/lib/cache.js.html#lineNumber4">tman-wrtc/lib/cache.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Cache from &apos;<span><a href="file/lib/cache.js.html#lineNumber3">tman-wrtc/lib/cache.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/cache.js.html#lineNumber4">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/cache.js.html#lineNumber3">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -108,7 +105,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/cache.js~Cache.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(timeout: <span>*</span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/cache.js~Cache.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
         </p>
       </div>
       <div>
@@ -142,7 +140,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/cache.js~Cache.html#instance-member-timeout">timeout</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/cache.js~Cache.html#instance-member-timeout">timeout</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -176,7 +175,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/cache.js~Cache.html#instance-method-add">add</a></span></span><span data-ice="signature">(peerId: <span>*</span>, descriptor: <span>*</span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/cache.js~Cache.html#instance-method-add">add</a></span></span><span class="code" data-ice="signature">(peerId: <span>*</span>, descriptor: <span>*</span>)</span>
         </p>
       </div>
       <div>
@@ -208,11 +208,11 @@
     
     
     
-    <span data-ice="name">constructor</span><span data-ice="signature">(timeout: <span>*</span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/cache.js.html#lineNumber5">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/cache.js.html#lineNumber4">source</a></span></span>
     </span>
   </h3>
 
@@ -223,23 +223,7 @@
 
   
 
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">timeout</td>
-      <td data-ice="type"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
+  <div data-ice="properties">
 </div>
 
   
@@ -270,11 +254,11 @@
     
     
     
-    <span data-ice="name">timeout</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">timeout</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/cache.js.html#lineNumber7">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/cache.js.html#lineNumber6">source</a></span></span>
     </span>
   </h3>
 
@@ -316,11 +300,11 @@
     
     
     
-    <span data-ice="name">add</span><span data-ice="signature">(peerId: <span>*</span>, descriptor: <span>*</span>)</span>
+    <span class="code" data-ice="name">add</span><span class="code" data-ice="signature">(peerId: <span>*</span>, descriptor: <span>*</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/cache.js.html#lineNumber11">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/cache.js.html#lineNumber9">source</a></span></span>
     </span>
   </h3>
 
@@ -340,14 +324,14 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">descriptor</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="name" class="code" data-depth="0">descriptor</td>
+      <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -377,7 +361,7 @@
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

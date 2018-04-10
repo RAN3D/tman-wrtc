@@ -1,0 +1,129 @@
+{
+  "coverage": "60.6%",
+  "expectCount": 99,
+  "actualCount": 60,
+  "files": {
+    "lib/cache.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6,
+        9
+      ]
+    },
+    "lib/entries/epv.js": {
+      "expectCount": 12,
+      "actualCount": 9,
+      "undocumentLines": [
+        12,
+        13,
+        14
+      ]
+    },
+    "lib/exceptions/exinterface.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        12,
+        13
+      ]
+    },
+    "lib/exceptions/exjoin.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        12,
+        13
+      ]
+    },
+    "lib/exceptions/exmessage.js": {
+      "expectCount": 5,
+      "actualCount": 2,
+      "undocumentLines": [
+        13,
+        14,
+        15
+      ]
+    },
+    "lib/exceptions/expeernotfound.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        14,
+        15
+      ]
+    },
+    "lib/messages/mgivedescriptor.js": {
+      "expectCount": 5,
+      "actualCount": 2,
+      "undocumentLines": [
+        12,
+        13,
+        14
+      ]
+    },
+    "lib/messages/mjoin.js": {
+      "expectCount": 5,
+      "actualCount": 2,
+      "undocumentLines": [
+        12,
+        13,
+        14
+      ]
+    },
+    "lib/messages/mrequestdescriptor.js": {
+      "expectCount": 3,
+      "actualCount": 1,
+      "undocumentLines": [
+        7,
+        8
+      ]
+    },
+    "lib/messages/mrequire.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        13,
+        14
+      ]
+    },
+    "lib/messages/msuggest.js": {
+      "expectCount": 6,
+      "actualCount": 2,
+      "undocumentLines": [
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    "lib/messages/msuggestback.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        13,
+        14
+      ]
+    },
+    "lib/partialview.js": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "lib/tman.js": {
+      "expectCount": 30,
+      "actualCount": 23,
+      "undocumentLines": [
+        4,
+        67,
+        68,
+        70,
+        72,
+        89,
+        91
+      ]
+    }
+  }
+}

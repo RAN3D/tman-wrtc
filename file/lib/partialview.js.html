@@ -3,14 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">lib/partialview.js | tman-wrtc API Document</title>
+  <title data-ice="title">lib/partialview.js | tman-wrtc</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
-  
-  
   <script src="script/manual.js"></script>
-</head>
+<meta name="description" content="Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tman-wrtc"><meta property="twitter:description" content="Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -19,7 +17,6 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/ran3d/tman-wrtc" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -27,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/ran3d/tman-wrtc"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -35,12 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache.js~Cache.html">Cache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/partialview.js~PartialView.html">PartialView</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/tman.js~TMan.html">TMan</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-N2N">N2N</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">entries</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">exceptions</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#entries">entries</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#exceptions">exceptions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exinterface.js~ExInterface.html">ExInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exmessage.js~ExMessage.html">ExMessage</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/expeernotfound.js~ExPeerNotFound.html">ExPeerNotFound</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">messages</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#messages">messages</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span></span></li>
@@ -51,11 +48,11 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/partialview.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
 
-const EPV = require(&apos;./entries/epv.js&apos;);
+const EPV = require(&apos;./entries/epv.js&apos;)
 
-const ExPeerNotFound = require(&apos;./exceptions/expeernotfound.js&apos;);
+const ExPeerNotFound = require(&apos;./exceptions/expeernotfound.js&apos;)
 
 /**
  * Structure containing the neighborhood of a peer. Each neigbhor entry
@@ -64,135 +61,128 @@ const ExPeerNotFound = require(&apos;./exceptions/expeernotfound.js&apos;);
  * age_k.
  */
 class PartialView extends Map {
-    constructor () {
-        super();
-    };
-    
-    /**
+  /**
      * Get the oldest peer in the partial view.
      * @returns {string} The oldest peer in the structure.
      */
-    get oldest () {
-        if (this.size &lt;= 0) { throw new ExPeerNotFound(&apos;getOldest&apos;); };
-        let oldestPeer = null;
-        let oldestAge = 0;
-        this.forEach( (epv, peerId) =&gt; {
-            if (oldestAge &lt;= epv.oldest) {
-                oldestPeer = epv.peer;
-                oldestAge = epv.oldest;
-            };
-        });
-        return oldestPeer;
-    };
+  get oldest () {
+    if (this.size &lt;= 0) { throw new ExPeerNotFound(&apos;getOldest&apos;) }
+    let oldestPeer = null
+    let oldestAge = 0
+    this.forEach((epv, peerId) =&gt; {
+      if (oldestAge &lt;= epv.oldest) {
+        oldestPeer = epv.peer
+        oldestAge = epv.oldest
+      }
+    })
+    return oldestPeer
+  }
 
-
-    /**
+  /**
      * Increment the age of the whole partial view
      */
-    increment () {
-        this.forEach( (epv, peerId) =&gt; {
-            epv.increment();
-        });
-    };
+  increment () {
+    this.forEach((epv, peerId) =&gt; {
+      epv.increment()
+    })
+  }
 
-    /**
+  /**
      * Add the peer to the partial view with an age of 0.
      * @param {string} peerId The identifier of the peer added to the partial
      * view.
      * @param {object} [descriptor = {}] The descriptor of the peer.
      */
-    addNeighbor (peerId, descriptor = {}) {
-        if (this.has(peerId)) {
-            this.get(peerId).add();
-        } else {
-            this.set(peerId, new EPV(peerId, descriptor));
-        };
-    };
+  addNeighbor (peerId, descriptor = {}) {
+    if (this.has(peerId)) {
+      this.get(peerId).add()
+    } else {
+      this.set(peerId, new EPV(peerId, descriptor))
+    }
+  }
 
-    /**
+  /**
      * Update the peer&apos;s descriptor.
      * @param {string} peerId The identifier of the peer to update.
      * @param {object} [descriptor = {}] The new descriptor of peerId.
      */
-    updateNeighbor (peerId, descriptor = {}) {
-        if (!this.has(peerId)){
-            throw new ExPeerNotFound(&apos;updateNeighbor&apos;, peerId);
-        } else {
-            this.get(peerId).update(descriptor);
-        };
-    };
-    
-    /**
-     * Remove the newest entry of the peer from the partial view.
-     * @param {string} peerId The identifier of the peer to remove from the 
-     * partial view. 
-     */
-    removeOldest (peerId) {
-        if (!this.has(peerId)) {
-            throw new ExPeerNotFound(&apos;removeNeighbor&apos;, peerId);
-        } else {
-            this.get(peerId).removeOldest() &amp;&amp; this.delete(peerId);
-        };
-    };
+  updateNeighbor (peerId, descriptor = {}) {
+    if (!this.has(peerId)) {
+      throw new ExPeerNotFound(&apos;updateNeighbor&apos;, peerId)
+    } else {
+      this.get(peerId).update(descriptor)
+    }
+  }
 
-    /**
+  /**
+     * Remove the newest entry of the peer from the partial view.
+     * @param {string} peerId The identifier of the peer to remove from the
+     * partial view.
+     */
+  removeOldest (peerId) {
+    if (!this.has(peerId)) {
+      throw new ExPeerNotFound(&apos;removeNeighbor&apos;, peerId)
+    } else {
+      this.get(peerId).removeOldest() &amp;&amp; this.delete(peerId)
+    }
+  }
+
+  /**
      * Remove all entries of the peer from the partial view.
-     * @param {string} peerId The identifier of the peer to remove from the 
+     * @param {string} peerId The identifier of the peer to remove from the
      * partial view.
      * @returns {number} The number of occurrences of peerId removed.
      */
-    removeAllNeighbor (peerId) {
-        if (!this.has(peerId)) {
-            throw new ExPeerNotFound(&apos;removeNeighbor&apos;, peerId);
-        } else {
-            const occ = this.get(peerId).count;
-            this.delete(peerId);
-            return occ;
-        };
-    };
-       
+  removeAllNeighbor (peerId) {
+    if (!this.has(peerId)) {
+      throw new ExPeerNotFound(&apos;removeNeighbor&apos;, peerId)
+    } else {
+      const occ = this.get(peerId).count
+      this.delete(peerId)
+      return occ
+    }
+  }
 
-    /**
+  /**
      * Get the least frequent peer. If multiple peers have the same number of
      * occurrences, it chooses one among them at random.
      * @returns {string} The identifier of a least frequent peer.
      */
-    get leastFrequent () {
-        if (this.size &lt;= 0) { throw new ExPeerNotFound(&apos;getLeastFrequent&apos;); };
-        let leastFrequent = [];
-        let frequency = Infinity;
-        this.forEach( (epv, peerId) =&gt; {
-            if (epv.count &lt; frequency){
-                leastFrequent = [];
-                frequency = epv.count;
-            };
-            (epv.count === frequency) &amp;&amp; leastFrequent.push(peerId);
-        });
-        return leastFrequent[Math.floor(Math.random() * leastFrequent.length)];
-    };
+  get leastFrequent () {
+    if (this.size &lt;= 0) { throw new ExPeerNotFound(&apos;getLeastFrequent&apos;) }
+    let leastFrequent = []
+    let frequency = Infinity
+    this.forEach((epv, peerId) =&gt; {
+      if (epv.count &lt; frequency) {
+        leastFrequent = []
+        frequency = epv.count
+      }
+      (epv.count === frequency) &amp;&amp; leastFrequent.push(peerId)
+    })
+    return leastFrequent[Math.floor(Math.random() * leastFrequent.length)]
+  }
 
-    /**
+  /**
      * Get the descriptor of the peer in argument.
      * @param {string} peerId The identifier of the peer.
      * @returns {object} The descriptor of the peer.
      */
-    getDescriptor (peerId) {
-        if (!this.has(peerId)) {
-            throw new ExPeerNotFound(&apos;getDescriptor&apos;, peerId);
-        } else {
-            return this.get(peerId).descriptor;
-        };
-    };
+  getDescriptor (peerId) {
+    if (!this.has(peerId)) {
+      throw new ExPeerNotFound(&apos;getDescriptor&apos;, peerId)
+    } else {
+      return this.get(peerId).descriptor
+    }
+  }
 }
 
-
-module.exports = PartialView;
+module.exports = PartialView
 </code></pre>
 
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

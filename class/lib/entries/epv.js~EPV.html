@@ -3,14 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">EPV | tman-wrtc API Document</title>
+  <title data-ice="title">EPV | tman-wrtc</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
-  
-  
   <script src="script/manual.js"></script>
-</head>
+<meta name="description" content="Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tman-wrtc"><meta property="twitter:description" content="Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -19,7 +17,6 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/ran3d/tman-wrtc" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -27,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/ran3d/tman-wrtc"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -35,12 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache.js~Cache.html">Cache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/partialview.js~PartialView.html">PartialView</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/tman.js~TMan.html">TMan</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-N2N">N2N</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">entries</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">exceptions</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#entries">entries</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#exceptions">exceptions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exinterface.js~ExInterface.html">ExInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exmessage.js~ExMessage.html">ExMessage</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/expeernotfound.js~ExPeerNotFound.html">ExPeerNotFound</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">messages</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#messages">messages</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span></span></li>
@@ -109,7 +106,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, descriptor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, descriptor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
         </p>
       </div>
       <div>
@@ -143,7 +141,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-member-ages">ages</a></span></span><span data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span><span>[]</span></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-member-ages">ages</a></span></span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -170,7 +169,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-get-count">count</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-get-count">count</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -198,7 +198,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-member-descriptor">descriptor</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-member-descriptor">descriptor</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -225,7 +226,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-get-oldest">oldest</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-get-oldest">oldest</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -253,7 +255,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-member-peer">peer</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-member-peer">peer</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -287,7 +290,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-add">add</a></span></span><span data-ice="signature">()</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-add">add</a></span></span><span class="code" data-ice="signature">()</span>
         </p>
       </div>
       <div>
@@ -315,13 +319,14 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-increment">increment</a></span></span><span data-ice="signature">()</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-increment">increment</a></span></span><span class="code" data-ice="signature">()</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Increment the ages     </p>
+        <div data-ice="description"><p>Increment the ages</p>
 </div>
       </div>
     </td>
@@ -343,7 +348,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-removeOldest">removeOldest</a></span></span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-removeOldest">removeOldest</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -371,7 +377,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-removeYoungest">removeYoungest</a></span></span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-removeYoungest">removeYoungest</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -399,7 +406,8 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-update">update</a></span></span><span data-ice="signature">(descriptor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html#instance-method-update">update</a></span></span><span class="code" data-ice="signature">(descriptor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
         </p>
       </div>
       <div>
@@ -432,7 +440,7 @@
     
     
     
-    <span data-ice="name">constructor</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, descriptor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, descriptor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
     <span class="right-info">
       
       
@@ -456,15 +464,15 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the neighbor.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">descriptor</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">descriptor</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default:  {}</li></ul></td>
       <td data-ice="description"><p>The descriptor of this neighbor.</p>
@@ -503,7 +511,7 @@
     
     
     
-    <span data-ice="name">ages</span><span data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span><span>[]</span></span></span>
+    <span class="code" data-ice="name">ages</span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span><span>[]</span></span></span>
     <span class="right-info">
       
       
@@ -546,7 +554,7 @@
     
     
     
-    <span data-ice="name">count</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">count</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
@@ -557,7 +565,7 @@
   
   
   
-  <div data-ice="description"><p>Get the number of occurrences of this neighbor. </p>
+  <div data-ice="description"><p>Get the number of occurrences of this neighbor.</p>
 </div>
 
   
@@ -590,7 +598,7 @@
     
     
     
-    <span data-ice="name">descriptor</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">descriptor</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
@@ -633,7 +641,7 @@
     
     
     
-    <span data-ice="name">oldest</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
+    <span class="code" data-ice="name">oldest</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
     <span class="right-info">
       
       
@@ -657,7 +665,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>The oldest age.</p>
 </td>
         </tr>
@@ -690,7 +698,7 @@
     
     
     
-    <span data-ice="name">peer</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">peer</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
@@ -736,7 +744,7 @@
     
     
     
-    <span data-ice="name">add</span><span data-ice="signature">()</span>
+    <span class="code" data-ice="name">add</span><span class="code" data-ice="signature">()</span>
     <span class="right-info">
       
       
@@ -780,7 +788,7 @@
     
     
     
-    <span data-ice="name">increment</span><span data-ice="signature">()</span>
+    <span class="code" data-ice="name">increment</span><span class="code" data-ice="signature">()</span>
     <span class="right-info">
       
       
@@ -791,7 +799,7 @@
   
   
   
-  <div data-ice="description"><p>Increment the ages     </p>
+  <div data-ice="description"><p>Increment the ages</p>
 </div>
 
   
@@ -824,7 +832,7 @@
     
     
     
-    <span data-ice="name">removeOldest</span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="code" data-ice="name">removeOldest</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
@@ -848,7 +856,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>True if the entry has no age anymore, false otherwise.</p>
 </td>
         </tr>
@@ -881,7 +889,7 @@
     
     
     
-    <span data-ice="name">removeYoungest</span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="code" data-ice="name">removeYoungest</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
@@ -905,7 +913,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>True if the entry has no age anymore, false otherwise.</p>
 </td>
         </tr>
@@ -938,7 +946,7 @@
     
     
     
-    <span data-ice="name">update</span><span data-ice="signature">(descriptor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+    <span class="code" data-ice="name">update</span><span class="code" data-ice="signature">(descriptor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
     <span class="right-info">
       
       
@@ -963,8 +971,8 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">descriptor</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">descriptor</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The new descriptor assigned to this neigbhor.</p>
 </td>
@@ -995,7 +1003,7 @@
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

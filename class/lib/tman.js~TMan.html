@@ -3,14 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">TMan | tman-wrtc API Document</title>
+  <title data-ice="title">TMan | tman-wrtc</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
-  
-  
   <script src="script/manual.js"></script>
-</head>
+<meta name="description" content="Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tman-wrtc"><meta property="twitter:description" content="Peer-sampling protocol running on top of WebRTC that builds network topologies using ranking functions"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -19,7 +17,6 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/ran3d/tman-wrtc" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -27,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/ran3d/tman-wrtc"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -35,12 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache.js~Cache.html">Cache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/partialview.js~PartialView.html">PartialView</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/tman.js~TMan.html">TMan</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-N2N">N2N</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">entries</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">exceptions</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#entries">entries</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entries/epv.js~EPV.html">EPV</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#exceptions">exceptions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exinterface.js~ExInterface.html">ExInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exjoin.js~ExJoin.html">ExJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/exmessage.js~ExMessage.html">ExMessage</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/exceptions/expeernotfound.js~ExPeerNotFound.html">ExPeerNotFound</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">messages</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#messages">messages</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mgivedescriptor.js~MGiveDescriptor.html">MGiveDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span></span></li>
@@ -51,13 +48,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import TMan from &apos;<span><a href="file/lib/tman.js.html#lineNumber26">tman-wrtc</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import TMan from &apos;<span><a href="file/lib/tman.js.html#lineNumber27">tman-wrtc</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/tman.js.html#lineNumber26">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/tman.js.html#lineNumber27">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -67,7 +64,7 @@
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="variable/index.html#static-variable-N2N">N2N</a></span> &#x2192; TMan</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>n2n-overlay-wrtc~N2N</span> &#x2192; TMan</div></div>
   
   
   
@@ -110,7 +107,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, parent: <span>IPSP</span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, parent: <span>IPSP</span>)</span>
         </p>
       </div>
       <div>
@@ -144,7 +142,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-cache">cache</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-cache">cache</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -171,7 +170,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-parent">parent</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-parent">parent</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -198,7 +198,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-partialView">partialView</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-partialView">partialView</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -225,7 +226,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-periodic">periodic</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-periodic">periodic</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -252,7 +254,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-state">state</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -279,7 +282,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-unicast">unicast</a></span></span><span data-ice="signature">: <span>*</span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-member-unicast">unicast</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -313,7 +317,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-getPeers">getPeers</a></span></span><span data-ice="signature">(k: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-getPeers">getPeers</a></span></span><span class="code" data-ice="signature">(k: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -341,7 +346,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-join">join</a></span></span><span data-ice="signature">(sender: <span>callback</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-join">join</a></span></span><span class="code" data-ice="signature">(sender: <span>callback</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
@@ -375,7 +381,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_close">_close</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_close">_close</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
@@ -402,7 +409,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_exchange">_exchange</a></span></span><span data-ice="signature">()</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_exchange">_exchange</a></span></span><span class="code" data-ice="signature">()</span>
         </p>
       </div>
       <div>
@@ -429,7 +437,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_getSample">_getSample</a></span></span><span data-ice="signature">(neighbor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_getSample">_getSample</a></span></span><span class="code" data-ice="signature">(neighbor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -456,7 +465,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_keep">_keep</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_keep">_keep</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
@@ -483,7 +493,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onArcDown">_onArcDown</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onArcDown">_onArcDown</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span>)</span>
         </p>
       </div>
       <div>
@@ -510,7 +521,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onExchange">_onExchange</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span>ISuggest</span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onExchange">_onExchange</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span>ISuggest</span>)</span>
         </p>
       </div>
       <div>
@@ -537,7 +549,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onExchangeBack">_onExchangeBack</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/msuggest.js~MSuggest.html">MSuggest</a></span> | <span><a href="class/lib/messages/msuggestback.js~MSuggestBack.html">MSuggestBack</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onExchangeBack">_onExchangeBack</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/msuggest.js~MSuggest.html">MSuggest</a></span> | <span><a href="class/lib/messages/msuggestback.js~MSuggestBack.html">MSuggestBack</a></span>)</span>
         </p>
       </div>
       <div>
@@ -564,7 +577,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onJoin">_onJoin</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onJoin">_onJoin</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span>)</span>
         </p>
       </div>
       <div>
@@ -591,7 +605,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onPeerDown">_onPeerDown</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onPeerDown">_onPeerDown</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
@@ -618,7 +633,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onRequestDescriptor">_onRequestDescriptor</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onRequestDescriptor">_onRequestDescriptor</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span>)</span>
         </p>
       </div>
       <div>
@@ -645,7 +661,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onRequire">_onRequire</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_onRequire">_onRequire</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span>)</span>
         </p>
       </div>
       <div>
@@ -672,7 +689,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_open">_open</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_open">_open</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
@@ -699,7 +717,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_partialViewSize">_partialViewSize</a></span></span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_partialViewSize">_partialViewSize</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -726,7 +745,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_receive">_receive</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span>MExchange</span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_receive">_receive</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span>MExchange</span>)</span>
         </p>
       </div>
       <div>
@@ -753,7 +773,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_requestDescriptor">_requestDescriptor</a></span></span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_requestDescriptor">_requestDescriptor</a></span></span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
@@ -780,7 +801,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_sampleSize">_sampleSize</a></span></span><span data-ice="signature">(flatten: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_sampleSize">_sampleSize</a></span></span><span class="code" data-ice="signature">(flatten: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -807,7 +829,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_start">_start</a></span></span><span data-ice="signature">(delay: <span>*</span>)</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_start">_start</a></span></span><span class="code" data-ice="signature">(delay: <span>*</span>)</span>
         </p>
       </div>
       <div>
@@ -834,7 +857,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_stop">_stop</a></span></span><span data-ice="signature">()</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_stop">_stop</a></span></span><span class="code" data-ice="signature">()</span>
         </p>
       </div>
       <div>
@@ -861,7 +885,8 @@ topologies using ranking functions.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_updateState">_updateState</a></span></span><span data-ice="signature">()</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/tman.js~TMan.html#instance-method-_updateState">_updateState</a></span></span><span class="code" data-ice="signature">()</span>
         </p>
       </div>
       <div>
@@ -893,11 +918,11 @@ topologies using ranking functions.</p>
     
     
     
-    <span data-ice="name">constructor</span><span data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, parent: <span>IPSP</span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, parent: <span>IPSP</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber48">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber49">source</a></span></span>
     </span>
   </h3>
 
@@ -917,16 +942,16 @@ topologies using ranking functions.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">options</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">options</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>Options given to TMan to build the desired
 topology.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">options.pid</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="1">options.pid</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default:  &apos;tman-wrtc&apos;</li></ul></td>
       <td data-ice="description"><p>The identifier of this
@@ -934,8 +959,8 @@ protocol.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">options.delta</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="name" class="code" data-depth="1">options.delta</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default:  60000</li></ul></td>
       <td data-ice="description"><p>Every delta millisecond, exchange
@@ -943,8 +968,8 @@ neighbors of the partial view.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">options.timeout</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="name" class="code" data-depth="1">options.timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default:  120000</li></ul></td>
       <td data-ice="description"><p>WebRTC connections are
@@ -956,8 +981,8 @@ reestablished at no cost.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">options.descriptorTimeout</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="name" class="code" data-depth="1">options.descriptorTimeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default:  10000</li></ul></td>
       <td data-ice="description"><p>Peers regularly ask
@@ -966,8 +991,8 @@ time, it throws an exception.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">parent</td>
-      <td data-ice="type"><span>IPSP</span></td>
+      <td data-ice="name" class="code" data-depth="0">parent</td>
+      <td data-ice="type" class="code"><span>IPSP</span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>This module can depend of another peer-sampling
 protocol. If set, it will share the neighbors populating its inview and
@@ -1008,11 +1033,11 @@ module for more informations on the sharing process.</p>
     
     
     
-    <span data-ice="name">cache</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">cache</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber68">source</a></span></span>
     </span>
   </h3>
 
@@ -1051,11 +1076,11 @@ module for more informations on the sharing process.</p>
     
     
     
-    <span data-ice="name">parent</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">parent</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber88">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber89">source</a></span></span>
     </span>
   </h3>
 
@@ -1094,11 +1119,11 @@ module for more informations on the sharing process.</p>
     
     
     
-    <span data-ice="name">partialView</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">partialView</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber66">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 
@@ -1137,11 +1162,11 @@ module for more informations on the sharing process.</p>
     
     
     
-    <span data-ice="name">periodic</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">periodic</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber71">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber72">source</a></span></span>
     </span>
   </h3>
 
@@ -1180,11 +1205,11 @@ module for more informations on the sharing process.</p>
     
     
     
-    <span data-ice="name">state</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber69">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber70">source</a></span></span>
     </span>
   </h3>
 
@@ -1223,11 +1248,11 @@ module for more informations on the sharing process.</p>
     
     
     
-    <span data-ice="name">unicast</span><span data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">unicast</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber90">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber91">source</a></span></span>
     </span>
   </h3>
 
@@ -1269,11 +1294,11 @@ module for more informations on the sharing process.</p>
     
     
     
-    <span data-ice="name">getPeers</span><span data-ice="signature">(k: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
+    <span class="code" data-ice="name">getPeers</span><span class="code" data-ice="signature">(k: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber556">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber568">source</a></span></span>
     </span>
   </h3>
 
@@ -1297,8 +1322,8 @@ from the outview the better.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">k</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">k</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The number of neighbors requested. If k is not defined,
 it returns every known identifiers of the partial view.</p>
@@ -1314,7 +1339,7 @@ it returns every known identifiers of the partial view.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></td>
+          <td class="return-type code" data-ice="returnType"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>Array of identifiers.</p>
 </td>
         </tr>
@@ -1347,11 +1372,11 @@ it returns every known identifiers of the partial view.</p>
     
     
     
-    <span data-ice="name">join</span><span data-ice="signature">(sender: <span>callback</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="code" data-ice="name">join</span><span class="code" data-ice="signature">(sender: <span>callback</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber126">source</a></span></span>
     </span>
   </h3>
 
@@ -1372,11 +1397,11 @@ it returns every known identifiers of the partial view.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">sender</td>
-      <td data-ice="type"><span>callback</span></td>
+      <td data-ice="name" class="code" data-depth="0">sender</td>
+      <td data-ice="type" class="code"><span>callback</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Function that will be called each time an offer
-arrives to this peer. It is the responsability of the caller to send 
+arrives to this peer. It is the responsability of the caller to send
 these offer (using sender) to the contact inside the network.</p>
 </td>
     </tr>
@@ -1390,8 +1415,8 @@ these offer (using sender) to the contact inside the network.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>A promise that is resolved when the peer joins the 
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>A promise that is resolved when the peer joins the
 network; rejected after a timeout, or already connected state.</p>
 </td>
         </tr>
@@ -1426,11 +1451,11 @@ network; rejected after a timeout, or already connected state.</p>
     
     
     
-    <span data-ice="name">_close</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+    <span class="code" data-ice="name">_close</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber523">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber535">source</a></span></span>
     </span>
   </h3>
 
@@ -1450,8 +1475,8 @@ network; rejected after a timeout, or already connected state.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the removed arc.</p>
 </td>
@@ -1486,11 +1511,11 @@ network; rejected after a timeout, or already connected state.</p>
     
     
     
-    <span data-ice="name">_exchange</span><span data-ice="signature">()</span>
+    <span class="code" data-ice="name">_exchange</span><span class="code" data-ice="signature">()</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber265">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber270">source</a></span></span>
     </span>
   </h3>
 
@@ -1529,11 +1554,11 @@ network; rejected after a timeout, or already connected state.</p>
     
     
     
-    <span data-ice="name">_getSample</span><span data-ice="signature">(neighbor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span></span>
+    <span class="code" data-ice="name">_getSample</span><span class="code" data-ice="signature">(neighbor: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber227">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber232">source</a></span></span>
     </span>
   </h3>
 
@@ -1553,8 +1578,8 @@ network; rejected after a timeout, or already connected state.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">neighbor</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">neighbor</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Object containing .peer for identifier of the
 peer to exchange with and .descriptor for the peer&apos;s descriptor.</p>
@@ -1570,7 +1595,7 @@ peer to exchange with and .descriptor for the peer&apos;s descriptor.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span></td>
+          <td class="return-type code" data-ice="returnType"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>Array of object containing .peer and .descriptor.</p>
 </td>
         </tr>
@@ -1603,11 +1628,11 @@ peer to exchange with and .descriptor for the peer&apos;s descriptor.</p>
     
     
     
-    <span data-ice="name">_keep</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+    <span class="code" data-ice="name">_keep</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber505">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber514">source</a></span></span>
     </span>
   </h3>
 
@@ -1627,8 +1652,8 @@ peer to exchange with and .descriptor for the peer&apos;s descriptor.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the peer to check.</p>
 </td>
@@ -1663,11 +1688,11 @@ peer to exchange with and .descriptor for the peer&apos;s descriptor.</p>
     
     
     
-    <span data-ice="name">_onArcDown</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span>)</span>
+    <span class="code" data-ice="name">_onArcDown</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber190">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber195">source</a></span></span>
     </span>
   </h3>
 
@@ -1687,8 +1712,8 @@ peer to exchange with and .descriptor for the peer&apos;s descriptor.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the peer with which we
 failed to create a connection. Null if it was yet to be known.</p>
@@ -1724,11 +1749,11 @@ failed to create a connection. Null if it was yet to be known.</p>
     
     
     
-    <span data-ice="name">_onExchange</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span>ISuggest</span>)</span>
+    <span class="code" data-ice="name">_onExchange</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span>ISuggest</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber321">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber328">source</a></span></span>
     </span>
   </h3>
 
@@ -1748,15 +1773,15 @@ failed to create a connection. Null if it was yet to be known.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the initiating peer.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">message</td>
-      <td data-ice="type"><span>ISuggest</span></td>
+      <td data-ice="name" class="code" data-depth="0">message</td>
+      <td data-ice="type" class="code"><span>ISuggest</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The message containing the suggestions.</p>
 </td>
@@ -1791,11 +1816,11 @@ failed to create a connection. Null if it was yet to be known.</p>
     
     
     
-    <span data-ice="name">_onExchangeBack</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/msuggest.js~MSuggest.html">MSuggest</a></span> | <span><a href="class/lib/messages/msuggestback.js~MSuggestBack.html">MSuggestBack</a></span>)</span>
+    <span class="code" data-ice="name">_onExchangeBack</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/msuggest.js~MSuggest.html">MSuggest</a></span> | <span><a href="class/lib/messages/msuggestback.js~MSuggestBack.html">MSuggestBack</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber340">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber348">source</a></span></span>
     </span>
   </h3>
 
@@ -1815,15 +1840,15 @@ failed to create a connection. Null if it was yet to be known.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the peer that sent the message.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">message</td>
-      <td data-ice="type"><span><a href="class/lib/messages/msuggest.js~MSuggest.html">MSuggest</a></span> | <span><a href="class/lib/messages/msuggestback.js~MSuggestBack.html">MSuggestBack</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">message</td>
+      <td data-ice="type" class="code"><span><a href="class/lib/messages/msuggest.js~MSuggest.html">MSuggest</a></span> | <span><a href="class/lib/messages/msuggestback.js~MSuggestBack.html">MSuggestBack</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The message received.</p>
 </td>
@@ -1858,11 +1883,11 @@ failed to create a connection. Null if it was yet to be known.</p>
     
     
     
-    <span data-ice="name">_onJoin</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span>)</span>
+    <span class="code" data-ice="name">_onJoin</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber157">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber160">source</a></span></span>
     </span>
   </h3>
 
@@ -1882,15 +1907,15 @@ failed to create a connection. Null if it was yet to be known.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the newcomer.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">message</td>
-      <td data-ice="type"><span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">message</td>
+      <td data-ice="type" class="code"><span><a href="class/lib/messages/mjoin.js~MJoin.html">MJoin</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The message sent by the newcomer.</p>
 </td>
@@ -1925,11 +1950,11 @@ failed to create a connection. Null if it was yet to be known.</p>
     
     
     
-    <span data-ice="name">_onPeerDown</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+    <span class="code" data-ice="name">_onPeerDown</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber200">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber205">source</a></span></span>
     </span>
   </h3>
 
@@ -1949,8 +1974,8 @@ failed to create a connection. Null if it was yet to be known.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the peer that seems
 left/crashed.</p>
@@ -1986,11 +2011,11 @@ left/crashed.</p>
     
     
     
-    <span data-ice="name">_onRequestDescriptor</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span>)</span>
+    <span class="code" data-ice="name">_onRequestDescriptor</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber461">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber469">source</a></span></span>
     </span>
   </h3>
 
@@ -2010,15 +2035,15 @@ left/crashed.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the requester.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">message</td>
-      <td data-ice="type"><span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">message</td>
+      <td data-ice="type" class="code"><span><a href="class/lib/messages/mrequestdescriptor.js~MRequestDescriptor.html">MRequestDescriptor</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The message received.</p>
 </td>
@@ -2053,11 +2078,11 @@ left/crashed.</p>
     
     
     
-    <span data-ice="name">_onRequire</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span>)</span>
+    <span class="code" data-ice="name">_onRequire</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber381">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber389">source</a></span></span>
     </span>
   </h3>
 
@@ -2077,16 +2102,16 @@ left/crashed.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the peer that requests
 connections.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">message</td>
-      <td data-ice="type"><span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">message</td>
+      <td data-ice="type" class="code"><span><a href="class/lib/messages/mrequire.js~MRequire.html">MRequire</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The request message.</p>
 </td>
@@ -2121,11 +2146,11 @@ connections.</p>
     
     
     
-    <span data-ice="name">_open</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+    <span class="code" data-ice="name">_open</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber474">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber482">source</a></span></span>
     </span>
   </h3>
 
@@ -2145,8 +2170,8 @@ connections.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the new neighbor.</p>
 </td>
@@ -2181,11 +2206,11 @@ connections.</p>
     
     
     
-    <span data-ice="name">_partialViewSize</span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
+    <span class="code" data-ice="name">_partialViewSize</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber217">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber222">source</a></span></span>
     </span>
   </h3>
 
@@ -2204,7 +2229,7 @@ connections.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
           
         </tr>
       </tbody>
@@ -2236,11 +2261,11 @@ connections.</p>
     
     
     
-    <span data-ice="name">_receive</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span>MExchange</span>)</span>
+    <span class="code" data-ice="name">_receive</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, message: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span>MExchange</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber397">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber405">source</a></span></span>
     </span>
   </h3>
 
@@ -2260,15 +2285,15 @@ connections.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the peer that sent the message.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">message</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span>MExchange</span></td>
+      <td data-ice="name" class="code" data-depth="0">message</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span>MExchange</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The message received.</p>
 </td>
@@ -2303,11 +2328,11 @@ connections.</p>
     
     
     
-    <span data-ice="name">_requestDescriptor</span><span data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="code" data-ice="name">_requestDescriptor</span><span class="code" data-ice="signature">(peerId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber435">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber443">source</a></span></span>
     </span>
   </h3>
 
@@ -2327,8 +2352,8 @@ connections.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">peerId</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">peerId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The identifier of the peer.</p>
 </td>
@@ -2343,7 +2368,7 @@ connections.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>Resolved when the descriptor has been added to our
 cache; Rejected after a timeout or an error when sending the message.</p>
 </td>
@@ -2377,11 +2402,11 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     
     
     
-    <span data-ice="name">_sampleSize</span><span data-ice="signature">(flatten: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
+    <span class="code" data-ice="name">_sampleSize</span><span class="code" data-ice="signature">(flatten: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber210">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber215">source</a></span></span>
     </span>
   </h3>
 
@@ -2401,8 +2426,8 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">flatten</td>
-      <td data-ice="type"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></td>
+      <td data-ice="name" class="code" data-depth="0">flatten</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Array of identifiers.</p>
 </td>
@@ -2417,7 +2442,7 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>The size of the sample to create.</p>
 </td>
         </tr>
@@ -2450,11 +2475,11 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     
     
     
-    <span data-ice="name">_start</span><span data-ice="signature">(delay: <span>*</span>)</span>
+    <span class="code" data-ice="name">_start</span><span class="code" data-ice="signature">(delay: <span>*</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber418">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber426">source</a></span></span>
     </span>
   </h3>
 
@@ -2474,8 +2499,8 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">delay</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="name" class="code" data-depth="0">delay</td>
+      <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"></td>
     </tr>
@@ -2509,11 +2534,11 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     
     
     
-    <span data-ice="name">_stop</span><span data-ice="signature">()</span>
+    <span class="code" data-ice="name">_stop</span><span class="code" data-ice="signature">()</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber425">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber433">source</a></span></span>
     </span>
   </h3>
 
@@ -2552,11 +2577,11 @@ cache; Rejected after a timeout or an error when sending the message.</p>
     
     
     
-    <span data-ice="name">_updateState</span><span data-ice="signature">()</span>
+    <span class="code" data-ice="name">_updateState</span><span class="code" data-ice="signature">()</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber531">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/tman.js.html#lineNumber543">source</a></span></span>
     </span>
   </h3>
 
@@ -2591,7 +2616,7 @@ cache; Rejected after a timeout or an error when sending the message.</p>
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>
