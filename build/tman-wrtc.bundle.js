@@ -12426,7 +12426,8 @@ class TMan extends N2N {
     } else if (this.parent && this.parent.partialView.size > 0) {
       // #B use the partial view of our parent
       let rnNeighbors = this.parent.getPeers()
-      chosen = Math.floor(Math.random() * rnNeighbors.length)
+      chosen = rnNeighbors[Math.floor(Math.random() * rnNeighbors.length)]
+      sample = []
       let found = false
       fromOurOwn = false
       while (!found && rnNeighbors.length > 0) {
@@ -12442,6 +12443,7 @@ class TMan extends N2N {
         }
       }
       // #2 propose the sample to the chosen one
+      console.log(chosen, sample)
       chosen && this.unicast.emit('tman-exchange', chosen, this.getInviewId(), new MSuggest(this.getInviewId(),
         this.options.descriptor,
         sample))
@@ -12486,6 +12488,7 @@ class TMan extends N2N {
      * @param {MSuggest|MSuggestBack} message The message received.
      */
   _onExchangeBack (peerId, message) {
+    console.log(peerId, message)
     // #1 keep the best elements from the received sample
     let ranked = []
     // -- begin hot fix, remove duplicates
