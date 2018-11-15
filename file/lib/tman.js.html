@@ -148,7 +148,7 @@ class TMan extends N2N {
           .catch((e) =&gt; {
             console.error(e)
           }))
-
+      this.unicast.on(&apos;tman-exchange&apos;, (id, message) =&gt; this._receive(id, message))
       this.unicast.on(&apos;requestDescriptor&apos;, (requester) =&gt; this.unicast.emit(&apos;giveDescriptor&apos;, requester,
         this.getInviewId(),
         this.options.descriptor)
@@ -334,9 +334,25 @@ class TMan extends N2N {
       // #A use our own partial view
       chosen = this.partialView.oldest
       sample = this._getSample(this.partialView.get(chosen))
+      // #2 propose the sample to the chosen one
+      chosen &amp;&amp; this.send(chosen, new MSuggest(this.getInviewId(),
+        this.options.descriptor,
+        sample))
+        .then(() =&gt; {
+          // #A it seems the message has been sent correctly
+          debug(&apos;[%s] %s ==&gt; suggest %s ==&gt; %s&apos;,
+            this.PID, this.PEER, sample.length, chosen)
+        })
+        .catch((e) =&gt; {
+          // #B the peer cannot be reached, he is supposedly dead
+          debug(&apos;[%s] %s =X&gt; suggest =X&gt; %s&apos;,
+            this.PID, this.PEER, chosen)
+          fromOurOwn &amp;&amp; this._onPeerDown(chosen)
+        })
     } else if (this.parent &amp;&amp; this.parent.partialView.size &gt; 0) {
       // #B use the partial view of our parent
       let rnNeighbors = this.parent.getPeers()
+      chosen = Math.floor(Math.random() * rnNeighbors.length)
       let found = false
       fromOurOwn = false
       while (!found &amp;&amp; rnNeighbors.length &gt; 0) {
@@ -351,22 +367,22 @@ class TMan extends N2N {
           rnNeighbors.splice(rn, 1)
         }
       }
+      // #2 propose the sample to the chosen one
+      chosen &amp;&amp; this.unicast.emit(&apos;tman-exchange&apos;, chosen, this.getInviewId(), new MSuggest(this.getInviewId(),
+        this.options.descriptor,
+        sample))
+        .then(() =&gt; {
+          // #A it seems the message has been sent correctly
+          debug(&apos;[%s] %s ==&gt; suggest %s ==&gt; %s&apos;,
+            this.PID, this.PEER, sample.length, chosen)
+        })
+        .catch((e) =&gt; {
+          // #B the peer cannot be reached, he is supposedly dead
+          debug(&apos;[%s] %s =X&gt; suggest =X&gt; %s&apos;,
+            this.PID, this.PEER, chosen)
+          fromOurOwn &amp;&amp; this._onPeerDown(chosen)
+        })
     }
-    // #2 propose the sample to the chosen one
-    chosen &amp;&amp; this.send(chosen, new MSuggest(this.getInviewId(),
-      this.options.descriptor,
-      sample))
-      .then(() =&gt; {
-        // #A it seems the message has been sent correctly
-        debug(&apos;[%s] %s ==&gt; suggest %s ==&gt; %s&apos;,
-          this.PID, this.PEER, sample.length, chosen)
-      })
-      .catch((e) =&gt; {
-        // #B the peer cannot be reached, he is supposedly dead
-        debug(&apos;[%s] %s =X&gt; suggest =X&gt; %s&apos;,
-          this.PID, this.PEER, chosen)
-        fromOurOwn &amp;&amp; this._onPeerDown(chosen)
-      })
   }
 
   /**
@@ -398,9 +414,16 @@ class TMan extends N2N {
   _onExchangeBack (peerId, message) {
     // #1 keep the best elements from the received sample
     let ranked = []
-    this.partialView.forEach((epv, neighbor) =&gt; ranked.push(epv))
-    message.sample.forEach((e) =&gt; ranked.indexOf(e) &lt; 0 &amp;&amp;
-      ranked.push(e))
+    // -- begin hot fix, remove duplicates
+    const a = new Map()
+    message.sample.forEach((s) =&gt; {
+      a.set(s.peer, s)
+    })
+    this.partialView.forEach((epv, neighbor) =&gt; {
+      if (!a.has(neighbor)) a.set(neighbor, epv)
+    })
+    ranked = [...a.values()]
+    // -- end hot fix
 
     ranked.sort(this.options.ranking(this.options))
     // #2 require the elements

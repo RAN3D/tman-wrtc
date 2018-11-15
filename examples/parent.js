@@ -4,7 +4,7 @@ const S = require('spray-wrtc')
 let graphTMAN = new window.P2PGraph('#tman')
 let graphParent = new window.P2PGraph('#parent')
 
-let N = 25
+let N = 5
 
 // #1 create N peers
 let peers = []
@@ -12,10 +12,10 @@ let revertedIndex = new Map()
 for (let i = 0; i < N; ++i) {
   // #A initialize the RPS that will serve as parent for t-man
   let parent = new S({peer: i,
-    delta: 60 * 1000,
+    delta: 1 * 1000,
     config: {trickle: true}})
   // #B initialize the t-man process
-  peers.push(new T({descriptor: {x: i}}, parent))
+  peers.push(new T({ delta: 1000, descriptor: {x: i}}, parent))
   // #C create a reverted index for convenience's sake
   revertedIndex.set(peers[i].NI.PEER, peers[i])
 };
@@ -32,7 +32,8 @@ for (let i = 1; i < N; ++i) {
   setTimeout((nth) => {
     const rn = Math.floor(Math.random() * nth)
     //        peers[nth].join(callback(peers[nth], peers[rn]));
-    peers[nth].join(callback(peers[nth], peers[rn]))
+    peers[nth].parent.join(callback(peers[nth].parent, peers[rn].parent))
+    peers[nth]._start()
   }, i * 1000, i)
 };
 
