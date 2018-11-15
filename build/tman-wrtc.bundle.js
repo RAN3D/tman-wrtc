@@ -12488,9 +12488,16 @@ class TMan extends N2N {
   _onExchangeBack (peerId, message) {
     // #1 keep the best elements from the received sample
     let ranked = []
-    this.partialView.forEach((epv, neighbor) => ranked.push(epv))
-    message.sample.forEach((e) => ranked.indexOf(e) < 0 &&
-      ranked.push(e))
+    // -- begin hot fix, remove duplicates
+    const a = new Map()
+    message.sample.forEach((s) => {
+      a.set(s.peer, s)
+    })
+    this.partialView.forEach((epv, neighbor) => {
+      if (!a.has(neighbor)) a.set(neighbor, epv)
+    })
+    ranked = [...a.values()]
+    // -- end hot fix
 
     ranked.sort(this.options.ranking(this.options))
     // #2 require the elements
