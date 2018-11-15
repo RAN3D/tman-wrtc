@@ -240,7 +240,7 @@ class MSuggest {
      * @param {object[]} sample The sample containing the identifier of peers
      * and their descriptor.
      */
-  constructor (inview, descriptor, sample) {
+  constructor (inview, descriptor, sample, pid) {
     this.peer = inview
     this.descriptor = descriptor
     this.sample = sample
@@ -12222,7 +12222,7 @@ class TMan extends N2N {
           .catch((e) => {
             console.error(e)
           }))
-
+      this.unicast.on('tman-exchange', (id, message) => this._receive(id, message))
       this.unicast.on('requestDescriptor', (requester) => this.unicast.emit('giveDescriptor', requester,
         this.getInviewId(),
         this.options.descriptor)
@@ -12408,9 +12408,25 @@ class TMan extends N2N {
       // #A use our own partial view
       chosen = this.partialView.oldest
       sample = this._getSample(this.partialView.get(chosen))
+      // #2 propose the sample to the chosen one
+      chosen && this.send(chosen, new MSuggest(this.getInviewId(),
+        this.options.descriptor,
+        sample))
+        .then(() => {
+          // #A it seems the message has been sent correctly
+          debug('[%s] %s ==> suggest %s ==> %s',
+            this.PID, this.PEER, sample.length, chosen)
+        })
+        .catch((e) => {
+          // #B the peer cannot be reached, he is supposedly dead
+          debug('[%s] %s =X> suggest =X> %s',
+            this.PID, this.PEER, chosen)
+          fromOurOwn && this._onPeerDown(chosen)
+        })
     } else if (this.parent && this.parent.partialView.size > 0) {
       // #B use the partial view of our parent
       let rnNeighbors = this.parent.getPeers()
+      chosen = Math.floor(Math.random() * rnNeighbors.length)
       let found = false
       fromOurOwn = false
       while (!found && rnNeighbors.length > 0) {
@@ -12425,22 +12441,22 @@ class TMan extends N2N {
           rnNeighbors.splice(rn, 1)
         }
       }
+      // #2 propose the sample to the chosen one
+      chosen && this.unicast.emit('tman-exchange', chosen, this.getInviewId(), new MSuggest(this.getInviewId(),
+        this.options.descriptor,
+        sample))
+        .then(() => {
+          // #A it seems the message has been sent correctly
+          debug('[%s] %s ==> suggest %s ==> %s',
+            this.PID, this.PEER, sample.length, chosen)
+        })
+        .catch((e) => {
+          // #B the peer cannot be reached, he is supposedly dead
+          debug('[%s] %s =X> suggest =X> %s',
+            this.PID, this.PEER, chosen)
+          fromOurOwn && this._onPeerDown(chosen)
+        })
     }
-    // #2 propose the sample to the chosen one
-    chosen && this.send(chosen, new MSuggest(this.getInviewId(),
-      this.options.descriptor,
-      sample))
-      .then(() => {
-        // #A it seems the message has been sent correctly
-        debug('[%s] %s ==> suggest %s ==> %s',
-          this.PID, this.PEER, sample.length, chosen)
-      })
-      .catch((e) => {
-        // #B the peer cannot be reached, he is supposedly dead
-        debug('[%s] %s =X> suggest =X> %s',
-          this.PID, this.PEER, chosen)
-        fromOurOwn && this._onPeerDown(chosen)
-      })
   }
 
   /**
